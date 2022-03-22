@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getChannel, sendMessage, getMessage } from '../../../actions/servers';
 import { pseudoMessage } from '../../../api/';
 import { useParams } from 'react-router-dom';
-
 import { useSocket } from '../../../contexts/socket';
 
 import './UserContent.css';
@@ -32,14 +31,13 @@ const UserContent = () => {
 
     useLayoutEffect(() => {
         if (!socket) return;
+        socket.off('loadMessage'); // all i had to do was move it up 4 lines to be before socket.on :osaka:
 
         socket.on('loadMessage', (message) => {
-            if (message.messageUserId === user.userId) return;
-            if (message.messageChannel !== cId) return;
+            if (message.messageUserId === user.userId) return
             dispatch(getMessage(message));
         })
 
-        socket.off('loadMessages');
     }, [socket, dispatch, user, cId]);
 
     useLayoutEffect(() => {

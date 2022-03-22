@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Routes, Route, useNavigate } from 'react-router-dom';
 
 // HomePage Route Elements
@@ -14,12 +14,11 @@ import SkidAppMe from './pages/SkidApp/SkidAppMe';
 import { getServers } from '../actions/servers';
 
 const App = () => {
-    const auth = useSelector((state) => state.auth.data);
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getServers());
-    }, [dispatch, auth])
+    }, [dispatch])
 
     return (
         <>  

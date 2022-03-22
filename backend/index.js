@@ -9,6 +9,7 @@ const path = require('path');
 const jwt = require('jsonwebtoken');
 const socketio = require('socket.io');
 const api = require('./routes/api.js');
+const ServerModel = require('./models/ServerModel.js')
 
 ;(async () => {
   await mongooose.connect(process.env.MONGODB);
@@ -55,10 +56,9 @@ const api = require('./routes/api.js');
     })
   });
   io.on('connection', (socket) => {
-    console.log(socket)
     socket.on('joinChannel', (id) => {
-      console.log(socket)
       socket.leaveAll();
+      // socket.removeAllListeners();
       socket.join(id);
     });
     socket.on('sendMessage', (message) => {

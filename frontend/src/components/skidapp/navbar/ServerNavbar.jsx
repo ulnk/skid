@@ -35,7 +35,6 @@ const ServerNavbar = () => {
                                 <div className={`selected-noti ${server._id === sId ? 'active' : null}`}></div>
                                 <div className={`navbar-server hover-server background-primary ${server._id === sId ? 'server-selected' : null}`} onClick={() => {
                                     dispatch(getServer());
-                                    socket.emit(`joinChannel`, server.allCategorys[0].allChannels[0]._id);
                                 }}>
                                     <span className="tool">{server.serverName}</span>
                                 </div>
