@@ -25,7 +25,7 @@ const SkidApp = () => {
         <div className="flex h-screen w-screen overflow-hidden">
             <ServerNavbar />
             <div className="reminder-container">
-                <Reminder />    
+                <Reminder />
                 <div className="flex h-full w-full transition-none user-context-navbar-container">
                     <ChannelBar />
                     <UserContent />

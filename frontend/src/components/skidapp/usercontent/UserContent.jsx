@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useState, useLayoutEffect, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { getChannel, sendMessage, getMessage } from '../../../actions/servers';
@@ -14,11 +14,9 @@ const UserContent = () => {
     const channel = useSelector(state => state.servers.channel);
     const socket = useSocket();
     const user = useSelector(state => state.auth.data);
-
-    const [show] = useState(JSON.parse(localStorage.getItem('showReminder')));
+    const show = useSelector(state => state.servers.reminder)
 
     const { sId, cId } = useParams();
-
     const dispatch = useDispatch();
 
     useLayoutEffect(() => {
@@ -67,7 +65,7 @@ const UserContent = () => {
                     { 
                         messages.map((message, i) => {
                             return (
-                                message.isSmall ? <div className="chat-item-small">
+                                message.isSmall ? <div className="chat-item-small" key={message._id}>
                                     <div className="chat-item-content">
                                         <span className="chat-item-text">{message.messageContent}</span>
                                     </div>

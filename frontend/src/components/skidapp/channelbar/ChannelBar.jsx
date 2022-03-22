@@ -5,7 +5,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import './ChannelBar.css';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { getServer, deleteServer } from '../../../actions/servers';
+import { getServer, deleteServer, checkReminder } from '../../../actions/servers';
 
 import NewCategory from '../../skidapp/modals/newcategory/NewCategory';
 import NewChannel from '../../skidapp/modals/newchannel/NewChannel';
@@ -16,7 +16,7 @@ const ChannelBar = () => {
     const [showContext, setShowContext] = useState(false);
     const [showCategoryModal, setShowCategoryModal] = useState(false);
     const [showChannelModal, setShowChannelModal] = useState([false, '']);
-    const [show] = useState(JSON.parse(localStorage.getItem('showReminder')));
+    const show = useSelector(state => state.servers.reminder)
 
     const { sId } = useParams();
     const server = useSelector(state => state.servers.current);
@@ -26,6 +26,7 @@ const ChannelBar = () => {
 
     useLayoutEffect(() => {
         dispatch(getServer(sId));
+        dispatch(checkReminder());
     }, [dispatch, sId]);
 
     const handleDeleteServer = () => {
@@ -59,7 +60,7 @@ const ChannelBar = () => {
                             {
                                 server.allCategorys.map((category, i) => {
                                     return (
-                                        <Category i={i} category={category} setShowChannelModal={setShowChannelModal} />
+                                        <Category key={i} category={category} setShowChannelModal={setShowChannelModal} />
                                     )
                                 })
                             }
@@ -75,7 +76,7 @@ const Category = (props) => {
     const [showItems, setShowItems] = useState(true);
     const { sId, cId } = useParams();
     return (
-        <div className="category" key={props.category._id}>
+        <div className="category">
             <div className="category-header text-channel-colour-group">
                 {showItems ? <FaChevronDown className={`category-chevron colour-group-item`} onClick={() => setShowItems(!showItems)} /> :
                     <FaChevronRight className="category-chevron colour-group-item" onClick={() => setShowItems(!showItems)} />}
@@ -86,8 +87,8 @@ const Category = (props) => {
                 {
                     props.category.allChannels.map((channel, i) => {
                         return (showItems &&
-                            <Link to={`/skid/${sId}/${channel._id}`}>
-                                <div className={`channel text-channel-colour ${cId === channel._id ? 'selected' : '' }`} key={i}>
+                            <Link to={`/skid/${sId}/${channel._id}`} key={i}>
+                                <div className={`channel text-channel-colour ${cId === channel._id ? 'selected' : '' }`}>
                                     <FaHashtag className="channel-hashtag text-channel-colour" />
                                     <span className="channel-title font-primary">{channel.channelName}</span>
                                 </div>

@@ -17,6 +17,8 @@ export default (state = { all: [], current: {}, channel: { allMessages: [], chan
             return { ...state, current: { ...state.current, allCategorys: [...state.current.allCategorys, action.payload] } };
         case 'ADD_CHANNEL':
             return { ...state, current: action.payload };
+        case 'REMINDER':
+                return { ...state, reminder: action.payload };
         default:
             return state;
     }

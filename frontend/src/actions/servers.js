@@ -20,6 +20,16 @@ export const getServer = (sId) => async (dispatch) =>  {
     }
 }
 
+export const checkReminder = (setter) => async (dispatch) =>  {
+    try {
+        console.log(JSON.parse(localStorage.getItem('showReminder')))
+        dispatch({ type: 'REMINDER', payload: setter ? setter : JSON.parse(localStorage.getItem('showReminder'))});
+    } catch(e) {
+        console.log(e)
+    }
+}
+
+
 export const deleteServer = (sId) => async (dispatch) =>  {
     if (!sId) return
     try {

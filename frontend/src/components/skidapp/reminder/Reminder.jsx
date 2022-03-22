@@ -3,14 +3,19 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { MdClose } from 'react-icons/md';
 
+import { useDispatch } from 'react-redux';
+import { checkReminder } from '../../../actions/servers';
+
 import './Reminder.css';
 
 const Reminder = () => {
     const [show, setShow] = useState(JSON.parse(localStorage.getItem('showReminder')));
+    const dispatch = useDispatch();
 
     const setFalse = () => {
         setShow(false);
         localStorage.setItem('showReminder', false);
+        dispatch(checkReminder(false))
     }
 
     useEffect(() => {

@@ -5,8 +5,8 @@
 }
 
 .reminder-user-content {
-    min-height: calc(100% - 2.4rem);
-    max-height: calc(100% - 2.4rem);
+    min-height: calc(100vh - 2.3rem);
+    max-height: calc(100vh - 2.3rem);
     height: calc(100% - 2.4rem);
 }
 
