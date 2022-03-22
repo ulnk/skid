@@ -1,0 +1,10 @@
+{
+  "name": "skidrocks",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "ulnk <fcongreen@gmail.com>",
+  "scripts":{
+    "start":"cd backend && node index.js"
+  },
+  "license": "MIT"
+}

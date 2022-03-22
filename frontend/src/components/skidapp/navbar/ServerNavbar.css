@@ -1,0 +1,102 @@
+/* Server Navigation Sidebar */
+
+.navbar {
+    @apply flex flex-col py-3 w-18 h-full items-center gap-2 min-w-max;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    min-width: 72px;
+    min-height: 100%;
+}
+
+.navbar::-webkit-scrollbar {
+    width: 0;
+}
+
+.hover-server {
+    @apply text-green-500 hover:bg-green-500 hover:text-white;
+}
+
+.hover-skid {
+    @apply text-red-500 hover:bg-red-500 hover:text-white;
+}
+
+.navbar-server {
+    @apply flex justify-center items-center w-12 h-12 rounded-3xl hover:rounded-xl cursor-pointer;
+    min-width: 48px;
+    min-height: 48px;
+}
+
+.navbar-server:hover .tool {
+    opacity: 1;
+}
+
+.server-icon {
+    @apply h-5 w-5;
+}
+
+.tool {
+    @apply absolute w-max rounded font-bold px-2 py-1;
+    pointer-events: none;
+    opacity: 0;
+    background-color: var(--bg-tertiary-alt);
+    font-family: var(--font-primary);
+    color: var(--colour-normal);
+    left: 4.5rem;
+    z-index: 10;
+    position: absolute;
+}
+
+.tool::before {
+    content: '';
+    @apply absolute h-6 w-6 left-[-2px];
+    transform: rotate(45deg) scale(0.9);
+    z-index: -1;
+    background-color: var(--bg-tertiary-alt);
+}
+
+.server-selected {
+    @apply bg-green-500 text-white rounded-xl;
+}
+.home-selected {
+    @apply bg-red-500 text-white rounded-xl;
+}
+
+.selected-noti {
+    @apply relative bg-white rounded-md;
+    transition: none;
+}
+
+.selected-noti.active {
+    width: 8px;
+    height: 2.5rem !important;
+    margin-bottom: -2.5rem;
+    left: -16px;
+    top:2.5px;
+}
+
+.server-noti::before {
+    content: '';
+    @apply absolute bg-white h-2 w-2 rounded-md;
+    transform: translate(-450%, 0%)
+}
+
+.server-noti:hover::before {
+    @apply h-4;
+}
+
+.server-ping::after {
+    content: '1';
+    @apply flex items-center justify-center font-bold px-1 text-white h-6 w-max min-w-[24px] bg-red-500 rounded-full border-4;
+    border-color: var(--bg-tertiary);
+    transform: translate(75%, 75%);
+    font-family: var(--font-primary);
+    font-size: 12px;
+}
+
+.divider {
+    @apply h-[2px] w-8 rounded;
+    min-width: 32px;
+    max-width: 32px;
+    min-height: 2px;
+    max-height: 2px;
+}

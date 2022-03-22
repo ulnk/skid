@@ -1,0 +1,107 @@
+:root {
+    /* Background Colours */
+    --bg-primary: #36393f;
+    --bg-primary-alt: #40444b;
+    --bg-secondary: #2f3136;
+    --bg-secondary-alt: #292b2f;
+    --bg-tertiary: #202225;
+    --bg-tertiary-alt: #18191c;
+
+    --bg-blurple: hsl(235, 85.6%, 64.7%);
+    --bg-blurple-hover: hsl(235, 51.4%, 52.4%);
+
+    --bg-error: #f04444;
+    --bg-success: #3ba55d;
+
+    /* Text Colours */
+    --colour-primary: #b9bbbe;
+    --colour-normal: #dcddde;
+    --colour-muted: #72767d;
+    --colour-channels: #8e9297;
+    --colour-channels-hover: #dcddde;
+
+    /* Fonts */
+    --font-display: Ginto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --font-primary: Whitney, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.rHeight {
+    height: calc(100% - 2.3rem);
+}
+
+body {
+    @apply flex h-screen w-screen;
+    background-color: var(--bg-tertiary-alt);
+}
+
+@font-face {
+    font-family: Ginto;
+    src: url('../../assets/Ginto.woff') format('woff');
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url('../../assets/WhitneyBold.woff') format('woff');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url('../../assets/Whitney.woff') format('woff');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url('../../assets/WhitneyLight.woff') format('woff');
+    font-weight: 100;
+}
+
+
+*, *::before, *::after {
+    @apply transition-all duration-75 ease-in;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+/* Fonts */
+.font-primary {
+    font-family: var(--font-primary);
+}
+.font-display {
+    font-family: var(--font-display);
+}
+
+/* Text Colours */
+.text-muted {
+    color: var(--colour-muted);
+}
+.text-primary {
+    color: var(--colour-primary);
+}
+.text-channel-colour {
+    color: var(--colour-channels);
+}
+.text-channel-colour-group {
+    color: var(--colour-channels);
+}
+.text-channel-colour-group:hover {
+    color: var(--colour-channels-hover);
+}
+
+/* Background Colours */
+.background-primary {
+    background-color: var(--bg-primary);
+}
+.background-primary-alt {
+    background-color: var(--bg-primary-alt);
+}
+.background-secondary {
+    background-color: var(--bg-secondary);
+}
+.background-secondary-alt {
+    background-color: var(--bg-secondary-alt);
+}
+.background-tertiary {
+    background-color: var(--bg-tertiary);
+}
