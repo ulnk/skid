@@ -13,7 +13,7 @@ export const SocketProvider = ({ children }) => {
     const auth = useSelector((state) => state.auth);
 
     useEffect(() => {
-        const newSocket = io('https://skid.rocks', {
+        const newSocket = io(process.env.NODE_ENV  ? 'localhost:5000' : "https://skid.rocks", {
             auth: {
                 token: auth.token || null
             }

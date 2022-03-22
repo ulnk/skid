@@ -10,21 +10,19 @@ const jwt = require('jsonwebtoken');
 const socketio = require('socket.io');
 const api = require('./routes/api.js');
 
-var corsOptions = {
-  origin: 'https://skid.rocks'
-}
-
 ;(async () => {
   await mongooose.connect(process.env.MONGODB);
 
   const app = express()
-    .use(cors(corsOptions))
+    .use(cors({
+      origin: (origin, callback) => { if (['http://localhost:3000', 'https://skid.rocks', undefined].indexOf(origin) !== -1)  callback(null, true) }
+    }))
     .use(express.static(path.join(__dirname, 'build')))
     .use(express.json())
     .use(cookieParser())
     .use(rateLimit({
       windowMs: 60 * 1000,
-      max: 25,
+      max: 40,
       message: "Too many requests"
     }))
     .use(session({
@@ -43,7 +41,7 @@ var corsOptions = {
 
   const io = socketio(app, {
     cors: {
-      origin: "https://skid.rocks",
+      origin: process.env.NODE_ENV  ? 'https://skid.rocks' : 'http://localhost:3000',
       methods: ["GET", "POST"]
     }
   });
@@ -57,13 +55,13 @@ var corsOptions = {
     })
   });
   io.on('connection', (socket) => {
+    console.log(socket)
     socket.on('joinChannel', (id) => {
+      console.log(socket)
       socket.leaveAll();
       socket.join(id);
     });
     socket.on('sendMessage', (message) => {
-      console.log(message)
-      console.log(message + {})
       try {
         if (message.data) {
           socket.nsp.to(message.data.messageChannel).emit('loadMessage', message.data);
