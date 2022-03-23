@@ -42,6 +42,7 @@ apiRouter.post('/app/addserver', jwtMiddleware, (req, res) => {
     ServerModal.create(newServer, (err, result) => {
         if (err || !result) return res.sendStatus(500);
 
+        // require('../socket.js').io.emit('createServer', result)
         res.send(result);
     });
 });

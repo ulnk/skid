@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
-import { Link, useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import './ServerNavbar.css';
-import { getServer } from '../../../actions/servers';
+import { getServer, removeServer, getServers } from '../../../actions/servers';
 import { useSocket } from '../../../contexts/socket';
 
 import NewServer from '../modals/newserver/NewServer'
@@ -11,9 +11,25 @@ import NewServer from '../modals/newserver/NewServer'
 const ServerNavbar = () => {
     const [showModal, setShowModal] = useState(false);
     const servers = useSelector((state) => state.servers.all);
-    const dispatch = useDispatch();
-    const socket = useSocket();
+
     const { sId } = useParams();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const socket = useSocket();
+
+    useEffect(() => {
+        if (!socket) return
+
+        socket.on('deleteServer', (serverId) => {
+            dispatch(removeServer(serverId));
+            if (sId === serverId) navigate('/skid/@me');
+        })
+
+        socket.on('createServer', () => {
+            dispatch(getServers());
+        })
+
+    }, [socket, dispatch, navigate])
 
     return (
         <>

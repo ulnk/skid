@@ -21,12 +21,13 @@
 }
 
 .navbar-server {
-    @apply flex justify-center items-center w-12 h-12 rounded-3xl hover:rounded-xl cursor-pointer;
+    @apply flex justify-center items-center w-12 h-12 rounded-3xl hover:rounded-xl cursor-pointer transition-all duration-150;
     min-width: 48px;
     min-height: 48px;
 }
 
 .navbar-server:hover .tool {
+    @apply transition-all duration-150;
     opacity: 1;
 }
 

@@ -65,7 +65,7 @@
 }
 
 .category-header {
-    @apply flex flex-row items-center w-full text-xs;
+    @apply flex flex-row items-center w-full text-xs transition-all duration-150;
 }
 
 .category-chevron {
@@ -82,7 +82,7 @@
 }
 
 .channel {
-    @apply flex flex-row items-center w-full h-8 rounded;
+    @apply flex flex-row items-center w-full h-8 rounded transition-all duration-150;
 }.channel:hover {
     background-color: rgba(79,84,92,0.32);
 }.channel:hover .channel-title {
@@ -95,7 +95,7 @@
 }
 
 .channel-title {
-    @apply mt-[-1px] pr-1;
+    @apply mt-[-1px] pr-1 transition-all duration-150;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -117,7 +117,7 @@
 }
 
 .button-wrapper {
-    @apply flex h-8 w-8 justify-center items-center cursor-pointer rounded;
+    @apply flex h-8 w-8 justify-center items-center cursor-pointer rounded transition-all duration-150;
 }.button-wrapper:hover {
     background-color: var(--bg-primary);
 }
@@ -155,7 +155,7 @@
 }
 
 .button-tool {
-    @apply absolute flex items-center justify-center w-max rounded font-bold px-2 py-1;
+    @apply absolute flex items-center justify-center w-max rounded font-bold px-2 py-1 transition-all duration-150;
     pointer-events: none;
     opacity: 0;
     z-index: 2;

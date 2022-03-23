@@ -2,16 +2,19 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { addServer } from '../../../../actions/servers'
+import { useSocket } from '../../../../contexts/socket.js';
 
 import './NewServer.css'
 
 const NewServer = (props) => {
     const [serverName, setServerName] = useState('')
     const dispatch = useDispatch()
+    const socket = useSocket()
     
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         dispatch(addServer(serverName))
+        socket.emit('createServer')
         setServerName('')
         props.close(false)
     }

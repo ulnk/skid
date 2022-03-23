@@ -6,10 +6,8 @@ const cookieParser = require('cookie-parser');
 const rateLimit = require('express-rate-limit');
 const session = require('express-session');
 const path = require('path');
-const jwt = require('jsonwebtoken');
-const socketio = require('socket.io');
 const api = require('./routes/api.js');
-const ServerModel = require('./models/ServerModel.js')
+const io = require('./socket.js')
 
 ;(async () => {
   await mongooose.connect(process.env.MONGODB);
@@ -36,39 +34,9 @@ const ServerModel = require('./models/ServerModel.js')
     }))
     .use('/api', api)
     .get('/*', function (req, res) {
-      res.sendFile(path.join(__dirname, 'build', 'index.html'));
+      process.env.NODE_ENV && res.sendFile(path.join(__dirname, 'build', 'index.html'));
     })
     .listen(process.env.PORT || 5000, () => { console.log(`SERVER PORT: ${process.env.PORT || 5000}`) });
 
-  const io = socketio(app, {
-    cors: {
-      origin: process.env.NODE_ENV  ? 'https://skid.rocks' : 'http://localhost:3000',
-      methods: ["GET", "POST"]
-    }
-  });
-  io.use((socket, next) => {
-    const jwtToken = socket.handshake.auth.token || socket.handshake.query.token || socket.handshake.token;
-    if (!jwtToken) return next(new Error('Not Authorised'));
-
-    jwt.verify(jwtToken, process.env.JWT_SECRET, (err, decoded) => {
-        if (err) return next(new Error('Not Authorised'));
-        next();
-    })
-  });
-  io.on('connection', (socket) => {
-    socket.on('joinChannel', (id) => {
-      socket.leaveAll();
-      // socket.removeAllListeners();
-      socket.join(id);
-    });
-    socket.on('sendMessage', (message) => {
-      try {
-        if (message.data) {
-          socket.nsp.to(message.data.messageChannel).emit('loadMessage', message.data);
-        }
-      } catch (e) {
-        console.log(e)
-      }
-    });
-  });
+    io.start(app)
 })();

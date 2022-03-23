@@ -6,6 +6,7 @@ import './ChannelBar.css';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { getServer, deleteServer, checkReminder } from '../../../actions/servers';
+import { useSocket } from '../../../contexts/socket';
 
 import NewCategory from '../../skidapp/modals/newcategory/NewCategory';
 import NewChannel from '../../skidapp/modals/newchannel/NewChannel';
@@ -16,13 +17,14 @@ const ChannelBar = () => {
     const [showContext, setShowContext] = useState(false);
     const [showCategoryModal, setShowCategoryModal] = useState(false);
     const [showChannelModal, setShowChannelModal] = useState([false, '']);
+    
     const show = useSelector(state => state.servers.reminder)
+    const server = useSelector(state => state.servers.current);
 
     const { sId } = useParams();
-    const server = useSelector(state => state.servers.current);
     const navigate = useNavigate();
-
     const dispatch = useDispatch();
+    const socket = useSocket();
 
     useLayoutEffect(() => {
         dispatch(getServer(sId));
@@ -30,6 +32,7 @@ const ChannelBar = () => {
     }, [dispatch, sId]);
 
     const handleDeleteServer = () => {
+        socket.emit('deleteServer', sId)
         dispatch(deleteServer(sId));
         navigate('/skid/@me');
     }

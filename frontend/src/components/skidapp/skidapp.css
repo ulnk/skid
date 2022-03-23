@@ -59,7 +59,6 @@ body {
 
 
 *, *::before, *::after {
-    @apply transition-all duration-75 ease-in;
     box-sizing: border-box;
     user-select: none;
 }

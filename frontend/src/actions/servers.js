@@ -20,9 +20,17 @@ export const getServer = (sId) => async (dispatch) =>  {
     }
 }
 
+export const removeServer = (sId) => async (dispatch) =>  {
+    if (!sId) return
+    try {
+        dispatch({ type: 'REMOVE_SERVER', payload: sId });
+    } catch(e) {
+        console.log(e)
+    }
+}
+
 export const checkReminder = (setter) => async (dispatch) =>  {
     try {
-        console.log(JSON.parse(localStorage.getItem('showReminder')))
         dispatch({ type: 'REMINDER', payload: setter ? setter : JSON.parse(localStorage.getItem('showReminder'))});
     } catch(e) {
         console.log(e)
@@ -74,6 +82,16 @@ export const addServer = (serverName) => async (dispatch) =>  {
         const { data } = await api.addServer(serverName);
         if (!data) return;
         dispatch({ type: 'ADD_SERVER', payload: data });
+    } catch(e) {
+        console.log(e)
+    }
+}
+
+export const addServer2 = async (serverName) => {
+    try {
+        const { data } = await api.addServer(serverName);
+        if (!data) return;
+        return data
     } catch(e) {
         console.log(e)
     }

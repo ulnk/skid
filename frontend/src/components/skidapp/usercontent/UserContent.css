@@ -150,7 +150,7 @@
 }
 
 .member-list-name {
-    @apply ml-6 flex flex-row items-center w-full text-xs;
+    @apply ml-6 flex flex-row items-center w-full text-xs transition-all duration-150;
 }
 
 .members {
@@ -158,16 +158,16 @@
 }
 
 .member-profile-image {
-    @apply h-8 w-8 bg-red-500 ml-2 rounded-full
+    @apply h-8 w-8 bg-red-500 ml-2 rounded-full transition-all duration-150;
 }
 
 .member {
-    @apply flex flex-row items-center w-full h-11 rounded;
+    @apply flex flex-row items-center w-full h-11 rounded transition-all duration-150;
     font-family: var(--font-primary);
 }
 
 .member-name {
-    @apply ml-2;
+    @apply ml-2 transition-all duration-150;
 }
 
 .member:hover {

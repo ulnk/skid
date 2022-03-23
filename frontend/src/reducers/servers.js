@@ -9,6 +9,10 @@ export default (state = { all: [], current: {}, channel: { allMessages: [], chan
             return { ...state, channel: action.payload };
         case 'ADD_SERVER':
             return { ...state, all: [action.payload, ...state.all] };
+        case 'REMOVE_SERVER':
+            return { ...state, all: [...state.all].filter(server => {
+                return server._id !== action.payload ? server : null 
+            }) };
         case 'GET_MESSAGE':
             return { ...state, channel: { allMessages: [action.payload, ...state.channel.allMessages] } };
         case 'SEND_MESSAGE':

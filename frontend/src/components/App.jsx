@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, useParams } from 'react-router-dom';
+import { useSocket } from '../contexts/socket';
 
 // HomePage Route Elements
 import HomePage from './pages/HomePage/HomePage';
@@ -11,14 +12,28 @@ import RegisterModal from './homepage/modals/RegisterModal';
 import SkidApp from './pages/SkidApp/SkidApp';
 import SkidAppMe from './pages/SkidApp/SkidAppMe';
 
-import { getServers } from '../actions/servers';
+import { getServers, removeServer } from '../actions/servers';
 
 const App = () => {
     const dispatch = useDispatch();
+    const { sId } = useParams();
+    const navigate = useNavigate();
+    const socket = useSocket();
 
     useEffect(() => {
         dispatch(getServers());
-    }, [dispatch])
+        if (!socket) return
+
+        socket.on('deleteServer', (serverId) => {
+            dispatch(removeServer(serverId));
+            if (sId === serverId) navigate('/skid/@me');
+        })
+
+        socket.on('createServer', () => {
+            dispatch(getServers());
+        })
+
+    }, [socket, dispatch, navigate])
 
     return (
         <>  
