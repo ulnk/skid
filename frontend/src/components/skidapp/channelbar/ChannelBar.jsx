@@ -27,7 +27,7 @@ const ChannelBar = () => {
     const socket = useSocket();
 
     const joinServerFromInvite = () => {
-        dispatch(joinInvite('355f9b'));
+        dispatch(joinInvite('1'));
     }
 
     useEffect(() => {
@@ -60,7 +60,7 @@ const ChannelBar = () => {
                                     <li className="context-menu-item blue" onClick={() => joinServerFromInvite()}>
                                         <button>Join Random Server</button>
                                     </li>
-                                    {sId !== '624f38f4b636951080d5a395' ? <>
+                                    {sId !== '625c7d70df1a464bb9d6d059' ? <>
                                         <li className="context-menu-item red" onClick={() => handleDeleteServer()}>
                                             <button>Delete Server</button>
                                         </li> 

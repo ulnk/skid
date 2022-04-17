@@ -3,6 +3,10 @@
     @apply fixed mt-[-56px] flex flex-row w-full h-14;
 }
 
+.smol {
+    font-size: 12px;
+}
+
 /* Right Side */
 
 .right-items {
