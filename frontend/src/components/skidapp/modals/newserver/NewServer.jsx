@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { addServer } from '../../../../actions/servers'
@@ -7,17 +7,25 @@ import { useSocket } from '../../../../contexts/socket.js';
 import './NewServer.css'
 
 const NewServer = (props) => {
-    const [serverName, setServerName] = useState('')
-    const dispatch = useDispatch()
-    const socket = useSocket()
+    const [serverName, setServerName] = useState('');
+    const dispatch = useDispatch();
     
     const handleSubmit = async (e) => {
         e.preventDefault();
-        dispatch(addServer(serverName))
-        socket.emit('createServer')
-        setServerName('')
-        props.close(false)
+        dispatch(addServer(serverName));
+        setServerName('');
+        props.close(false);
     }
+    
+    const handleKeyPress = (e) => {
+        if (e.key === "Escape") props.close(false)
+        if (e.key === "Enter") document.getElementById('submit-new-server').click();
+    }
+
+    useEffect(() => {
+        document.addEventListener('keydown', handleKeyPress, false);
+        return () => document.removeEventListener('keydown', handleKeyPress, false);
+    }, [])
 
     return (
         <form className="modal-underbody" onSubmit={handleSubmit}>
@@ -34,7 +42,7 @@ const NewServer = (props) => {
                 </div>
                 <div className="options-container background-secondary">
                     <button className="cancel-button" onClick={() => props.close(false)}>Cancel</button>
-                    <button type="submit" className="submit-button">Create server</button>
+                    <button type="submit" id="submit-new-server" className="submit-button">Create server</button>
                 </div>
             </div>
         </form>

@@ -1,10 +1,12 @@
-import React, { useState, useLayoutEffect, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { getChannel, sendMessage, getMessage } from '../../../actions/servers';
 import { pseudoMessage } from '../../../api/';
 import { useParams } from 'react-router-dom';
 import { useSocket } from '../../../contexts/socket';
+
+import { notifyChannelAndServer } from '../../../actions/notifications';
 
 import './UserContent.css';
 
@@ -19,29 +21,27 @@ const UserContent = () => {
     const { sId, cId } = useParams();
     const dispatch = useDispatch();
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         dispatch(getChannel(cId, sId));
     }, [dispatch, cId, sId]);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         setMessages(channel.allMessages);
     }, [channel, setMessages]);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         if (!socket) return;
         socket.off('loadMessage'); // all i had to do was move it up 4 lines to be before socket.on :osaka:
 
         socket.on('loadMessage', (message) => {
-            if (message.messageUserId === user.userId) return
-            dispatch(getMessage(message));
+            if (message.messageUserId === user.userId) return;
+            if (message.messageServerId === sId && message.messageChannel === cId) dispatch(getMessage(message));
+            else {
+                dispatch(notifyChannelAndServer(message.messageServerId, message.messageChannel));
+            }
         })
 
     }, [socket, dispatch, user, cId]);
-
-    useLayoutEffect(() => {
-        if (!socket) return;
-        socket.emit(`joinChannel`, cId);
-    }, [socket, cId]);
 
     const submitForm = async (e) => {
         e.preventDefault();

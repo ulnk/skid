@@ -9,7 +9,13 @@ export default (state = { all: [], current: {}, channel: { allMessages: [], chan
             return { ...state, channel: action.payload };
         case 'ADD_SERVER':
             return { ...state, all: [action.payload, ...state.all] };
+        case 'JOIN_INVITE':
+            return { ...state, all: [action.payload, ...state.all] };
         case 'REMOVE_SERVER':
+            return { ...state, all: [...state.all].filter(server => {
+                return server._id !== action.payload ? server : null 
+            }) };
+        case 'DELETE_SERVER':
             return { ...state, all: [...state.all].filter(server => {
                 return server._id !== action.payload ? server : null 
             }) };

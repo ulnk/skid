@@ -23,17 +23,13 @@ const App = () => {
     useEffect(() => {
         dispatch(getServers());
         if (!socket) return
-
+        
+        socket.emit('userOnline');
         socket.on('deleteServer', (serverId) => {
             dispatch(removeServer(serverId));
             if (sId === serverId) navigate('/skid/@me');
-        })
-
-        socket.on('createServer', () => {
-            dispatch(getServers());
-        })
-
-    }, [socket, dispatch, navigate])
+        });
+    });
 
     return (
         <>  

@@ -1,5 +1,14 @@
 import * as api from '../api/index';
 
+export const joinInvite = (invite) => async (dispatch) =>  {
+    try {
+        const { data } = await api.joinInvite(invite);
+        dispatch({ type: 'JOIN_INVITE', payload: data });
+    } catch(e) {
+        console.log(e)
+    }
+}
+
 export const getServers = () => async (dispatch) =>  {
     try {
         const { data } = await api.getServers();
@@ -48,6 +57,18 @@ export const deleteServer = (sId) => async (dispatch) =>  {
         console.log(e)
     }
 }
+
+export const leaveServer = (sId) => async (dispatch) =>  {
+    if (!sId) return
+    try {
+        const { data } = await api.leaveServer(sId);
+        if (!data) return;
+        dispatch({ type: 'LEAVE_SERVER', payload: data });
+    } catch(e) {
+        console.log(e)
+    }
+}
+
 
 export const getChannel = (cId, sId) => async (dispatch) =>  {
     try {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
@@ -23,6 +23,16 @@ const NewChannel = (props) => {
         setChannelName('');
         props.close([false, '']);
     }
+
+    const handleKeyPress = (e) => {
+        if (e.key === "Escape") props.close(false)
+        if (e.key === "Enter") document.getElementById('submit-new-channel').click();
+    }
+
+    useEffect(() => {
+        document.addEventListener('keydown', handleKeyPress, false);
+        return () => document.removeEventListener('keydown', handleKeyPress, false);
+    }, [])
 
     return (
         <form className="modal-underbody" onSubmit={handleSubmit}>
@@ -60,7 +70,7 @@ const NewChannel = (props) => {
                 </div>
                 <div className="options-container background-secondary">
                     <button onClick={() => props.close([false, ''])} className="cancel-button">Cancel</button>
-                    <button type="submit" className="submit-button">Create channel</button>
+                    <button type="submit" id="submit-new-channel" className="submit-button">Create channel</button>
                 </div>
             </div>
         </form>

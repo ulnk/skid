@@ -25,10 +25,6 @@ const ServerNavbar = () => {
             if (sId === serverId) navigate('/skid/@me');
         })
 
-        socket.on('createServer', () => {
-            dispatch(getServers());
-        })
-
     }, [socket, dispatch, navigate])
 
     return (

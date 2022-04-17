@@ -33,6 +33,12 @@ export const deleteServer = (serverId) =>  axios.post(URI + `/api/app/deleteserv
     }
 });
 
+export const leaveServer = (serverId) =>  axios.post(URI + `/api/app/leaveserver`, { serverId }, {
+    headers: {
+        'x-auth-token': localStorage.getItem("token"),
+    }
+});
+
 export const getChannel = (cId, sId) =>  axios.get(URI + `/api/app/getchannel?sid=${sId}&cid=${cId}`, {
     headers: {
         'x-auth-token': localStorage.getItem("token"),
@@ -65,6 +71,12 @@ export const addCategory = (categoryName, sId) =>  axios.post(URI + `/api/app/ad
 });
 
 export const addChannel = (sId, categoryId, channelName) =>  axios.post(URI + `/api/app/addchannel`, { sId, categoryId, channelName }, {
+    headers: {
+        'x-auth-token': localStorage.getItem("token"),
+    }
+});
+
+export const joinInvite = (invite) =>  axios.post(URI + `/api/app/joinInvite`, { inviteCode: invite }, {
     headers: {
         'x-auth-token': localStorage.getItem("token"),
     }

@@ -1,11 +1,11 @@
-import React, { useState, useLayoutEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FaChevronDown, FaPlus, FaHashtag, FaChevronRight } from 'react-icons/fa';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 
 import './ChannelBar.css';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { getServer, deleteServer, checkReminder } from '../../../actions/servers';
+import { getServer, deleteServer, checkReminder, joinInvite } from '../../../actions/servers';
 import { useSocket } from '../../../contexts/socket';
 
 import NewCategory from '../../skidapp/modals/newcategory/NewCategory';
@@ -26,7 +26,11 @@ const ChannelBar = () => {
     const dispatch = useDispatch();
     const socket = useSocket();
 
-    useLayoutEffect(() => {
+    const joinServerFromInvite = () => {
+        dispatch(joinInvite('355f9b'));
+    }
+
+    useEffect(() => {
         dispatch(getServer(sId));
         dispatch(checkReminder());
     }, [dispatch, sId]);
@@ -45,19 +49,27 @@ const ChannelBar = () => {
                 <UserInfo />
                 <nav className={`channel-bar background-secondary ${show && 'rHeight'}`}>
                     <div className="channel-bar-items" >
-                        <section className="server-name" onClick={() => setShowContext(true)}>
+                        <section className="server-name" onClick={() => setShowContext(!showContext)}>
                             <h2 className="server-name-header font-primary">{server.serverName}</h2>
                             <FaChevronDown className="server-name-chevron" />
-                            {showContext &&
-                                <ul className="context-menu">
+                            {/* {showContext && */}
+                                <ul className={`context-menu ${showContext && 'on'}`}>
                                     <li className="context-menu-item blue" onClick={() => setShowCategoryModal(true)}>
                                         <button>Create Category</button>
                                     </li>
-                                    <li className="context-menu-item red" onClick={() => handleDeleteServer()}>
-                                        <button>Delete Server</button>
+                                    <li className="context-menu-item blue" onClick={() => joinServerFromInvite()}>
+                                        <button>Join Random Server</button>
                                     </li>
+                                    {sId !== '624f38f4b636951080d5a395' ? <>
+                                        <li className="context-menu-item red" onClick={() => handleDeleteServer()}>
+                                            <button>Delete Server</button>
+                                        </li> 
+                                        <li className="context-menu-item red" onClick={() => joinServerFromInvite()}>
+                                            <button>Leave Server</button>
+                                        </li>
+                                    </>: null}
                                 </ul>
-                            }
+                            {/* } */}
                         </section>
                         <div className="channels">
                             {

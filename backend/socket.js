@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken');
 const socketio = require('socket.io');
-
+const jwtDecode = require('./util.js');
+const UserModel = require('./models/UserModel.js');
+const ServerModel = require('./models/ServerModel.js');
 let io;
 
 start = (app) => {
@@ -20,10 +22,31 @@ start = (app) => {
   });
   
   io.on("connection", (socket) => {
-    socket.on("joinChannel", (id) => {
-      socket.leaveAll();
+    socket.on('userOnline', async () => {
       socket.join("main");
-      socket.join(id);
+
+      const jwtToken = socket.handshake.auth.token || socket.handshake.query.token || socket.handshake.token;
+      const tokenUsername = jwtDecode.getUsernameFromToken(jwtToken);
+      const foundUser = await UserModel.findOne({ username: tokenUsername });
+      if (!foundUser) return;
+
+      let allChannelIds = []
+      for (const joinedServerId of foundUser.joinedServers) {
+        let _ids = [];
+        const joinedServer = await ServerModel.findById(joinedServerId);
+        if (!joinedServer) return
+        joinedServer.allCategorys.forEach(category => {
+          category.allChannels.forEach(channel => {
+            _ids.push(channel.id)
+          })
+        })
+
+        allChannelIds = _ids;
+      }
+
+      allChannelIds.forEach(id => {
+        socket.join(id);
+      })
     });
 
     socket.on("sendMessage", (message) => {

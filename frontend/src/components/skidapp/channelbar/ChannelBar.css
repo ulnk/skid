@@ -1,18 +1,25 @@
 /* Channel Context Menu */
 
 .context-menu {
-    @apply absolute flex flex-col py-2 px-2 rounded gap-1;
+    @apply absolute flex flex-col py-1.5 px-1.5 rounded gap-1;
     z-index: 100;
+    visibility: hidden;
     width: calc(100% - 10px);
     left: 5px;
     top: 110%;
     background-color: var(--bg-tertiary-alt);
     font-family: var(--font-primary);
     color: var(--colour-normal);
+    transition: all 100ms ease-in;
+    opacity: 0;
+}.context-menu.on{
+    visibility: visible;
+    opacity: 1;
 }
 
 .context-menu-item {
     @apply bg-transparent rounded-sm text-sm py-[6px] px-2 cursor-pointer;
+    transition: all 100ms ease-in;
 }
 
 .blue:hover {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
@@ -19,6 +19,16 @@ const NewCategory = (props) => {
         props.close(false)
     }
 
+    const handleKeyPress = (e) => {
+        if (e.key === "Escape") props.close(false)
+        if (e.key === "Enter") document.getElementById('submit-new-category').click();
+    }
+
+    useEffect(() => {
+        document.addEventListener('keydown', handleKeyPress, false);
+        return () => document.removeEventListener('keydown', handleKeyPress, false);
+    }, [])
+
     return (
         <form className="modal-underbody" onSubmit={handleSubmit}>
             <div className="modal-container background-primary">
@@ -33,7 +43,7 @@ const NewCategory = (props) => {
                 </div>
                 <div className="options-container background-secondary">
                     <button onClick={() => props.close(false)} className="cancel-button">Cancel</button>
-                    <button type="submit" className="submit-button">Create category</button>
+                    <button type="submit" id="submit-new-category" className="submit-button">Create category</button>
                 </div>
             </div>
         </form>
