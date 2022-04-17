@@ -1,17 +1,23 @@
+// will rework at a later point
+// 08/04/2022
+
 const express = require('express');
 const apiRouter = express.Router();
 const UserModel = require('../models/UserModel.js');
 const ServerModal = require('../models/ServerModel.js')
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
+const config = require('../config.json');
+const InviteModel = require('../models/InviteModel.js');
 
 const jwtMiddleware = (req, res, next) => {
     const jwtToken = req.headers['x-auth-token'];
     if (!jwtToken) return res.sendStatus(401);
 
-    jwt.verify(jwtToken, process.env.JWT_SECRET, (err, decoded) => {
+    jwt.verify(jwtToken, process.env.JWT_SECRET, async (err, decoded) => {
         if (err) return res.sendStatus(401);
-
+        const user = await UserModel.findOne({ username: decoded.data.username })
+        if (!user) return res.sendStatus(401);
         req.user = decoded.data;
         next();
     })
@@ -39,8 +45,13 @@ apiRouter.post('/app/addserver', jwtMiddleware, (req, res) => {
         ]
     }
 
-    ServerModal.create(newServer, (err, result) => {
+    ServerModal.create(newServer, async (err, result) => {
         if (err || !result) return res.sendStatus(500);
+        const ownerUser = await UserModel.findById(user.userId);
+        if (!ownerUser) return res.sendStatus(500);
+
+        ownerUser.joinedServers.push(result.id)
+        ownerUser.save();
 
         res.send(result);
     });
@@ -52,44 +63,77 @@ apiRouter.post('/app/changePfp', jwtMiddleware, async (req, res) => {
 
     jwt.verify(newjwt, process.env.JWT_SECRET, async (err, decoded) => {
         if (err) return res.sendStatus(401);
-
-        console.log(decoded.data.userId)
         let user = await UserModel.findById(decoded.data.userId)
         if (!user) return res.sendStatus(500);
 
         user.profileUrl = url;
         user.save()
 
-        console.log(user)
-
         req.session.user = sign(user);
         res.json({ jwt: sign(user) });
     });
 });
 
-apiRouter.get('/app/getservers', jwtMiddleware, (req, res) => {
-    ServerModal.find({}, (err, result) => {
-        if (err || !result) return res.sendStatus(500);
-        res.send(result.reverse());
-    });
+apiRouter.get('/app/getservers', jwtMiddleware, async (req, res) => {
+    const allUserServers = await getUserServers(req.user);
+    res.send(allUserServers);
 });
 
 apiRouter.get('/app/getserver', jwtMiddleware, async (req, res) => {
     const _id = req.query.sid;
-    ServerModal.findById(_id, (err, result) => {
-        if (err || !result) return res.sendStatus(500);
-        res.send(result);
-    });
+    const server = await ServerModal.findById(_id);
+    if (!server)return res.sendStatus(500);
+    res.send(server);
 });
 
 apiRouter.post('/app/deleteserver', jwtMiddleware, async (req, res) => {
     const serverId = req.body.serverId;
-
+    if (!serverId || serverId === config.globalServer) return res.sendStatus(500);
     const server = await ServerModal.findByIdAndRemove(serverId);
     if (!server) return res.sendStatus(500);
-    const allServers = await ServerModal.find({});
 
-    return allServers
+    let allUsers = await UserModel.find({})
+    allUsers = allUsers.filter(user => user.joinedServers.includes(serverId));
+    if (!allUsers) return res.sendStatus(500);
+    for (const user of allUsers) {
+        const foundUser = await UserModel.findOne({ username: user.username })
+        foundUser.joinedServers = foundUser.joinedServers.filter(joinedServerId => joinedServerId !== serverId)
+        foundUser.save();
+    }
+
+    const allServers = await getUserServers(req.user);
+    res.send(allServers);
+});
+
+apiRouter.post('/app/createInvite', async (req, res) => {
+    const { serverId } = req.body;
+    if (!serverId) return res.sendStatus(400);
+
+    const newInvite = await InviteModel.create({
+        inviteCode: generateRandomInviteCode(),
+        serverId: serverId //i know i can just do serverId but it looks funny
+    });
+
+    res.send(newInvite);
+});
+
+apiRouter.post('/app/joinInvite', jwtMiddleware, async (req, res) => {
+    const { inviteCode } = req.body;
+    if (!inviteCode) return res.sendStatus(400);
+
+    const foundInvite = await InviteModel.findOne({ inviteCode })
+    if (!foundInvite) return res.sendStatus(400); //code invalid
+
+    const foundUser = await UserModel.findOne({ username: req.user.username });
+    if (!foundUser) return res.sendStatus(403);
+
+    const foundServer = await ServerModal.findById(foundInvite.serverId);
+    if (!foundServer) return res.sendStatus(400);
+
+    foundUser.joinedServers.push(foundInvite.serverId);
+    foundUser.save();
+
+    res.send(foundServer);
 });
 
 apiRouter.post('/app/addmessage', jwtMiddleware, async (req, res) => {
@@ -121,6 +165,7 @@ apiRouter.post('/app/addmessage', jwtMiddleware, async (req, res) => {
         messageContent,
         messageCreation: Date.now(),
         messageChannel: channelId,
+        messageServerId: serverId,
         isSmall,
         profilePicture
     }
@@ -160,6 +205,7 @@ apiRouter.post('/app/pseudomessage', jwtMiddleware, async (req, res) => {
         messageContent,
         messageCreation: Date.now(),
         messageChannel: channelId,
+        messageServerId: serverId,
         isSmall,
         profilePicture
     }
@@ -242,9 +288,8 @@ apiRouter.post('/register', (req, res) => {
     if (!username || !password) return res.sendStatus(400);
     const hashedPassword = hash(password);
 
-    UserModel.create({ username, password: hashedPassword }, (err, result) => {
+    UserModel.create({ username, password: hashedPassword, joinedServers: [config.globalServer] }, (err, result) => {
         if (err || !result) return res.sendStatus(500);
-
         req.session.user = sign(result);
         res.json({ jwt: sign(result) });
     });
@@ -257,10 +302,30 @@ const hash = (inp) => {
 }
 
 const sign = (props) => {
-    return jwt.sign({
-        exp: 999999999999,
-        data: { username: props.username, userRole: props.userRole, userId: props.id, profileUrl: props.profileUrl }
+  return jwt.sign({ exp: 999999999999, data: {
+            username: props.username,
+            userRole: props.userRole,
+            userId: props.id,
+            profileUrl: props.profileUrl,
+        },
     }, process.env.JWT_SECRET);
+};
+
+generateRandomInviteCode = () => {
+    const inviteCode = hash((Math.random() * 10).toString()).slice(1, 7)
+    return inviteCode;
+}
+
+const getUserServers = async (user) => {
+    const foundUser = await UserModel.findOne({ username: user.username });
+    let allUserServers = [];
+
+    for (const serverId of foundUser.joinedServers) {
+        const foundServer = await ServerModal.findById(serverId);
+        allUserServers.push(foundServer);
+    }
+
+    return allUserServers;
 }
 
 module.exports = apiRouter;
