@@ -11,8 +11,9 @@ import RegisterModal from './homepage/modals/RegisterModal';
 // SkidApp Elements
 import SkidApp from './pages/SkidApp/SkidApp';
 import SkidAppMe from './pages/SkidApp/SkidAppMe';
+import SkidAppInvite from './pages/SkidApp/SkidAppInvite';
 
-import { getServers, removeServer } from '../actions/servers';
+import { getServers, removeServer, hasInvite } from '../actions/servers';
 
 const App = () => {
     const dispatch = useDispatch();
@@ -39,6 +40,9 @@ const App = () => {
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<RegisterModal />} />
 
+                {/* Invites */}
+                <Route path="/:inviteLink" element={<SkidAppInvite />} />
+                
                 {/* App Routes */}
                 <Route path="/skid/:sId/:cId" element={<SkidApp />} />
                 <Route path="/skid/@me" element={<SkidAppMe />} />

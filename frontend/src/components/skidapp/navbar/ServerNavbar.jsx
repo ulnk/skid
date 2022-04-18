@@ -6,10 +6,12 @@ import './ServerNavbar.css';
 import { getServer, removeServer, getServers } from '../../../actions/servers';
 import { useSocket } from '../../../contexts/socket';
 
-import NewServer from '../modals/newserver/NewServer'
+import NewServer from '../modals/newserver/NewServer';
+import JoinServer from '../modals/joinserver/JoinServer';
 
 const ServerNavbar = () => {
     const [showModal, setShowModal] = useState(false);
+    const [showJoinModal, setShowJoinModal] = useState(false);
     const servers = useSelector((state) => state.servers.all);
 
     const { sId } = useParams();
@@ -29,7 +31,9 @@ const ServerNavbar = () => {
 
     return (
         <>
-            { showModal && <NewServer close={setShowModal} /> }
+            { showModal && <NewServer close={setShowModal} join={setShowJoinModal} /> }
+            { showJoinModal && <JoinServer close={setShowJoinModal} /> }
+            {/* <JoinServer /> */}
             <div className="navbar background-tertiary">
                 <Link to="/skid/@me">
                     <div className={`selected-noti ${!sId ? 'active' : null}`}></div>

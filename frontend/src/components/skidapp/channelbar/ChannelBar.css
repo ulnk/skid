@@ -10,7 +10,7 @@
     background-color: var(--bg-tertiary-alt);
     font-family: var(--font-primary);
     color: var(--colour-normal);
-    transition: all 100ms ease-in;
+    transition: visibility 100ms ease-in, opacity 100ms ease-in;
     opacity: 0;
 }.context-menu.on{
     visibility: visible;
@@ -19,7 +19,7 @@
 
 .context-menu-item {
     @apply bg-transparent rounded-sm text-sm py-[6px] px-2 cursor-pointer;
-    transition: all 100ms ease-in;
+    transition: background-color 100ms ease-in;
 }
 
 .blue:hover {

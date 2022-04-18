@@ -1,5 +1,5 @@
 //eslint-disable-next-line
-export default (state = { all: [], current: {}, channel: { allMessages: [], channelName: '' } }, action) => {
+export default (state = { invites: [], all: [], current: {}, channel: { allMessages: [], channelName: '' } }, action) => {
     switch (action.type) {
         case 'GET_ALL_SERVERS':
             return { ...state, all: [...action.payload] };
@@ -8,9 +8,11 @@ export default (state = { all: [], current: {}, channel: { allMessages: [], chan
         case 'GET_CURRENT_CHANNEL':
             return { ...state, channel: action.payload };
         case 'ADD_SERVER':
-            return { ...state, all: [action.payload, ...state.all] };
+            return { ...state, all: [...state.all, action.payload] };
         case 'JOIN_INVITE':
-            return { ...state, all: [action.payload, ...state.all] };
+            return { ...state, all: [...state.all, action.payload] };
+        case 'HAS_INVITE':
+            return { ...state, invites: [...state.invites, { ...action.payload }] };
         case 'REMOVE_SERVER':
             return { ...state, all: [...state.all].filter(server => {
                 return server._id !== action.payload ? server : null 

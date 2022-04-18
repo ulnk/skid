@@ -154,8 +154,10 @@
 }
 
 .cancel-button {
-    @apply px-4 h-[38px] text-white rounded text-sm;
+    @apply h-[38px] text-white rounded text-sm;
     font-family: var(--font-primary);
+    padding-right: 1rem;
+    padding-left: 0.4rem;
 }
 
 .cancel-button:hover {

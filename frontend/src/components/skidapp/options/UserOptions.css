@@ -9,7 +9,7 @@
     background-color: var(--bg-primary);
     z-index: 2;
     scale: 0.7;
-    transition: all 100ms ease-out;
+    transition: pointer-events 100ms ease-out, opacity 100ms ease-out, scale 100ms ease-out;
 }
 .settings.active {
     pointer-events: all;
@@ -29,7 +29,7 @@
     align-items: center;
     color: white;
     cursor: pointer;
-    transition: all 100ms ease-out
+    transition: background-color 100ms ease-out
 }
 .close:hover {
     background-color: var(--bg-primary-alt)
@@ -100,7 +100,7 @@
 .section-button {
     @apply flex flex-row items-center p-2 w-full h-8 rounded;
     font-family: var(--font-primary);
-    transition: all 100ms ease-out
+    transition: background-color 100ms ease-out
 }
 .section-button:hover {
     background-color: #34373c;

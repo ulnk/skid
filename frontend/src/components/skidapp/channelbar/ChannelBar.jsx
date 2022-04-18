@@ -5,11 +5,12 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import './ChannelBar.css';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { getServer, deleteServer, checkReminder, joinInvite } from '../../../actions/servers';
+import { getServer, deleteServer, checkReminder, hasInvite } from '../../../actions/servers';
 import { useSocket } from '../../../contexts/socket';
 
 import NewCategory from '../../skidapp/modals/newcategory/NewCategory';
 import NewChannel from '../../skidapp/modals/newchannel/NewChannel';
+import NewServerInvite from '../modals/newserverinvite/NewServerInvite';
 
 import UserInfo from './UserInfo';
 
@@ -17,6 +18,7 @@ const ChannelBar = () => {
     const [showContext, setShowContext] = useState(false);
     const [showCategoryModal, setShowCategoryModal] = useState(false);
     const [showChannelModal, setShowChannelModal] = useState([false, '']);
+    const [showNewServerInviteModal, setShowNewServerInviteModal] = useState(false);
     
     const show = useSelector(state => state.servers.reminder)
     const server = useSelector(state => state.servers.current);
@@ -26,11 +28,8 @@ const ChannelBar = () => {
     const dispatch = useDispatch();
     const socket = useSocket();
 
-    const joinServerFromInvite = () => {
-        dispatch(joinInvite('1'));
-    }
-
     useEffect(() => {
+        dispatch(hasInvite(sId));
         dispatch(getServer(sId));
         dispatch(checkReminder());
     }, [dispatch, sId]);
@@ -44,6 +43,7 @@ const ChannelBar = () => {
     return (
         server._id ?
             (<>
+                {showNewServerInviteModal && <NewServerInvite close={setShowNewServerInviteModal} />}
                 {showCategoryModal && <NewCategory close={setShowCategoryModal} />}
                 {showChannelModal[0] && <NewChannel categoryId={showChannelModal[1]} close={setShowChannelModal} />}
                 <UserInfo />
@@ -57,14 +57,14 @@ const ChannelBar = () => {
                                     <li className="context-menu-item blue" onClick={() => setShowCategoryModal(true)}>
                                         <button>Create Category</button>
                                     </li>
-                                    <li className="context-menu-item blue" onClick={() => joinServerFromInvite()}>
-                                        <button>Join Random Server</button>
-                                    </li>
                                     {sId !== '625c7d70df1a464bb9d6d059' ? <>
+                                        <li className="context-menu-item blue" onClick={() => setShowNewServerInviteModal(true)}>
+                                            <button>Create Server Invite</button>
+                                        </li>
                                         <li className="context-menu-item red" onClick={() => handleDeleteServer()}>
                                             <button>Delete Server</button>
                                         </li> 
-                                        <li className="context-menu-item red" onClick={() => joinServerFromInvite()}>
+                                        <li className="context-menu-item red">
                                             <button>Leave Server</button>
                                         </li>
                                     </>: null}

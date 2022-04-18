@@ -1,7 +1,27 @@
+.invite-body {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    left: 0;
+    top: 0;
+    justify-content: center;
+    align-items: center
+}
+.login-register {
+    @apply mr-auto text-sm;
+    font-family: var(--font-primary);
+    color: var(--colour-muted);
+}
+
+.register-button {
+    @apply mt-1 font-bold text-[#0b96ce];
+}
+
 /* Modal Header */
 
 .modal-underbody {
-    @apply flex justify-center items-center absolute z-[99999999] h-screen w-screen bg-black bg-opacity-60;
+    @apply flex justify-center items-center absolute z-[2] h-screen w-screen bg-black bg-opacity-60;
 }
 
 .modal-container {
@@ -9,7 +29,7 @@
 }
 
 .modal-form-header {
-    @apply flex flex-col items-center justify-center mt-8 px-12 text-center;
+    @apply flex flex-col items-center justify-center mt-4;
 }
 
 .modal-header-title {
@@ -20,7 +40,7 @@
 }
 
 .modal-header-desc {
-    @apply flex text-sm mt-2;
+    @apply flex mb-2;
     color: var(--colour-channels);
     font-family: var(--font-primary);
 }
@@ -97,6 +117,7 @@
 }
 
 /* Modal Input */
+
 .modal-form-input-container {
     @apply flex flex-col px-4 my-5;
 }
@@ -129,13 +150,13 @@
     @apply flex flex-row h-[70px] rounded rounded-t-none mt-auto items-center justify-end px-5 gap-2;
 }
 
-.submit-button {
-    @apply px-4 h-[38px] text-white rounded text-sm;
+.submit-button-inv {
+    @apply px-4 mx-6 my-6 h-[38px] text-white rounded text-sm;
     background-color: var(--bg-blurple);
     font-family: var(--font-primary);
 }
 
-.submit-button:hover {
+.submit-button-inv:hover {
     background-color: var(--bg-blurple-hover);
 }
 

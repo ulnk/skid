@@ -42,6 +42,10 @@ const NewServer = (props) => {
                 </div>
                 <div className="options-container background-secondary">
                     <button className="cancel-button" onClick={() => props.close(false)}>Cancel</button>
+                    <button className="cancel-button" onClick={() => {
+                        props.join(true);
+                        props.close(false);
+                    }}>Join a Server</button>
                     <button type="submit" id="submit-new-server" className="submit-button">Create server</button>
                 </div>
             </div>

@@ -9,6 +9,34 @@ export const joinInvite = (invite) => async (dispatch) =>  {
     }
 }
 
+export const hasInvite = (serverId) => async (dispatch) =>  {
+    try {
+        const { data } = await api.hasInvite(serverId);
+        if (data.inviteCode === false) return console.log('no invite for server: ', data.serverId);
+        dispatch({ type: 'HAS_INVITE', payload: data });
+    } catch(e) {
+        console.log(e)
+    }
+}
+
+export const hasInviteFromCode = (inviteCode) => async (dispatch) =>  {
+    try {
+        const { data } = await api.hasInviteFromCode(inviteCode);
+        dispatch({ type: 'INVITE_SERVER', payload: data });
+    } catch(e) {
+        console.log(e)
+    }
+}
+
+export const createInvite = (serverId, inviteCode) => async (dispatch) =>  {
+    try {
+        const { data } = await api.createInvite(serverId, inviteCode);
+        dispatch({ type: 'HAS_INVITE', payload: data });
+    } catch(e) {
+        console.log(e)
+    }
+}
+
 export const getServers = () => async (dispatch) =>  {
     try {
         const { data } = await api.getServers();

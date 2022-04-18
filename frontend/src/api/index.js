@@ -81,3 +81,21 @@ export const joinInvite = (invite) =>  axios.post(URI + `/api/app/joinInvite`, {
         'x-auth-token': localStorage.getItem("token"),
     }
 });
+
+export const hasInvite = (serverId) =>  axios.post(URI + `/api/app/hasInvite`, { serverId }, {
+    headers: {
+        'x-auth-token': localStorage.getItem("token"),
+    }
+});
+
+export const hasInviteFromCode = (inviteCode) =>  axios.post(URI + `/api/app/hasInviteFromCode`, { inviteCode }, {
+    headers: {
+        'x-auth-token': localStorage.getItem("token"),
+    }
+});
+
+export const createInvite = (serverId, inviteCode) =>  axios.post(URI + `/api/app/createInvite`, { serverId, inviteCode }, {
+    headers: {
+        'x-auth-token': localStorage.getItem("token"),
+    }
+});
