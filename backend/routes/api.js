@@ -143,8 +143,6 @@ apiRouter.post('/app/hasInviteFromCode', async (req, res) => {
     const foundServer = await ServerModal.findById(foundInvite.serverId);
     if (!foundServer) return res.sendStatus(400);
 
-    
-
     res.send(foundServer);
 });
 
@@ -161,6 +159,7 @@ apiRouter.post('/app/joinInvite', jwtMiddleware, async (req, res) => {
     const foundServer = await ServerModal.findById(foundInvite.serverId);
     if (!foundServer) return res.sendStatus(400);
 
+    if (foundUser.joinedServers.includes(foundInvite.serverId)) return res.sendStatus(400);
     foundUser.joinedServers.push(foundInvite.serverId);
     foundUser.save();
 
