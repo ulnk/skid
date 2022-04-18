@@ -105,16 +105,45 @@ apiRouter.post('/app/deleteserver', jwtMiddleware, async (req, res) => {
     res.send(allServers);
 });
 
-apiRouter.post('/app/createInvite', async (req, res) => {
-    const { serverId } = req.body;
+apiRouter.post('/app/createInvite', jwtMiddleware, async (req, res) => {
+    let { serverId, inviteCode } = req.body;
     if (!serverId) return res.sendStatus(400);
 
+    inviteCode = inviteCode.replace(/\s+/g, '-')
+
+    const foundInvite = await InviteModel.findOne({ serverId })
+    if (foundInvite) return res.send(foundInvite);
+
     const newInvite = await InviteModel.create({
-        inviteCode: generateRandomInviteCode(),
-        serverId: serverId //i know i can just do serverId but it looks funny
+        inviteCode: inviteCode || generateRandomInviteCode(),
+        serverId: serverId
     });
 
     res.send(newInvite);
+});
+
+apiRouter.post('/app/hasInvite', jwtMiddleware, async (req, res) => {
+    const { serverId } = req.body;
+    if (!serverId) return res.sendStatus(400);
+
+    const foundInvite = await InviteModel.findOne({ serverId })
+    if (foundInvite) return res.send(foundInvite);
+
+    res.send({ serverId, inviteCode: false });
+});
+
+apiRouter.post('/app/hasInviteFromCode', async (req, res) => {
+    const { inviteCode } = req.body;
+    console.log(inviteCode)
+    if (!inviteCode) return res.sendStatus(400);
+
+    const foundInvite = await InviteModel.findOne({ inviteCode })
+    if (!foundInvite) return res.sendStatus(400);
+
+    const foundServer = await ServerModal.findById(foundInvite.serverId);
+    if (!foundServer) return res.sendStatus(400);
+
+    res.send(foundServer);
 });
 
 apiRouter.post('/app/joinInvite', jwtMiddleware, async (req, res) => {
@@ -130,6 +159,7 @@ apiRouter.post('/app/joinInvite', jwtMiddleware, async (req, res) => {
     const foundServer = await ServerModal.findById(foundInvite.serverId);
     if (!foundServer) return res.sendStatus(400);
 
+    if (foundUser.joinedServers.includes(foundInvite.serverId)) return res.sendStatus(400);
     foundUser.joinedServers.push(foundInvite.serverId);
     foundUser.save();
 

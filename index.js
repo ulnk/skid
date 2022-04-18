@@ -21,7 +21,7 @@ const io = require('./socket.js')
     .use(cookieParser())
     .use(rateLimit({
       windowMs: 60 * 1000,
-      max: 40,
+      max: 80,
       message: "Too many requests"
     }))
     .use(session({

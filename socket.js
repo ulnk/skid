@@ -30,29 +30,15 @@ start = (app) => {
       const foundUser = await UserModel.findOne({ username: tokenUsername });
       if (!foundUser) return;
 
-      let allChannelIds = []
       for (const joinedServerId of foundUser.joinedServers) {
-        let _ids = [];
-        const joinedServer = await ServerModel.findById(joinedServerId);
-        if (!joinedServer) return
-        joinedServer.allCategorys.forEach(category => {
-          category.allChannels.forEach(channel => {
-            _ids.push(channel.id)
-          })
-        })
-
-        allChannelIds = _ids;
+        socket.join(joinedServerId);
       }
-
-      allChannelIds.forEach(id => {
-        socket.join(id);
-      })
     });
 
     socket.on("sendMessage", (message) => {
+      console.log(socket.rooms)
       try {
-        if (message.data)
-          socket.nsp.to(message.data.messageChannel).emit("loadMessage", message.data);
+        if (message.data) socket.nsp.to(message.data.messageServerId).emit("loadMessage", message.data);
       } catch {}
     });
   
