@@ -82,11 +82,17 @@ apiRouter.get('/app/getservers', jwtMiddleware, async (req, res) => {
 apiRouter.get('/app/getserver', jwtMiddleware, async (req, res) => {
     const _id = req.query.sid;
     const server = await ServerModal.findById(_id);
-    if (!server)return res.sendStatus(500);
+    if (!server) return res.sendStatus(500);
+
+    const foundUser = await UserModel.findOne({ username: req.user.username });
+    if (!foundUser) return res.sendStatus(403);
+
+    if (!server.allMembers.includes(foundUser._id) && !server._id === config.globalServer && server.serverOwner !== foundUser._id) return res.sendStatus(403);
+
     res.send(server);
 });
 
-apiRouter.post('/app/deleteserver', jwtMiddleware, async (req, res) => {
+apiRouter.post('/app/deleteServer', jwtMiddleware, async (req, res) => {
     const serverId = req.body.serverId;
     if (!serverId || serverId === config.globalServer) return res.sendStatus(500);
     const server = await ServerModal.findByIdAndRemove(serverId);
@@ -100,6 +106,27 @@ apiRouter.post('/app/deleteserver', jwtMiddleware, async (req, res) => {
         foundUser.joinedServers = foundUser.joinedServers.filter(joinedServerId => joinedServerId !== serverId)
         foundUser.save();
     }
+
+    const allServers = await getUserServers(req.user);
+    res.send(allServers);
+});
+
+apiRouter.post('/app/leaveServer', jwtMiddleware, async (req, res) => {
+    const serverId = req.body.serverId;
+    if (!serverId || serverId === config.globalServer) return res.sendStatus(500);
+    
+    const server = await ServerModal.findById(serverId);
+    if (!server) return res.sendStatus(500);
+
+    const foundUser = await UserModel.findOne({ username: req.user.username });
+    if (!foundUser) return res.sendStatus(403);
+    if (server.serverOwner.toString() === foundUser._id.toString()) return res.sendStatus(400);
+
+    foundUser.joinedServers = foundUser.joinedServers.filter(filterServerId => filterServerId !== serverId);
+    foundUser.save();
+
+    server.allMembers = server.allMembers.filter(filterMember => filterMember !== foundUser._id);
+    server.save();
 
     const allServers = await getUserServers(req.user);
     res.send(allServers);
@@ -160,9 +187,13 @@ apiRouter.post('/app/joinInvite', jwtMiddleware, async (req, res) => {
     if (!foundServer) return res.sendStatus(400);
 
     if (foundUser.joinedServers.includes(foundInvite.serverId)) return res.sendStatus(400);
+    
     foundUser.joinedServers.push(foundInvite.serverId);
     foundUser.save();
 
+    // foundServer.allMembers.push(foundUser._id);
+    // foundServer.save();
+    
     res.send(foundServer);
 });
 
@@ -270,14 +301,16 @@ apiRouter.post('/app/addcategory', jwtMiddleware, async (req, res) => {
     
     const server = await ServerModal.findById(sId);
     if (!server) return res.sendStatus(500);
-    server.allCategorys.push(newCategory);
 
+    server.allCategorys.push(newCategory);
     server.save();
-    res.send(newCategory);
+
+    res.send(server);
 });
 
 apiRouter.post('/app/addchannel', jwtMiddleware, async (req, res) => {
     const { sId, categoryId, channelName } = req.body;
+    console.log(req.body)
     if (!sId || !categoryId || !channelName) return res.sendStatus(500);
 
     const newChannel = {

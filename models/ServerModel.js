@@ -26,7 +26,11 @@ const CategorySchema = new Schema({
 const ServerSchema = new Schema({
     serverName: String,
     serverOwner: String,
-    allCategorys: [CategorySchema]
+    allCategorys: [CategorySchema],
+    allMembers: {
+        type: Array,
+        default: []
+    },
 });
 
 module.exports = model('EntireServer', ServerSchema);
