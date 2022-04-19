@@ -57,10 +57,9 @@ body {
     font-weight: 100;
 }
 
-
 *, *::before, *::after {
-    box-sizing: border-box;
     user-select: none;
+    box-sizing: border-box;
 }
 
 /* Fonts */

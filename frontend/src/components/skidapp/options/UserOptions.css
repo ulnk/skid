@@ -8,6 +8,8 @@
     width: 100%;
     background-color: var(--bg-primary);
     z-index: 2;
+    top: 0;
+    left: 0;
     scale: 0.7;
     transition: pointer-events 100ms ease-out, opacity 100ms ease-out, scale 100ms ease-out;
 }
@@ -36,12 +38,11 @@
 }
 
 .options {
-    @apply pl-6;
+    @apply pl-4;
     margin-top: 1.5rem;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    padding-right: 30rem;
 }
 
 .header-title-option {
@@ -53,7 +54,7 @@
 .option {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 60%;
     padding: 20px;
 }
 
@@ -100,10 +101,11 @@
 .section-button {
     @apply flex flex-row items-center p-2 w-full h-8 rounded;
     font-family: var(--font-primary);
-    transition: background-color 100ms ease-out
+    transition: background-color 100ms ease-out, color 100ms ease-out
 }
 .section-button:hover {
     background-color: #34373c;
+    color: white;
 }
 .section-button.selected {
     background-color: #393c43;
@@ -139,7 +141,7 @@
 
 .modal-form-input-o {
     @apply h-10 border-[1px] border-opacity-30 border-black rounded outline-none px-2;
-    width: 40rem;
+    width: 100%;
     background-color: var(--bg-secondary);
     color: var(--colour-normal);
     font-weight: 100;

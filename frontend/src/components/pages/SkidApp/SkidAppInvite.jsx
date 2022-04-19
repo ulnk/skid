@@ -29,16 +29,31 @@ const SkidAppInvite = () => {
         navigate(`/skid/${serverFromLink._id}/${serverFromLink.allCategorys[0].allChannels[0]._id}`);
     }
 
+    const redirect = () => {
+        if (!auth.userId) return navigate('/login');
+        navigate(`/skid/@me`);
+    }
+
     return (
-        <div className="invite-body">
-            <div className="modal-container background-primary">
-                <div className="modal-form">
-                    <div className="modal-form-header">
-                        <small className="modal-header-desc">You have been invited to join</small>
-                        <span className="modal-header-title">{serverFromLink.serverName}!</span>
+        serverFromLink._id ? <div className="invite-body">
+            <div className="modal-container-inv background-primary">
+                <div className="modal-form-inv">
+                    <div className="modal-form-header-inv">
+                        <small className="modal-header-desc-inv">You have been invited to join</small>
+                        <span className="modal-header-title-inv">{serverFromLink.serverName}!</span>
                     </div>
                 </div>
                 <button type="submit" onClick={onClick} className="submit-button-inv">Accept Invite</button>
+            </div>
+        </div> : <div className="invite-body">
+            <div className="modal-container background-primary">
+                <div className="modal-form">
+                    <div className="modal-form-header">
+                        <span className="modal-header-title">Invite Invalid</span>
+                        <small className="modal-header-desc">This invite may be expired or you might not have permission to join.</small>
+                    </div>
+                </div>
+                <button type="submit" onClick={redirect} className="submit-button-inv">Continue to Site</button>
             </div>
         </div>
     )

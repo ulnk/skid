@@ -50,7 +50,7 @@ export const getServer = (sId) => async (dispatch) =>  {
     if (!sId) return
     try {
         const { data } = await api.getServer(sId);
-        if (!data) return;
+        if (!data) return dispatch({ type: 'GET_CURRENT_SERVER', payload: null });
         dispatch({ type: 'GET_CURRENT_SERVER', payload: data });
     } catch(e) {
         console.log(e)
@@ -90,8 +90,9 @@ export const leaveServer = (sId) => async (dispatch) =>  {
     if (!sId) return
     try {
         const { data } = await api.leaveServer(sId);
+        
         if (!data) return;
-        dispatch({ type: 'LEAVE_SERVER', payload: data });
+        dispatch({ type: 'LEAVE_SERVER', payload: sId });
     } catch(e) {
         console.log(e)
     }
@@ -150,7 +151,8 @@ export const addCategory = (categoryName, sId) => async (dispatch) =>  {
     try {
         const { data } = await api.addCategory(categoryName, sId);
         if (!data) return;
-        dispatch({ type: 'ADD_CATEGORY', payload: data });
+        // dispatch({ type: 'ADD_CATEGORY', payload: data });//GET_CURRENT_SERVER
+        dispatch({ type: 'GET_CURRENT_SERVER', payload: data });
     } catch(e) {
         console.log(e)
     }

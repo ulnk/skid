@@ -33,6 +33,8 @@ start = (app) => {
       for (const joinedServerId of foundUser.joinedServers) {
         socket.join(joinedServerId);
       }
+
+      
     });
 
     socket.on("sendMessage", (message) => {

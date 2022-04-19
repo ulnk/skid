@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { FaChevronDown, FaPlus, FaHashtag, FaChevronRight } from 'react-icons/fa';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 
 import './ChannelBar.css';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { getServer, deleteServer, checkReminder, hasInvite } from '../../../actions/servers';
+import { getServer, deleteServer, leaveServer, checkReminder, hasInvite } from '../../../actions/servers';
 import { useSocket } from '../../../contexts/socket';
 
 import NewCategory from '../../skidapp/modals/newcategory/NewCategory';
@@ -19,9 +19,11 @@ const ChannelBar = () => {
     const [showCategoryModal, setShowCategoryModal] = useState(false);
     const [showChannelModal, setShowChannelModal] = useState([false, '']);
     const [showNewServerInviteModal, setShowNewServerInviteModal] = useState(false);
+    const contextRef = useRef();
     
     const show = useSelector(state => state.servers.reminder)
     const server = useSelector(state => state.servers.current);
+    const auth = useSelector(state => state.auth.data);
 
     const { sId } = useParams();
     const navigate = useNavigate();
@@ -33,10 +35,25 @@ const ChannelBar = () => {
         dispatch(getServer(sId));
         dispatch(checkReminder());
     }, [dispatch, sId]);
+    
+    useEffect(() => {
+        document.addEventListener('click', handleClick)
+        return () => document.removeEventListener('click', handleClick)
+    }, [showContext])
+    
+    const handleClick = (e) => {
+        if (!showContext) return;
+        if (!contextRef.current.contains(e.target)) return setShowContext(false);
+    }
 
     const handleDeleteServer = () => {
-        socket.emit('deleteServer', sId)
+        socket.emit('deleteServer', sId);
         dispatch(deleteServer(sId));
+        navigate('/skid/@me');
+    }
+
+    const handleLeaveServer = () => {
+        dispatch(leaveServer(sId));
         navigate('/skid/@me');
     }
 
@@ -47,13 +64,13 @@ const ChannelBar = () => {
                 {showCategoryModal && <NewCategory close={setShowCategoryModal} />}
                 {showChannelModal[0] && <NewChannel categoryId={showChannelModal[1]} close={setShowChannelModal} />}
                 <UserInfo />
-                <nav className={`channel-bar background-secondary ${show && 'rHeight'}`}>
+                <nav className={`channel-bar background-secondary noselect ${show && 'rHeight'}`}>
                     <div className="channel-bar-items" >
                         <section className="server-name" onClick={() => setShowContext(!showContext)}>
                             <h2 className="server-name-header font-primary">{server.serverName}</h2>
                             <FaChevronDown className="server-name-chevron" />
                             {/* {showContext && */}
-                                <ul className={`context-menu ${showContext && 'on'}`}>
+                                <ul ref={contextRef} className={`context-menu ${showContext && 'on'}`}>
                                     <li className="context-menu-item blue" onClick={() => setShowCategoryModal(true)}>
                                         <button>Create Category</button>
                                     </li>
@@ -61,12 +78,12 @@ const ChannelBar = () => {
                                         <li className="context-menu-item blue" onClick={() => setShowNewServerInviteModal(true)}>
                                             <button>Create Server Invite</button>
                                         </li>
-                                        <li className="context-menu-item red" onClick={() => handleDeleteServer()}>
-                                            <button>Delete Server</button>
-                                        </li> 
-                                        <li className="context-menu-item red">
+                                        {auth.userId !== server.serverOwner && <li className="context-menu-item red" onClick={() => handleLeaveServer()}>
                                             <button>Leave Server</button>
-                                        </li>
+                                        </li>}
+                                        {auth.userId === server.serverOwner && <li className="context-menu-item red" onClick={() => handleDeleteServer()}>
+                                            <button>Delete Server</button>
+                                        </li>}
                                     </>: null}
                                 </ul>
                             {/* } */}

@@ -124,6 +124,7 @@
 
 .modal-form-input {
     @apply h-10 border-[1px] border-opacity-30 border-black rounded outline-none px-2;
+    user-select: all;
     background-color: var(--bg-secondary);
     color: var(--colour-normal);
     font-weight: 100;

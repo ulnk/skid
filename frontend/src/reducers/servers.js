@@ -4,6 +4,7 @@ export default (state = { invites: [], all: [], current: {}, channel: { allMessa
         case 'GET_ALL_SERVERS':
             return { ...state, all: [...action.payload] };
         case 'GET_CURRENT_SERVER':
+            if (!action.payload) return { ...state, current: {}};
             return { ...state, current: action.payload };
         case 'GET_CURRENT_CHANNEL':
             return { ...state, channel: action.payload };
@@ -14,11 +15,13 @@ export default (state = { invites: [], all: [], current: {}, channel: { allMessa
         case 'HAS_INVITE':
             return { ...state, invites: [...state.invites, { ...action.payload }] };
         case 'REMOVE_SERVER':
-            return { ...state, all: [...state.all].filter(server => {
+            return { ...state, current: {}, all: [...state.all].filter(server => {
                 return server._id !== action.payload ? server : null 
             }) };
         case 'DELETE_SERVER':
-            return { ...state, all: [...state.all].filter(server => {
+            return { ...state, current: {}, all: [...action.payload] };
+        case 'LEAVE_SERVER':
+            return { ...state, current: {}, all: [...state.all].filter(server => {
                 return server._id !== action.payload ? server : null 
             }) };
         case 'GET_MESSAGE':

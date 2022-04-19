@@ -14,7 +14,7 @@ const io = require('./socket.js')
 
   const app = express()
     .use(cors({
-      origin: (origin, callback) => { if (['http://localhost:3000', 'https://skid.rocks', undefined].indexOf(origin) !== -1)  callback(null, true) }
+      origin: (origin, callback) => { if (['http://localhost:3000', 'https://skid.rocks'].indexOf(origin) !== -1)  callback(null, true) }
     }))
     .use(express.static(path.join(__dirname, 'build')))
     .use(express.json())

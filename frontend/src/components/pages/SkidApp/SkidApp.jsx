@@ -17,6 +17,7 @@ import Reminder from '../../skidapp/reminder/Reminder';
 const SkidApp = () => {
     const auth = useSelector((state) => state.auth.data);
     const navigate = useNavigate();
+
     useEffect(() => {
         if (!auth.userId) navigate('/login');
     }, [auth.userId, navigate]);

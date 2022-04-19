@@ -46,6 +46,7 @@ const ServerNavbar = () => {
 
                 {
                     servers.map((server, i) => {
+                        if (!server) return null
                         return (
                             <Link key={i} to={`/skid/${server._id}/${server.allCategorys[0].allChannels[0]._id}`}>
                                 <div className={`selected-noti ${server._id === sId ? 'active' : null}`}></div>

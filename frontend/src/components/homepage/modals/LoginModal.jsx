@@ -12,17 +12,11 @@ const LoginModal = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    // const username = useRef();
-    // const password = useRef();
-
     const dispatch = useDispatch()
 
     const submitForm = (e) => {
         e.preventDefault();
-        // dispatch(login({username: username.current.value, password: password.current.value}));
         dispatch(login({username, password}));
-        // console.log(username.current.value, password.current.value,)
-        // console.log(username, password)
     }
 
     useEffect(() => {
@@ -46,16 +40,6 @@ const LoginModal = () => {
                         <input type="password" className="modal-form-input" value={password} onChange={(e) => setPassword(e.target.value)} placeholder=""/>
                         <span className="login-register"><Link to="/recover" className="register-button">Forgot your password?</Link></span>
                     </div>
-
-                    {/* <div className="modal-form-input-container">
-                        <span className="modal-form-input-header">USERNAME</span>
-                        <input type="text" className="modal-form-input" ref={username} placeholder=""/>
-                    </div>
-                    <div className="modal-form-input-container">
-                        <span className="modal-form-input-header">PASSWORD</span>
-                        <input type="password" className="modal-form-input" ref={password} placeholder=""/>
-                        <span className="login-register"><Link to="/recover" className="register-button">Forgot your password?</Link></span>
-                    </div> */}
                 </div>
                 <div className="options-container background-secondary">
                     <span className="login-register">Need an account? <Link to="/register" className="register-button">Register</Link></span>

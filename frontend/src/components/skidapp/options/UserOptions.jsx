@@ -24,7 +24,7 @@ const UserOptions = (props) => {
 
     return (
         <>
-            <div className={`settings ml-[-72px] ${props.class}`}>
+            <div className={`settings ${props.class}`}>
                 <div className="close" onClick={() => props.close(false)}>
                     <MdClose size="18" />
                 </div>
@@ -35,9 +35,9 @@ const UserOptions = (props) => {
                             <div className="section-items">
                                 <button className="section-button text-channel-colour selected" >My Account</button>
                                 {/* <button className="section-button text-channel-colour" >User Profile</button>
-                            <button className="section-button text-channel-colour" >Privacy & Safety</button>
-                            <button className="section-button text-channel-colour" >Authorised Apps</button>
-                            <button className="section-button text-channel-colour" >Connections</button> */}
+                                <button className="section-button text-channel-colour" >Privacy & Safety</button>
+                                <button className="section-button text-channel-colour" >Authorised Apps</button>
+                                <button className="section-button text-channel-colour" >Connections</button> */}
                             </div>
                         </div>
                         <div className="divider-options" />
@@ -50,7 +50,7 @@ const UserOptions = (props) => {
                     <div className="header-title-option">My Account</div>
                     <form className="option" onSubmit={handlePfpChange}>
                         <span className="option-title">Profile Picture URL</span>
-                        <input type="url" className="modal-form-input-o" pattern="https://.*" value={pfpUrl} onChange={(e) => setPfpUrl(e.target.value)} placeholder="" />
+                        <input type="url" className="modal-form-input-o" pattern="https://.*" value={pfpUrl||'https://cdn.skid.rocks/img/1f0bfc0865d324c2587920a7d80c609b.png'} onChange={(e) => setPfpUrl(e.target.value)} placeholder="" />
                         <button type='submit' className='submit-button-save'>Save</button>
                     </form>
                 </section>

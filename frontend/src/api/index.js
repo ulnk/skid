@@ -27,13 +27,13 @@ export const getServer = (sId) => sId ? axios.get(URI + `/api/app/getserver?sid=
     }
 }) : null;
 
-export const deleteServer = (serverId) =>  axios.post(URI + `/api/app/deleteserver`, { serverId }, {
+export const deleteServer = (serverId) =>  axios.post(URI + `/api/app/deleteServer`, { serverId }, {
     headers: {
         'x-auth-token': localStorage.getItem("token"),
     }
 });
 
-export const leaveServer = (serverId) =>  axios.post(URI + `/api/app/leaveserver`, { serverId }, {
+export const leaveServer = (serverId) =>  axios.post(URI + `/api/app/leaveServer`, { serverId }, {
     headers: {
         'x-auth-token': localStorage.getItem("token"),
     }

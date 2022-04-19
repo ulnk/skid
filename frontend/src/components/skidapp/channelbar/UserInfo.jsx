@@ -15,7 +15,7 @@ const UserInfo = (props) => {
             <UserOptions close={setShowSettings} class={`${showSettings && 'active'}`} />
             <section className={`user-info background-secondary-alt ${props.className}`}>
                 <div className="profile-container">
-                    <img className="profile-image" src={user.pfpUrl} alt="" />    
+                    <img className="profile-image" src={user.pfpUrl||'https://cdn.skid.rocks/img/1f0bfc0865d324c2587920a7d80c609b.png'} alt="" />    
                     <div className="profile-name-container">
                         <span className="profile-name">{user.username}</span>
                         <small className="profile-tag">{user.userId}</small>
