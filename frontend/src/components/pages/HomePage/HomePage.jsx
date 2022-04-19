@@ -27,6 +27,8 @@ const HomePage = () => {
         'Osaka > Brush & Cyan > Horion.',
         'skid.rocks oxygen when?',
         'Jesus died for chocolate eggs.',
+        'Visual Basic Botnet.',
+        'decrypt0r.cs',
     ]
 
     let used = [];
