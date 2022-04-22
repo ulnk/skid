@@ -1,5 +1,5 @@
 <h1 align="center"> <a href="https://skid.rocks">skid.rocks</a> / <a href="https://skid.today">skid.today</a></h1>
-<h3 align="center">Skid Today™ </h1>
+<h3 align="center">Skid Today™ The worst Discord clone.</h1>
 
 
 ### Features
