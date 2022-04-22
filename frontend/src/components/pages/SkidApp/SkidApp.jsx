@@ -15,12 +15,12 @@ import Reminder from '../../skidapp/reminder/Reminder';
 // import NewServer from '../../skidapp/modals/newserver/NewServer'
 
 const SkidApp = () => {
-    const auth = useSelector((state) => state.auth.data);
+    const auth = useSelector((state) => state.user);
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!auth.userId) navigate('/login');
-    }, [auth.userId, navigate]);
+        if (!auth.id) navigate('/login');
+    }, [auth, navigate]);
 
     return (
         <div className="flex h-screen w-screen overflow-hidden">

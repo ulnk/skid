@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate , Link } from 'react-router-dom';
 
-import './RegisterModal.css'
+import '../../css/modal.css';
 
-import { register } from '../../../actions/login';
+import { registerAction } from '../../../actions/user';
 
-const RegisterModal = () => {
-    const auth = useSelector((state) => state.auth.data);
+const RegisterModal = (props) => {
+    const [navigating, setNavigating] = useState(true);
+    const auth = useSelector((state) => state.user);
     const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -25,7 +26,7 @@ const RegisterModal = () => {
         if (username.length < 5) return setError('Username must be larger than 4 characters.');
         if (username.length > 15) return setError('Username must be less than 15 characters.');
         if (password !== confPassword) return setError('Passwords do not match.');
-        dispatch(register({ username, password }))
+        dispatch(registerAction( username, password ))
     }
 
     const submitForm = (e) => {
@@ -34,14 +35,19 @@ const RegisterModal = () => {
     }
 
     useEffect(() => {
-        if (auth.userId) navigate('/skid/@me')
-    }, [auth.userId, navigate])
+        if (props.show) setNavigating(false);
+    }, [props]);
+
+    useEffect(() => {
+        if (auth.id) navigate('/skid/@me')
+    }, [auth, navigate])
 
     const [error, setError] = useState('')
 
+
     return (
-        <form className="login-body" onSubmit={submitForm}>
-            <div className="modal-container background-primary">
+        <form className="modal-body" onSubmit={submitForm}>
+            <div className={`modal-container background-primary ${!navigating ? 'show' : ''}`}>
                 <div className="modal-form">
                     <div className="modal-form-header">
                         <span className="modal-header-title">Create an account</span>
@@ -60,10 +66,8 @@ const RegisterModal = () => {
                         <input type="password" className="modal-form-input" value={confPassword} onChange={(e) => setConfPassword(e.target.value)} placeholder=""/>
                     </div>
                 </div>
-                <div className="options-container background-secondary">
-                    <span className="login-register">Already have an account? <Link to="/login" className="register-button">Login</Link></span>
-                    <button type="submit" className="submit-button">Register</button>
-                </div>
+                <button type="submit" className="submit-button-long">Register</button>
+                <span className="login-register-below">Already have an account? <Link to="/login" className="register-button">Login</Link></span>
             </div>
         </form>
     )

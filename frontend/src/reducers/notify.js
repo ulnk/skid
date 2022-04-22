@@ -1,10 +1,14 @@
+const initialState = () => {
+    return {
+        notify: []
+    }
+}
+
 //eslint-disable-next-line
-export default (state = { notify: [] }, action) => {
+export default (state = initialState(), action) => {
     switch (action.type) {
         case 'NOTIFY_SERVER_CHANNEL':
-            console.log(action.payload)
-            // return { ...state, notify: [action.payload, ...state.notify] };
-            break
+            return state;
         default:
             return state;
     }

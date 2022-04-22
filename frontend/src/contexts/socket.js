@@ -10,10 +10,10 @@ export const useSocket = () => {
 
 export const SocketProvider = ({ children }) => {
     const [socket, setSocket] = useState();
-    const auth = useSelector((state) => state.auth);
+    const auth = useSelector((state) => state.user);
 
     useEffect(() => {
-        const newSocket = io(process.env.NODE_ENV  ? 'localhost:5000' : "https://skid.rocks", {
+        const newSocket = io(!process.env.PROD  ? 'localhost:5001' : "https://skid.today", {
             auth: {
                 token: auth.token || null
             }
@@ -29,3 +29,4 @@ export const SocketProvider = ({ children }) => {
         </SocketContext.Provider>
     );
 }
+

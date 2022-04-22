@@ -2,10 +2,10 @@ import React from 'react'
 
 import LoginModal from '../../homepage/modals/LoginModal'
 
-const Login = () => {
+const Login = (props) => {
     return (
         <div className="body">
-            <LoginModal />
+            <LoginModal {...props} />
         </div>
     )
 }

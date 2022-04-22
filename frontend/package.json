@@ -2,7 +2,7 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://skid.rocks",
+  "proxy": "https://skid.today",
   "dependencies": {
     "@craco/craco": "^6.4.2",
     "@reduxjs/toolkit": "^1.6.2",

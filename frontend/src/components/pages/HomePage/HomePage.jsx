@@ -25,7 +25,7 @@ const HomePage = () => {
         'NOTDS Multitool.',
         'Killer Whales at SeaWorld™️',
         'Osaka > Brush & Cyan > Horion.',
-        'skid.rocks oxygen when?',
+        'skid  oxygen when?',
         'Jesus died for chocolate eggs.',
         'Visual Basic Botnet.',
         'decrypt0r.cs',
@@ -48,8 +48,8 @@ const HomePage = () => {
                 <h1 className="home-header-title">{selectQuote()}</h1>
                 <span className="home-header-desc">{selectQuote()}</span>
                 <div className="home-buttons-container">
-                    <a href="https://github.com/ulnkos/skidcordprod"><button className="home-github-main">Check out our GitHub!</button></a>
-                    <Link to="/skid/@me"><button className="home-login-main">Open skidrocks in your browser</button></Link>
+                    <a href="https://github.com/ulnk/skid"><button className="home-github-main">Check out our GitHub!</button></a>
+                    <Link to="/skid/@me"><button className="home-login-main">Open Skid in your browser</button></Link>
                 </div>
             </div>
         </div>

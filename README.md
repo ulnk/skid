@@ -1,13 +1,38 @@
-<h1 align="center"> <a href="https://skid.rocks">skid.rocks</a></h1>
-<h3 align="center">Discord, but poorly skidded.</h1>
-
-
-### Features
-* **99.9% Discord Accuracy** (Looks and feels exactly like discord.)
-* **Custom CSS** (Use your own CSS Files to make it yours.)
-* **No Paywalls** (Send animated gifs or profile pictures with no fee.)
-
-### Stack (Node JS)
-* **React JS** (Frontend)
-* **Express Server** (Backend)
-* **JWT** (Authentication.)
+### all domains
+https://skid.rocks<br>
+https://skid.today
+### all endpoints
+**user**<br>
+/api/v1/user/getAllOnlineUsers<br>
+/api/v1/user/image<br>
+/api/v1/user/login<br>
+/api/v1/user/register<br>
+<br>
+**invites**<br>
+/api/v1/invite/getInviteFromServer<br>
+/api/v1/invite/getServerFromInvite<br>
+/api/v1/invite/createInvite<br>
+/api/v1/invite/joinInvite<br>
+<br>
+**servers**<br>
+/api/v1/server/getServer<br>
+/api/v1/server/createServer<br>
+/api/v1/server/deleteServer<br>
+/api/v1/server/leaveServer<br>
+/api/v1/server/getAllServers<br>
+<br>
+**categories**<br>
+/api/v1/category/getCategory<br>
+/api/v1/category/createCategory<br>
+/api/v1/category/deleteCategory<br>
+<br>
+**channels**<br>
+/api/v1/channel/getChannel<br>
+/api/v1/channel/createChannel<br>
+/api/v1/channel/deleteChannel<br>
+<br>
+**messages**<br>
+/api/v1/message/getMessage<br>
+/api/v1/message/createMessage<br>
+/api/v1/message/deleteMessage<br>
+<br>

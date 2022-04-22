@@ -2,12 +2,13 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate , Link } from 'react-router-dom';
 
-import './LoginModal.css'
+import '../../css/modal.css';
 
-import { login } from '../../../actions/login';
+import { loginAction } from '../../../actions/user';
 
-const LoginModal = () => {
-    const auth = useSelector((state) => state.auth.data);
+const LoginModal = (props) => {
+    const [navigating, setNavigating] = useState(true);
+    const auth = useSelector((state) => state.user);
     const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -16,16 +17,20 @@ const LoginModal = () => {
 
     const submitForm = (e) => {
         e.preventDefault();
-        dispatch(login({username, password}));
+        dispatch(loginAction(username, password));
     }
 
     useEffect(() => {
-        if (auth.userId) navigate('/skid/@me')
-    }, [auth.userId, navigate])
+        if (props.show) setNavigating(false);
+    }, [props]);
+
+    useEffect(() => {
+        if (auth.id) navigate('/skid/@me')
+    }, [auth, navigate])
 
     return (
-        <form className="login-body" onSubmit={submitForm} >
-            <div className="modal-container background-primary">
+        <form className="modal-body" onSubmit={submitForm} >
+            <div className={`modal-container background-primary ${!navigating ? 'show' : ''}`}>
                 <div className="modal-form">
                     <div className="modal-form-header">
                         <span className="modal-header-title">Welcome Back!</span>
@@ -41,10 +46,8 @@ const LoginModal = () => {
                         <span className="login-register"><Link to="/recover" className="register-button">Forgot your password?</Link></span>
                     </div>
                 </div>
-                <div className="options-container background-secondary">
-                    <span className="login-register">Need an account? <Link to="/register" className="register-button">Register</Link></span>
-                    <button type="submit" className="submit-button">Login</button>
-                </div>
+                <button type="submit" className="submit-button-long">Login</button>
+                <span className="login-register-below">Need an account? <Link to="/register" className="register-button">Register</Link></span>
             </div>
         </form>
     )
