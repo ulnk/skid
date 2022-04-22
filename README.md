@@ -8,6 +8,8 @@
 * **Multiple Domains** (Use the wide spread of domains to ensure access from anywhere!)
 * **Never Works** (Heroku is a dogshit hosting site, do not use it.)
 
+### Install
+
 ### Libraries Used
 * **React** (Frontend) <img alt="preview badge" src="https://img.shields.io/npm/v/react">
   * Redux Thunk
@@ -21,3 +23,8 @@
   * Mongoose (MongoDB)
   * Cookie Parser
   * Express Session
+
+### Project Roadmap
+* **Server Settings** (change name, icon, invite, etc.)
+* **Direct Messages** (this would include friends & invites)
+* **Server Member List** (roles, online & offline)
