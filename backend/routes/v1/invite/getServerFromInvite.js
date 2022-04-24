@@ -18,9 +18,10 @@ router.get('/', jwt, async (req, res) => {
     if (!foundUser) return res.sendStatus(403);
 
     const foundInvite = await InviteModel.findOne({ invite: inviteCode });
-    if (foundInvite) return res.sendStatus(400);
+    if (!foundInvite) return res.sendStatus(400);
     
-    const foundServer = await ServerModel.findOne({ id: foundInvite.server });
+    const foundServer = await ServerModel.findOne({ _id: foundInvite.server });
+    console.log(foundServer)
     if (!foundServer) return res.sendStatus(400);
 
     res.json(foundServer);

@@ -22,9 +22,9 @@ export const getServerAction = (serverId) => async (dispatch) =>  {
     }
 }
 
-export const createServerAction = (serverId) => async (dispatch) =>  {
+export const createServerAction = (serverName) => async (dispatch) =>  {
     try {
-        const { data } = await createServer(serverId);
+        const { data } = await createServer(serverName);
         dispatch({ type: 'CREATE_SERVER', payload: data });
     } catch(e) {
         console.log(e)
@@ -45,6 +45,14 @@ export const leaveServerAction = (serverId) => async (dispatch) =>  {
     try {
         const { data } = await leaveServer(serverId);
         dispatch({ type: 'LEAVE_SERVER', payload: data });
+    } catch(e) {
+        console.log(e)
+    }
+}
+
+export const hideServerAction = (serverId) => async (dispatch) =>  {
+    try {
+        dispatch({ type: 'HIDE_SERVER', payload: serverId });
     } catch(e) {
         console.log(e)
     }

@@ -6,4 +6,4 @@ export const createMessage = (content, serverId, categoryId, channelId) => conte
     headers: {
         'x-auth-token': localStorage.getItem("token"),
     }
-}) : null; 
+}) : 'awd'; 

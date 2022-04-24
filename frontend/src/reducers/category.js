@@ -14,6 +14,9 @@ export default (state = initialState(), action) => {
         case 'GET_CATEGORY':
             if (!action.payload) return state;
             return { ...state, currentCategory: action.payload };
+        case 'CREATE_CATEGORY':
+            if (!action.payload) return state;
+            return { ...state, allServerCategories: [...state.allServerCategories, action.payload] };
         case 'DELETE_CATEGORY':
             if (!action.payload) return state;
             return { ...state, allServerCategories: [...action.payload] };

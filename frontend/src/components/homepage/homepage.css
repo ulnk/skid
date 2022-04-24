@@ -4,7 +4,7 @@
 }
 
 .home-header {
-    @apply flex flex-col justify-center items-center mt-16 w-full text-center;
+    @apply flex flex-col justify-center items-center mt-16 mx-10 w-full text-center;
     height: max-content;
     font-family: var(--font-primary);
 }
@@ -14,8 +14,9 @@
 }
 
 .home-header-desc {
-    max-width: 38rem;
     color: var(--colour-primary);
+    font-weight: 500;
+    max-width: 38rem;
 }
 
 .home-buttons-container {
@@ -23,12 +24,67 @@
 }
 
 .home-login-main {
-    @apply px-6 py-3 text-white rounded shadow-md text-sm;
+    @apply flex flex-row px-6 py-3 text-white rounded shadow-md text-sm;
     background-color: var(--bg-blurple);
     font-family: var(--font-primary);
+    font-weight: 500;
+    transition: background-color 120ms ease-in;
+}.home-login-main:hover {
+    background-color: var(--bg-blurple-hover);
+}
+
+.home-red-main {
+    @apply flex flex-row px-6 py-3 text-white rounded shadow-md text-sm;
+    background-color: var(--bg-error);
+    font-family: var(--font-primary);
+    font-weight: 500;
+    transition: background-color 120ms ease-in;
+}.home-red-main:hover {
+    background-color: var(--bg-error-hover);
 }
 
 .home-github-main {
-    @apply px-6 py-3 text-gray-900 shadow-md font-bold bg-gray-100 rounded text-sm;
+    @apply flex flex-row pl-5 py-3 text-gray-900 shadow-md bg-gray-100 rounded text-sm;
     font-family: var(--font-primary);
+    font-weight: 600;
+    padding-right: 1.5rem;
+    transition: background-color 120ms ease-in;
+}.home-github-main:hover {
+    @apply bg-gray-300;
+}
+
+.github-icon {
+    font-size: 16px;
+    margin-right: 0.4rem;
+    margin-top: 2px;
+}
+
+.home-regen-main {
+    @apply flex flex-row px-6 py-3 text-white rounded shadow-md text-sm;
+    background-color: var(--bg-success);
+    font-family: var(--font-primary);
+    font-weight: 500;
+    transition: background-color 120ms ease-in;
+}.home-regen-main:hover {
+    background-color: var(--bg-success-hover);
+}
+
+.home-bottom {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 4rem;
+    left: 0;
+    bottom: 0;
+}
+
+.home-regen-bottom {
+    @apply flex flex-row text-white rounded shadow-md text-sm ml-auto h-4 w-4 mt-auto mb-1 mr-1;
+    /* background-color: var(--bg-success); */
+    font-family: var(--font-primary);
+    font-weight: 500;
+    transition: background-color 120ms ease-in;
+}.home-regen-bottom:hover {
+    background-color: var(--bg-success-hover);
 }

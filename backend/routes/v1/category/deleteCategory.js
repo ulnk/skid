@@ -17,10 +17,10 @@ router.post('/', jwt, async (req, res) => {
     const foundUser = await UserModel.findOne({ username, password });
     if (!foundUser) return res.sendStatus(403);
 
-    const foundServer = await ServerModel.findOne({ id: serverId });
+    const foundServer = await ServerModel.findOne({ _id:serverId });
     if (!foundServer) return res.sendStatus(400);
 
-    const foundCategory = await CategoryModel.findOne({ id: categoryId });
+    const foundCategory = await CategoryModel.findOne({ _id:categoryId });
     if (!foundCategory) return res.sendStatus(400);
 
     foundCategory.remove();

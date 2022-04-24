@@ -41,6 +41,7 @@
     opacity: 0;
     background-color: var(--bg-tertiary-alt);
     font-family: var(--font-primary);
+    font-weight: 600;
     color: var(--colour-normal);
     left: 4.5rem;
     z-index: 10;

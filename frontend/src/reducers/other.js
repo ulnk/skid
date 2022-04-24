@@ -1,7 +1,7 @@
 const initialState = () => {
     return {
         reminder : {}
-    }
+    };
 }
 
 //eslint-disable-next-line
@@ -10,7 +10,7 @@ export default (state = initialState(), action) => {
         case 'REMINDER':
             return { ...state, reminder: action.payload };
         case 'TEST':
-            console.log('test')
+            console.log(action.payload)
             return state;
         default:
             return state;

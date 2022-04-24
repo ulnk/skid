@@ -29,7 +29,7 @@ export const imageAction = (imageLink) => async (dispatch) =>  {
     }
 }
 
-export const logout = () => async (dispatch) =>  {
+export const logoutAction = () => async (dispatch) =>  {
     try {
         dispatch({ type: 'LOGOUT', payload: null });
     } catch(e) {

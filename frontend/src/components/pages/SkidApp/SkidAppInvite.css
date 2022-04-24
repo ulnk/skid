@@ -43,6 +43,31 @@
     @apply flex mb-2 mt-2;
     color: var(--colour-channels);
     font-family: var(--font-primary);
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.modal-container-inv2 {
+    @apply flex flex-col w-[440px] rounded;
+}
+
+.modal-form-header-inv2 {
+    @apply flex flex-col items-center justify-center mt-8 px-14;
+}
+
+.modal-header-title-inv2 {
+    @apply text-white font-bold text-xl mb-2;
+    font-size: 27px;
+    line-height: 30px;
+    font-family: var(--font-primary);
+}
+
+.modal-form-header-inv2 > .modal-header-desc-inv2 {
+    @apply flex text-center;
+    color: var(--colour-channels);
+    font-family: var(--font-primary);
+    font-weight: 500;
+    font-size: 14px;
 }
 
 /* Modal Slect Type */
@@ -151,9 +176,10 @@
 }
 
 .submit-button-inv {
-    @apply px-4 mx-6 my-6 h-[38px] text-white rounded text-sm;
+    @apply px-4 mx-6 mb-6 mt-4 h-[38px] text-white rounded text-sm;
     background-color: var(--bg-blurple);
     font-family: var(--font-primary);
+    font-weight: 500;
     transition: background-color 150ms ease-in;
 }
 

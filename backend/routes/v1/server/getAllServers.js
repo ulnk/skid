@@ -15,11 +15,11 @@ router.get('/', jwt, async (req, res) => {
     
     const allServers = [];
     for (const id of foundUser.servers) {
-        const foundServer = await ServerModel.findOne({ id });
+        const foundServer = await ServerModel.findOne({ _id: id });
         if (!foundServer) continue;
         allServers.push(foundServer);
     }
-    
+
     res.json(allServers);
 });
 

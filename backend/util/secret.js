@@ -14,7 +14,6 @@ const getSecretSync = async (callback) => {
     if (!result.filter(option => option.secret)[0]){
       OtherModel.create({ secret: randomString() }, (err, secret) => {
         callback(secret)
-        console.log(secret)
       });
     }
   });

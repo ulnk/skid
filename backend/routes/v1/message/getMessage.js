@@ -3,25 +3,23 @@ const express = require('express');
 const { jwt } = require('../../../util/jwt.js');
 
 const UserModel = require('../../../models/user/UserModel.js');
-const ServerModel = require('../../../models/servers/ServerModel.js');
-const CategoryModel = require('../../../models/servers/CategoryModel.js');
-const ChannelModel = require('../../../models/servers/ChannelModel.js');
+const MessageModel = require('../../../models/servers/MessageModel.js');
 
 const router = express.Router();
 router.get('/', jwt, async (req, res) => {
-    const { channelId } = req.query;
-    if (!channelId) return res.sendStatus(400);
-    
+    const { messageId } = req.query;
+    if (!messageId) return res.sendStatus(400);
+
     const { username, password } = req.user;
     if (!username || !password) return res.sendStatus(403);
-    
+
     const foundUser = await UserModel.findOne({ username, password });
     if (!foundUser) return res.sendStatus(403);
-    
-    const foundChannel = await ChannelModel.findOne({ _id:channelId });
-    if (!foundChannel) return res.sendStatus(400);
 
-    res.json(foundChannel);
+    const foundMessage = await MessageModel.findOne({ _id:messageId });
+    if (!foundMessage) return res.sendStatus(400);
+
+    res.json(foundMessage);
 });
 
 module.exports = router

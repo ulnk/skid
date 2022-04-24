@@ -8,6 +8,7 @@
 
 .modal-form-header-invite  {
     @apply flex flex-col pl-4 mt-4 text-left;
+    font-weight: 400;
 }
 
 .modal-header-title-invite {
@@ -25,7 +26,7 @@
     @apply h-10 rounded outline-none px-2;
     color: #d1d2d3;
     background: #202225;
-    font-weight: 100;
+    font-weight: 500;
     font-family: var(--font-primary);
     flex-grow: 1;
 }

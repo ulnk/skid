@@ -19,14 +19,13 @@ const initialState = (token) => {
 export default (state = initialState(), action) => {
     switch (action.type) {
         case 'LOGIN':
-            console.log(action.payload)
-            if (!action.payload) return state;
+            if (!action.payload) return { ...initialState() };
+            localStorage.setItem('token', JSON.stringify(action.payload.jwt));
             return { ...initialState(action.payload.jwt) };
         case 'LOGOUT':
             localStorage.setItem('token', JSON.stringify(null))
             return { ...initialState() };
         case 'REGISTER':
-            console.log('adawdaw')
             if (!action.payload) return state;
             return { ...initialState(action.payload.jwt) };
         case 'IMAGE':

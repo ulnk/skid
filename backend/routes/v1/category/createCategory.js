@@ -17,7 +17,7 @@ router.post('/', jwt, async (req, res) => {
     const foundUser = await UserModel.findOne({ username, password });
     if (!foundUser) return res.sendStatus(403);
 
-    const foundServer = await ServerModel.findOne({ id: serverId });
+    const foundServer = await ServerModel.findOne({ _id:serverId });
     if (!foundServer) return res.sendStatus(400);
     
     const newCategory = await CategoryModel.create({ name: categoryName, server: serverId });

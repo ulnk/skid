@@ -3,9 +3,10 @@ import { getChannel } from '../api/channel/getChannel';
 import { createChannel } from '../api/channel/createChannel';
 import { deleteChannel } from '../api/channel/deleteChannel';
 
-export const getAllChannelsAction = (serverId, categoryId) => async (dispatch) =>  {
+export const getAllChannelsAction = (serverId) => async (dispatch) =>  {
     try {
-        const { data } = await getAllChannels(serverId, categoryId);
+        if (!serverId) return
+        const { data } = await getAllChannels(serverId);
         dispatch({ type: 'GET_ALL_CHANNELS', payload: data });
     } catch(e) {
         console.log(e)

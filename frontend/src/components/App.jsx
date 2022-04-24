@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Routes, Route, useNavigate, useParams } from 'react-router-dom';
 import { useSocket } from '../contexts/socket';
 
@@ -18,21 +18,16 @@ import SkidAppInvite from './pages/skidApp/SkidAppInvite';
 import { test } from '../actions/other';
 
 const App = () => {
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     // const { sId } = useParams();
     // const navigate = useNavigate();
-    // const socket = useSocket();
+    const user = useSelector(state => state.user);
+    const socket = useSocket();
 
     useEffect(() => {
-        console.log('app')
-        dispatch(test());
-        // if (!socket) return
-        
-        // socket.emit('online');
-        // socket.on('deleteServer', (serverId) => {
-        //     if (sId === serverId) navigate('/skid/@me');
-        // });
-    });
+        if (!socket) return;
+        if (user.token) socket.emit('online', { ...user });
+    }, [socket, user]);
 
     return (
         <>  

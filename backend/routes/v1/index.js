@@ -8,7 +8,7 @@ const router = express.Router();
         for (let anotherFile of fs.readdirSync(`${__dirname}\\${file}`)) {
             if (fs.lstatSync(`${__dirname}\\${file}\\${anotherFile}`).isDirectory()) continue;
             router.use(`/${file}/${anotherFile.split('.')[0]}`, require(`${__dirname}\\${file}\\${anotherFile}`));
-            // console.log('[*]', `/${file}/${anotherFile.split('.')[0]}`)
+            console.log('[ENDPOINT LOADED]', `/${file}/${anotherFile.split('.')[0]}`)
         }
     }
 })().catch();

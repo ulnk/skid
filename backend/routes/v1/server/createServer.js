@@ -11,10 +11,10 @@ const router = express.Router();
 router.post('/', jwt, async (req, res) => {
     const { serverName } = req.body;
     if (!serverName) return res.sendStatus(400);
-
+    
     const { username, password } = req.user;
     if (!username || !password) return res.sendStatus(403);
-
+    
     const foundUser = await UserModel.findOne({ username, password });
     if (!foundUser) return res.sendStatus(403);
     
@@ -26,22 +26,20 @@ router.post('/', jwt, async (req, res) => {
     
     const newServer = await ServerModel.create({ name: serverName, owner: foundUser.id, categories:[newCategory.id] });
     if (!newServer) return res.sendStatus(500);
-
+    
     newChannel.category = newCategory.id;
-    newChannel.save();
-
     newChannel.server = newServer.id;
     newChannel.save();
-
+    
     newCategory.server = newServer.id;
     newCategory.save();
-
+    
     foundUser.servers.push(newServer.id);
     foundUser.save();
-
+    
     newServer.members.push(foundUser.id);
     newServer.save();
-
+    
     res.json(newServer);
 });
 

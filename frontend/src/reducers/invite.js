@@ -13,6 +13,7 @@ export default (state = initialState(), action) => {
             return { ...state, serverFromInvite: action.payload };
         case 'GET_INVITE':
             if (!action.payload) return state;
+            for (let invite of state.allInvites) if (invite._id === action.payload._id) return state;
             return { ...state, allInvites: [action.payload, ...state.allInvites] };
         case 'CREATE_INVITE':
             if (!action.payload) return state;

@@ -50,6 +50,26 @@
     overflow-y: scroll;
 }
 
+.chat-container-header {
+    @apply flex ml-4 mb-8;
+    display: flex;
+    flex-direction: column;
+    height: 40px;
+    font-family: var(--font-primary);
+}
+
+.chat-contiainer-header-text-large {
+    color: white;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.chat-contiainer-header-text-small {
+    color: #b9bbbe;
+    font-size: 16px;
+    font-weight: inherit;
+}
+
 .chat-item {
     @apply px-4 py-1 items-center flex flex-row w-full mt-2;
     max-width: fit-content;
@@ -85,7 +105,7 @@
 }
 
 .chat-item-content {
-    @apply flex flex-col gap-[2px];
+    @apply flex flex-col gap-[1px];
 }
 
 .chat-user-info {
@@ -96,6 +116,7 @@
 .chat-item-name {
     @apply text-white font-bold text-base;
     font-family: var(--font-primary);
+    font-weight: 500;
     user-select: text;
 }
 
@@ -110,6 +131,7 @@
     word-wrap: break-word;
     line-height: 16px;
     font-family: var(--font-primary);
+    font-weight: 400;
     color: var(--colour-normal);
     user-select: text;
 }
@@ -142,7 +164,6 @@
 .member-list {
     @apply min-w-max relative w-60 float-right mt-12 flex flex-col gap-6 pt-5;
     height: calc(100% - 48px);
-    font-family: var(--font-display)
 }
 
 .member-list-category {
@@ -151,6 +172,8 @@
 
 .member-list-name {
     @apply ml-6 flex flex-row items-center w-full text-xs transition-all duration-150;
+    font-family: var(--font-display);
+    font-weight: 500;
 }
 
 .members {
@@ -164,6 +187,7 @@
 .member {
     @apply flex flex-row items-center w-full h-11 rounded transition-all duration-150;
     font-family: var(--font-primary);
+    font-weight: 500;
 }
 
 .member-name {

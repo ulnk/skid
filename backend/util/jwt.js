@@ -4,7 +4,7 @@ const { get } = require('./secret.js');
 
 const jwt = async (req, res, next) => {
   const secret = await get();
-  const jwtToken = req.headers['x-auth-token'];
+  const jwtToken = JSON.parse(req.headers['x-auth-token']);
   if (!jwtToken) return res.sendStatus(401);
   jsonwebtoken.verify(jwtToken, secret.secret, async (err, decoded) => {
       if (err) return res.sendStatus(403);
@@ -18,7 +18,7 @@ const jwtSocket = async (socket, next) => {
   const jwtToken = socket.handshake.auth.token || socket.handshake.query.token || socket.handshake.token;
   if (!jwtToken) return next(new Error("Not Authorised"));
 
-  jwt.verify(jwtToken, secret, (err, decoded) => {
+  jsonwebtoken.verify(jwtToken, secret.secret, (err, decoded) => {
       if (err) return next(new Error("Not Authorised"));
       next();
   });

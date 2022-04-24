@@ -19,15 +19,42 @@
 
 .context-menu-item {
     @apply bg-transparent rounded-sm text-sm py-[6px] px-2 cursor-pointer;
-    transition: background-color 100ms ease-in;
+    transition: background-color 100ms ease-in, color 100ms ease-in;
+}.context-menu-item:hover {
+    color: white;
+}.context-menu-item > button {
+    transition:color 100ms ease-in;
 }
 
-.blue:hover {
+.context-menu-item > button {
+    font-family: var(--font-primary);
+    font-weight: 500;
+    color: var(--colour-primary);
+}.context-menu-item:hover > button {
+    color: white;
+}
+
+.context-menu-item.text-blue > button {
+    color: var(--colour-blurple);
+}
+
+.context-menu-item.blue:hover {
     background-color: var(--bg-blurple);
 }
 
-.red:hover {
+.context-menu-item.blue:hover > button {
+    color: white;
+}
+
+.context-menu-item.red > button {
+    color: var(--colour-error);
+}
+.context-menu-item.red:hover {
     background-color: var(--bg-error);
+}
+
+.context-menu-item.red:hover > button {
+    color: white;
 }
 
 /* Channel Navigation Bar */
@@ -51,6 +78,8 @@
 
 .server-name-header {
     @apply text-white font-bold mx-4;
+    font-family: var(--font-display);
+    font-weight: 500;
 }
 
 .server-name-chevron {
@@ -73,6 +102,8 @@
 
 .category-header {
     @apply flex flex-row items-center w-full text-xs transition-all duration-150;
+    font-family: var(--font-display);
+    font-weight: 500
 }
 
 .category-chevron {
@@ -103,6 +134,7 @@
 
 .channel-title {
     @apply mt-[-1px] pr-1 transition-all duration-150;
+    font-weight: 500;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -133,7 +165,7 @@
 }
 
 .profile-container {
-    @apply flex flex-row ;
+    @apply flex flex-row flex-grow ;
 }
 
 .profile-image {
@@ -141,24 +173,26 @@
 }
 
 .profile-name-container {
-    @apply flex flex-col justify-center;
+    @apply flex flex-col justify-center flex-grow;
 }
 
 .profile-name {
     @apply text-sm text-white font-bold mt-[-1px];
     font-family: var(--font-primary);
-    line-height: 16px
+    font-weight: 600;
+    line-height: 16px;
 }
 
 .profile-tag {
     @apply font-light text-xs mt-[1px];
     line-height: 12px;
-    max-width: 6rem;
+    max-width: 80%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     color: var(--colour-primary);
     font-family: var(--font-primary);
+    font-weight: 500;
 }
 
 .button-tool {
@@ -168,6 +202,7 @@
     z-index: 2;
     background-color: var(--bg-tertiary-alt);
     font-family: var(--font-primary);
+    font-weight: 600;
     color: var(--colour-normal);
     transform: translate(0%, -120%);
 }

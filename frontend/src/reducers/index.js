@@ -6,11 +6,10 @@ import channel from './channel.js';
 import message from './message.js';
 
 import invite from './invite.js';
-import user from './message.js';
+import user from './user.js';
 import notify from './notify.js';
 import other from './other.js';
 
 export default combineReducers({
-    user
-    // server, category, channel, message, invite, user, notify, other
+    server, category, channel, message, invite, user, notify, other
 });

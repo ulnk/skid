@@ -101,6 +101,7 @@
 .section-button {
     @apply flex flex-row items-center p-2 w-full h-8 rounded;
     font-family: var(--font-primary);
+    font-weight: 500;
     transition: background-color 100ms ease-out, color 100ms ease-out
 }
 .section-button:hover {
@@ -137,14 +138,19 @@
     margin-top: .75rem;
     background-color: var(--bg-success);
     font-family: var(--font-primary);
+    font-weight: 500;
+    transition: background 120ms ease-in;
+}.submit-button-save:hover {
+    background: var(--bg-success-hover)
 }
 
 .modal-form-input-o {
     @apply h-10 border-[1px] border-opacity-30 border-black rounded outline-none px-2;
     width: 100%;
+    min-width: 505px;
     background-color: var(--bg-secondary);
     color: var(--colour-normal);
-    font-weight: 100;
+    font-weight: 400;
     font-family: var(--font-primary);
 }
 

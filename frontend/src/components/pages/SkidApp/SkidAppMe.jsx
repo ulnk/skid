@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import '../../skidapp/skidapp.css';
+import { getAllServersAction } from '../../../actions/server';
 
 // Main Components
 import ServerNavbar from '../../skidapp/navbar/ServerNavbar';
@@ -10,11 +11,13 @@ import UserInfo from '../../skidapp/channelbar/UserInfo';
 import Reminder from '../../skidapp/reminder/Reminder';
 const SkidApp = () => {
     const auth = useSelector((state) => state.user);
+    const dispatch = useDispatch()
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!auth.id) navigate('/login')
-    }, [auth, navigate])
+        if (!auth._id) navigate('/login');
+        dispatch(getAllServersAction());
+    }, [auth, navigate]);
 
     return (
         <div className="flex h-screen w-screen overflow-hidden">
@@ -28,7 +31,7 @@ const SkidApp = () => {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 export default SkidApp

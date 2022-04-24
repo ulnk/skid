@@ -23,9 +23,9 @@ const apiRouter = require('./routes/index.js');
         .use(rateLimit({ windowMs: 5 * 1000, max: RATE_LIMIT, message: "lil skid try and ddos. smoking on you 🚬🚬🚬🚬. https://discord.gg/horion2" }))
         .use(session({ secret: 'skid', resave: false, saveUninitialized: false, cookie: { expires: 60 * 60 * 24 } }))
         .use('/api', apiRouter)
-        .listen(PORT, () => console.log(`[*] PORT ${PORT}`));
+        .listen(PORT, () => console.log(`[LOADED EXPRESS] PORT ${PORT}`));
     
     io(app, () => {
-        console.log(`[*] SOCKET`);
+        console.log(`[LOADED SOCKET]`);
     });
 })();

@@ -22,8 +22,4 @@ router.post('/', async (req, res) => {
     res.json({ jwt: signedUser });
 });
 
-router.get('/', async (req, res) => {
-    res.json({ skid: '.rocks' });
-});
-
 module.exports = router

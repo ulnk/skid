@@ -3,11 +3,11 @@ const express = require('express');
 const { jwt } = require('../../../util/jwt.js');
 
 const UserModel = require('../../../models/user/UserModel.js');
-const MessageModel = require('../../../models/servers/ChannelModel.js');
+const MessageModel = require('../../../models/servers/MessageModel.js');
 
 const router = express.Router();
-router.get('/', jwt, async (req, res) => {
-    const { messageId } = req.query;
+router.post('/', jwt, async (req, res) => {
+    const { messageId } = req.body;
     if (!messageId) return res.sendStatus(400);
 
     const { username, password } = req.user;
@@ -16,10 +16,12 @@ router.get('/', jwt, async (req, res) => {
     const foundUser = await UserModel.findOne({ username, password });
     if (!foundUser) return res.sendStatus(403);
 
-    const foundMessage = await MessageModel.findOne({ id: messageId });
+    const foundMessage = await MessageModel.findOne({ _id:messageId });
     if (!foundMessage) return res.sendStatus(400);
 
-    res.json(foundMessage);
+    foundMessage.remove()
+
+    res.json(true);
 });
 
 module.exports = router

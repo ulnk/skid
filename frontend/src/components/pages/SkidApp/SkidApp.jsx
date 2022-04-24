@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import '../../skidapp/skidapp.css'
+
+import { getAllServersAction } from '../../../actions/server';
 
 // Main Components
 import ServerNavbar from '../../skidapp/navbar/ServerNavbar';
@@ -16,10 +18,12 @@ import Reminder from '../../skidapp/reminder/Reminder';
 
 const SkidApp = () => {
     const auth = useSelector((state) => state.user);
+    const dispatch = useDispatch()
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!auth.id) navigate('/login');
+        if (!auth._id) navigate('/login');
+        dispatch(getAllServersAction());
     }, [auth, navigate]);
 
     return (

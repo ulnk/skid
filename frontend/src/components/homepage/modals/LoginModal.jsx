@@ -25,7 +25,7 @@ const LoginModal = (props) => {
     }, [props]);
 
     useEffect(() => {
-        if (auth.id) navigate('/skid/@me')
+        if (auth._id) navigate('/skid/@me')
     }, [auth, navigate])
 
     return (
