@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/static/css/main.4f06ce23.chunk.css",
+    "main.js": "/static/js/main.a6c2ef05.chunk.js",
+    "main.js.map": "/static/js/main.a6c2ef05.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.248907bc.js",
+    "runtime-main.js.map": "/static/js/runtime-main.248907bc.js.map",
+    "static/js/2.92911409.chunk.js": "/static/js/2.92911409.chunk.js",
+    "static/js/2.92911409.chunk.js.map": "/static/js/2.92911409.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.4f06ce23.chunk.css.map": "/static/css/main.4f06ce23.chunk.css.map",
+    "static/js/2.92911409.chunk.js.LICENSE.txt": "/static/js/2.92911409.chunk.js.LICENSE.txt",
+    "static/media/skidapp.css": "/static/media/Whitney700.ee4a7c9c.woff"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.248907bc.js",
+    "static/js/2.92911409.chunk.js",
+    "static/css/main.4f06ce23.chunk.css",
+    "static/js/main.a6c2ef05.chunk.js"
+  ]
+}
