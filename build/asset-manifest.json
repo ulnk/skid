@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/static/css/main.9f5a16b3.chunk.css",
-    "main.js": "/static/js/main.4ddb262a.chunk.js",
-    "main.js.map": "/static/js/main.4ddb262a.chunk.js.map",
+    "main.css": "/static/css/main.4f06ce23.chunk.css",
+    "main.js": "/static/js/main.69b8a4fc.chunk.js",
+    "main.js.map": "/static/js/main.69b8a4fc.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.248907bc.js",
     "runtime-main.js.map": "/static/js/runtime-main.248907bc.js.map",
-    "static/js/2.85727ddd.chunk.js": "/static/js/2.85727ddd.chunk.js",
-    "static/js/2.85727ddd.chunk.js.map": "/static/js/2.85727ddd.chunk.js.map",
+    "static/js/2.92911409.chunk.js": "/static/js/2.92911409.chunk.js",
+    "static/js/2.92911409.chunk.js.map": "/static/js/2.92911409.chunk.js.map",
     "index.html": "/index.html",
-    "static/css/main.9f5a16b3.chunk.css.map": "/static/css/main.9f5a16b3.chunk.css.map",
-    "static/js/2.85727ddd.chunk.js.LICENSE.txt": "/static/js/2.85727ddd.chunk.js.LICENSE.txt",
-    "static/media/skidapp.css": "/static/media/WhitneyLight.dc2270bc.woff"
+    "static/css/main.4f06ce23.chunk.css.map": "/static/css/main.4f06ce23.chunk.css.map",
+    "static/js/2.92911409.chunk.js.LICENSE.txt": "/static/js/2.92911409.chunk.js.LICENSE.txt",
+    "static/media/skidapp.css": "/static/media/Whitney700.ee4a7c9c.woff"
   },
   "entrypoints": [
     "static/js/runtime-main.248907bc.js",
-    "static/js/2.85727ddd.chunk.js",
-    "static/css/main.9f5a16b3.chunk.css",
-    "static/js/main.4ddb262a.chunk.js"
+    "static/js/2.92911409.chunk.js",
+    "static/css/main.4f06ce23.chunk.css",
+    "static/js/main.69b8a4fc.chunk.js"
   ]
 }
