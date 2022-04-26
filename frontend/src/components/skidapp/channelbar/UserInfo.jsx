@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { MdMic, MdMicOff } from 'react-icons/md';
 import { HiCog } from 'react-icons/hi';
 import { useSelector } from 'react-redux';

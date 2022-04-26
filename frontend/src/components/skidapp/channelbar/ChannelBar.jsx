@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useCallback, useRef } from 'react'
 import { FaChevronDown, FaPlus, FaHashtag, FaChevronRight } from 'react-icons/fa';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 
@@ -7,7 +7,6 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { getServerAction, deleteServerAction, leaveServerAction } from '../../../actions/server';
 import { getAllCategoriesAction } from '../../../actions/category';
-import { getChannelAction } from '../../../actions/channel';
 import { getInviteFromServerAction } from '../../../actions/invite';
 import { checkReminder } from '../../../actions/other';
 
@@ -25,6 +24,7 @@ const ChannelBar = () => {
     const [showNewChannelModal, setShowNewChannelModal] = useState(false);
     const [newChannelCategoryId, setNewChannelCategoryId] = useState('');
     const [showNewInviteModal, setShowNewInviteModal] = useState(false);
+    const [allServerCategories, setAllServerCategories] = useState([]);
     const contextMenuRef = useRef();
     
     const showReminder = useSelector(state => state.other.reminder)
@@ -38,23 +38,25 @@ const ChannelBar = () => {
     const socket = useSocket();
 
     useEffect(() => {
-        if (channelId === 'redirect') return;
-        dispatch(getChannelAction(channelId));
-        dispatch(getInviteFromServerAction(serverId));
+        dispatch(checkReminder());
         dispatch(getServerAction(serverId));
         dispatch(getAllCategoriesAction(serverId));
-        dispatch(checkReminder());
+        dispatch(getInviteFromServerAction(serverId));
     }, [dispatch, serverId, channelId]);
+
+    useEffect(() => {
+        setAllServerCategories(categories);
+    }, [categories]);
     
+    const handleClick = useCallback((e) => {
+        if (!showServerContextMenu) return;
+        if (contextMenuRef.current && !contextMenuRef.current.contains(e.target)) return setShowServerContextMenu(false);
+    }, [showServerContextMenu]);
+
     useEffect(() => {
         document.addEventListener('click', handleClick)
         return () => document.removeEventListener('click', handleClick)
-    }, [showServerContextMenu])
-    
-    const handleClick = (e) => {
-        if (!showServerContextMenu) return;
-        if (!contextMenuRef.current.contains(e.target)) return setShowServerContextMenu(false);
-    }
+    }, [showServerContextMenu, handleClick])
 
     const handleDeleteServer = () => {
         socket.emit('deleteServer', serverId);
@@ -98,7 +100,7 @@ const ChannelBar = () => {
                         </section>
                         <div className="channels">
                             {
-                                categories.map((category, i) => {
+                                allServerCategories.map((category, i) => {
                                     return (
                                         <Category key={i} category={category} setCategoryId={setNewChannelCategoryId} setShowNewChannelModal={setShowNewChannelModal} />
                                     )
@@ -122,17 +124,8 @@ const ChannelBar = () => {
 
 const Category = (props) => {
     const [showCategoryChannels, setShowCategoryChannels] = useState(true);
-    const [allCategoryChannels, setAllCategoryChannels] = useState([]);
     const { serverId, channelId } = useParams();
-    let allChannels = useSelector(state => state.channel.allServerChannels);
-
-    useEffect(() => {
-        if (!allChannels[0]) return;
-        // setAllCategoryChannels(allChannels.filter(channel => channel.category !== props.category._id));
-        setAllCategoryChannels(allChannels.filter(channel => {
-            return channel.category === props.category._id
-        }));
-    }, [allChannels])
+    const allChannels = useSelector(state => state.channel.allServerChannels);
 
     return (
         <div className="category">
@@ -144,7 +137,7 @@ const Category = (props) => {
             </div>
             <div className="children">
                 {
-                    allCategoryChannels.map((channel, i) => {
+                    allChannels.filter((c) => c.category === props.category._id).map((channel, i) => {
                         return (showCategoryChannels &&
                             <Link to={`/skid/${serverId}/${channel._id}`} key={i}>
                                 <div className={`channel text-channel-colour ${channelId === channel._id ? 'selected' : '' }`}>

@@ -5,7 +5,7 @@ import { deleteChannel } from '../api/channel/deleteChannel';
 
 export const getAllChannelsAction = (serverId) => async (dispatch) =>  {
     try {
-        if (!serverId) return
+        if (!serverId) return;
         const { data } = await getAllChannels(serverId);
         dispatch({ type: 'GET_ALL_CHANNELS', payload: data });
     } catch(e) {
@@ -15,6 +15,7 @@ export const getAllChannelsAction = (serverId) => async (dispatch) =>  {
 
 export const getChannelAction = (channelId) => async (dispatch) =>  {
     try {
+        if (!channelId) return;
         const { data } = await getChannel(channelId);
         dispatch({ type: 'GET_CHANNEL', payload: data });
     } catch(e) {

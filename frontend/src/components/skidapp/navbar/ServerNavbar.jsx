@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import './ServerNavbar.css';
 // import { getServer, removeServer, getServers } from '../../../actions/servers';
 import { getServerAction, hideServerAction } from '../../../actions/server';
-import { getAllChannelsAction } from '../../../actions/channel';
+import { getAllChannelsAction, getChannelAction } from '../../../actions/channel';
 import { useSocket } from '../../../contexts/socket';
 
 import NewServer from '../modals/newserver/NewServer';
@@ -15,8 +15,9 @@ const ServerNavbar = () => {
     const [allServers, setAllServers] = useState([]);
     const [showNewServerModal, setShowNewServerModal] = useState(false);
     const [showJoinServerModal, setShowJoinServerModal] = useState(false);
+    const allServerChannelsSelector = useSelector((state) => state.channel.allServerChannels);
     const allServersSelector = useSelector((state) => state.server.allServers);
-    const allServersChannelsSelector = useSelector((state) => state.channel.allServerChannels);
+    const redirectToChannel = useSelector((state) => state.channel.redirectToChannel);
 
     const { serverId, channelId } = useParams();
     const dispatch = useDispatch();
@@ -30,7 +31,7 @@ const ServerNavbar = () => {
             dispatch(hideServerAction(serverId));
             if (serverId === serverIdSocket) navigate('/skid/@me');
         })
-    }, [socket, dispatch, navigate]);
+    }, [serverId, socket, dispatch, navigate]);
 
     useEffect(() => {
         setAllServers(allServersSelector);
@@ -38,10 +39,32 @@ const ServerNavbar = () => {
 
     useEffect(() => {
         dispatch(getAllChannelsAction(serverId));
-        if (channelId !== 'redirect') return;
-        if (!allServersChannelsSelector[0]) return;
-        navigate(`/skid/${serverId}/${allServersChannelsSelector[0]._id}`);
-    }, [channelId]);
+    }, [serverId, dispatch])
+
+    useEffect(() => {
+        if (channelId === 'redirect' || channelId === 'null') return;
+        dispatch(getChannelAction(channelId));
+    }, [channelId, dispatch])
+
+    useEffect(() => {
+        if (!redirectToChannel) return;
+        if (!serverId) return;
+        const foundChanelInServer = allServerChannelsSelector.filter((c) => c.server === serverId && c._id === channelId);
+        if (foundChanelInServer[0]) return;
+        navigate(`/skid/${serverId}/${redirectToChannel}`);
+    }, [serverId, channelId, redirectToChannel, allServerChannelsSelector, navigate])
+
+    // useEffect(() => {
+    //     if (channelId === 'redirect') {
+    //         navigate(`/skid/${serverId}/${allServersChannelsSelector[0] ? allServersChannelsSelector[0]._id : 'redirect'}`);
+    //     }
+    // }, [serverId, channelId, allServersChannelsSelector])
+
+    // useEffect(() => {
+    //     if (channelId !== 'redirect') return;
+    //     if (!allServersChannelsSelector[0]) return;
+    //     navigate(`/skid/${serverId}/${allServersChannelsSelector[0]._id}`);
+    // }, [serverId, channelId, allServersChannelsSelector]);
 
     return (
         <>

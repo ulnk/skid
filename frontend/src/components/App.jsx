@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Routes, Route, useNavigate, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux'
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useSocket } from '../contexts/socket';
 
 import './css/modal.css';
@@ -15,12 +15,7 @@ import SkidApp from './pages/skidApp/SkidApp';
 import SkidAppMe from './pages/skidApp/SkidAppMe';
 import SkidAppInvite from './pages/skidApp/SkidAppInvite';
 
-import { test } from '../actions/other';
-
 const App = () => {
-    // const dispatch = useDispatch();
-    // const { sId } = useParams();
-    // const navigate = useNavigate();
     const user = useSelector(state => state.user);
     const socket = useSocket();
 

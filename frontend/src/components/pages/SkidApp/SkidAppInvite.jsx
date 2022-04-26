@@ -20,7 +20,7 @@ const SkidAppInvite = () => {
 
     useEffect(() => {
         dispatch(getServerFromInviteAction(inviteCode))
-    }, [])
+    }, [dispatch, inviteCode])
 
     const onClick = () => {
         if (!auth._id) return navigate('/login');

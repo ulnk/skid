@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
@@ -20,15 +20,15 @@ const NewCategory = (props) => {
         props.close(false)
     }
 
-    const handleKeyPress = (e) => {
+    const handleKeyPress = useCallback( (e) => {
         if (e.key === "Escape") props.close(false)
         if (e.key === "Enter") document.getElementById('submit-new-category').click();
-    }
+    }, [props]);
 
     useEffect(() => {
         document.addEventListener('keydown', handleKeyPress, false);
         return () => document.removeEventListener('keydown', handleKeyPress, false);
-    }, [])
+    }, [handleKeyPress])
 
     return (
         <form className={`modal-underbody ${props.show && 'show'}`} onSubmit={handleSubmit}>

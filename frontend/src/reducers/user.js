@@ -26,7 +26,8 @@ export default (state = initialState(), action) => {
             localStorage.setItem('token', JSON.stringify(null))
             return { ...initialState() };
         case 'REGISTER':
-            if (!action.payload) return state;
+            if (!action.payload) return { ...initialState() };
+            localStorage.setItem('token', JSON.stringify(action.payload.jwt));
             return { ...initialState(action.payload.jwt) };
         case 'IMAGE':
             if (!action.payload) return state;

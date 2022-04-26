@@ -24,7 +24,7 @@ const SkidApp = () => {
     useEffect(() => {
         if (!auth._id) navigate('/login');
         dispatch(getAllServersAction());
-    }, [auth, navigate]);
+    }, [auth, navigate, dispatch]);
 
     return (
         <div className="flex h-screen w-screen overflow-hidden">

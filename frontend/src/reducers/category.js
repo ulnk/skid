@@ -10,7 +10,7 @@ export default (state = initialState(), action) => {
     switch (action.type) {
         case 'GET_ALL_CATEGORIES':
             if (!action.payload) return state;
-            return { ...state, allServerCategories: [...action.payload] };
+            return { ...state, allServerCategories: action.payload };
         case 'GET_CATEGORY':
             if (!action.payload) return state;
             return { ...state, currentCategory: action.payload };

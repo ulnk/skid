@@ -14,15 +14,18 @@ export default (state = initialState(), action) => {
         case 'GET_ALL_SERVERS':
             if (!action.payload) return state;
             return { ...state, allServers: [...action.payload] };
+        case 'CREATE_SERVER':
+            if (!action.payload) return state;
+            return { ...state, allServers: [...state.allServers, action.payload] };
         case 'GET_SERVER':
             if (!action.payload) return state;
             return { ...state, currentServer: action.payload };
         case 'DELETE_SERVER':
             if (!action.payload) return state;
-            return { ...state, allServers: [...action.payload] };
+            return { ...state, allServers: state.allServers.filter((server => server._id !== action.payload)) };
         case 'LEAVE_SERVER':
             if (!action.payload) return state;
-            return { ...state, allServers: [...action.payload] };
+            return { ...state, allServers: state.allServers.filter((server => server._id !== action.payload)) };
         default:
             return state;
     }

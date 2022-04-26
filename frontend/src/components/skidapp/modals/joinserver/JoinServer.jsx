@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { joinInviteAction } from '../../../../actions/invite';
@@ -25,15 +25,15 @@ const JoinServer = (props) => {
         setInviteCode(inviteCode);
     }
 
-    const handleKeyPress = (e) => {
+    const handleKeyPress = useCallback( (e) => {
         if (e.key === "Escape") props.close(false)
         if (e.key === "Enter") document.getElementById('submit-join-channel').click();
-    }
+    }, [props]);
 
     useEffect(() => {
         document.addEventListener('keydown', handleKeyPress, false);
         return () => document.removeEventListener('keydown', handleKeyPress, false);
-    }, [])
+    }, [handleKeyPress])
 
     return (
         <form className={`modal-underbody ${props.show && 'show'}`} onSubmit={handleSubmit}>

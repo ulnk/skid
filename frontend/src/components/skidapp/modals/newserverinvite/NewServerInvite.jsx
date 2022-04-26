@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect,useCallback } from 'react'
 import './NewServerInvite.css';
 
 // import { createInvite, hasInvite } from '../../../../actions/servers';
-import { createInviteAction, joinInviteAction } from '../../../../actions/invite';
+import { createInviteAction } from '../../../../actions/invite';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
@@ -21,21 +21,21 @@ const NewServerInvite = (props) => {
         let hasServerInviteCode = allInviteCodes.filter(inviteCode => inviteCode.server === serverId)
         setAlreadyHasInvite(hasServerInviteCode[0] !== undefined);
         if (hasServerInviteCode[0]) setCurrentServerInvite(hasServerInviteCode[0].invite)
-    }, [allInviteCodes]);
+    }, [serverId, allInviteCodes]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(createInviteAction(serverId, newInvite));
     }
 
-    const handleKeyPress = (e) => {
+    const handleKeyPress = useCallback( (e) => {
         if (e.key === "Escape") props.close(false)
-    }
+    }, [props]);
 
     useEffect(() => {
         document.addEventListener('keydown', handleKeyPress, false);
         return () => document.removeEventListener('keydown', handleKeyPress, false);
-    }, [])
+    }, [handleKeyPress])
 
     return (
         !alreadyHasInvite ? <form className={`modal-underbody ${props.show && 'show'}`} onSubmit={handleSubmit}>

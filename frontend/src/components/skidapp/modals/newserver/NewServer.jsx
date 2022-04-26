@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { createServerAction } from '../../../../actions/server';
@@ -14,16 +14,16 @@ const NewServer = (props) => {
         setServerName('');
         props.close(false);
     }
-    
-    const handleKeyPress = (e) => {
+
+    const handleKeyPress = useCallback( (e) => {
         if (e.key === "Escape") props.close(false)
         if (e.key === "Enter") document.getElementById('submit-new-server').click();
-    }
+    }, [props]);
 
     useEffect(() => {
         document.addEventListener('keydown', handleKeyPress, false);
         return () => document.removeEventListener('keydown', handleKeyPress, false);
-    }, [])
+    }, [handleKeyPress])
 
     return (
         <form className={`modal-underbody ${props.show && 'show'}`} onSubmit={handleSubmit}>

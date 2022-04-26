@@ -34,8 +34,8 @@ export const createServerAction = (serverName) => async (dispatch) =>  {
 
 export const deleteServerAction = (serverId) => async (dispatch) =>  {
     try {
-        const { data } = await deleteServer(serverId);
-        dispatch({ type: 'DELETE_SERVER', payload: data });
+        await deleteServer(serverId);
+        dispatch({ type: 'DELETE_SERVER', payload: serverId });
     } catch(e) {
         console.log(e)
     }
