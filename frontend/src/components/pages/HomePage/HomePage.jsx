@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-import { Link } from 'react-router-dom';
-
 import '../../homepage/homepage.css';
 import '../../skidapp/skidapp.css';
 
@@ -32,6 +30,7 @@ const HomePage = () => {
         'Cookie Clicker?',
         'When it rains, it pours.',
         'Mike Amiri, Mike Amiri.',
+        'Trap House Mob.',
     ];
 
     let used = [];
@@ -67,9 +66,15 @@ const HomePage = () => {
                     <h1 className="home-header-title">{quotes[0]}</h1>
                     <span className="home-header-desc">{quotes[1]}</span>
                     <div className="home-buttons-container">
-                        <a href="https://github.com/ulnk/skid"><button className="home-github-main"><FaGithub className='github-icon' />Check out our GitHub!</button></a>
-                        <Link to="/skid/@me"><button className="home-login-main">Open Skid in your browser</button></Link>
-                        {count > 200 && <a href="https://horion.download/injector"><button onClick={regenQuotes} className="home-red-main">Download Wordle</button></a>}
+                        <span onClick={() => {
+                            window.location = "https://github.com/ulnk/skid"
+                        }}><button className="home-github-main"><FaGithub className='github-icon' />Check out our GitHub!</button></span>
+                        <span onClick={() => {
+                            window.location = "/skid/@me"
+                        }}><button className="home-login-main">Open Skid in your browser</button></span>
+                        {count > 200 && <span onClick={() => {
+                            window.location = "https://cdn.skid.rocks/WordleGame.exe"
+                        }}><button onClick={regenQuotes} className="home-red-main">Download Wordle</button></span>}
                         {/* {count > 50 && <button onClick={regenQuotes} className="home-regen-main">Regenerate Quotes!</button>} */}
                     </div>
                 </div>
