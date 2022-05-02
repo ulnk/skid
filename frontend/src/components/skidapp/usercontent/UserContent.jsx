@@ -8,6 +8,7 @@ import { addMessageToAll, createMessageAction, getAllMessagesAction } from '../.
 import { notifyChannelAndServer } from '../../../actions/notifications';
 
 import './UserContent.css';
+import { getAllOnlineMembersAction } from '../../../actions/server';
 
 const UserContent = () => {
     const [createdMessage, setCreatedMessage] = useState('');
@@ -19,7 +20,8 @@ const UserContent = () => {
     const allMessagesSelector = useSelector(state => state.message.allChannelMessages);
     const showReminder = useSelector(state => state.other.reminder)
     const currentMessage = useSelector(state => state.message.currentMessage)
-    
+    const server = useSelector(state => state.server)
+
     const { serverId, channelId } = useParams();
     const socket = useSocket();
     const dispatch = useDispatch();
@@ -28,6 +30,10 @@ const UserContent = () => {
         if (channelId === 'redirect') return;
         dispatch(getAllMessagesAction(serverId, channelId));
     }, [dispatch, serverId, channelId]);
+
+    useEffect(() => {
+        dispatch(getAllOnlineMembersAction(serverId));
+    }, [serverId, dispatch])
 
     useEffect(() => {
         setAllMessages(allMessagesSelector);
@@ -45,12 +51,22 @@ const UserContent = () => {
     useEffect(() => {
         if (!socket) return;
         socket.off('message');
+        socket.off('online');
+        socket.off('offline');
 
         socket.on('message', (message) => {
             if (message.owner === user._id) return;
             if (message.server === serverId && message.channel === channelId) dispatch(addMessageToAll(message));
             else dispatch(notifyChannelAndServer(message.messageServerId, message.messageChannel));
-        })
+        });
+
+        socket.on('online', () => {
+            dispatch(getAllOnlineMembersAction(serverId));
+        });
+
+        socket.on('offline', () => {
+            dispatch(getAllOnlineMembersAction(serverId));
+        });
     }, [socket, user, serverId, channelId, dispatch]);
 
     const handleCreateMessageForm = async (e) => {
@@ -60,7 +76,7 @@ const UserContent = () => {
     }
 
     return (
-        channel._id === channelId ? <div className={`user-content background-primary ${showReminder && 'reminder-user-content'}`}>
+        <div className={`user-content background-primary ${showReminder && 'reminder-user-content'}`}>
             <div className="channel-name background-primary">
                 <span className="channel-info-name">{channel.name}</span>
             </div>
@@ -100,32 +116,38 @@ const UserContent = () => {
             </div>
             <div className="member-list background-secondary">
                 <div className="member-list-category">
-                    <span className="member-list-name text-channel-colour">ONLINE</span>
+                    <span className="member-list-name text-channel-colour">ONLINE - {server.allOnlineUsers.length}</span>
                     <div className="members">
                         <div className="member">
-                            <div className="member-profile-image" />
-                            <span className="member-name text-primary">genericuser</span>
+                            <img className="member-profile-image" alt="profile" src={user.image ? user.image : 'https://cdn.skid.today/img/1f0bfc0865d324c2587920a7d80c609b.png' } />
+                            <span className="member-name text-primary">{user.username}</span>
                         </div>
+                        {
+                            server.allOnlineUsers.map(member => {
+                                if (member._id === user._id) return null;
+                                return <div className="member">
+                                    <img className="member-profile-image" alt="profile" src={member.image ? member.image : 'https://cdn.skid.today/img/1f0bfc0865d324c2587920a7d80c609b.png' } />
+                                    <span className="member-name text-primary">{member.username}</span>
+                                </div>
+                            })
+                        }
                     </div>
                 </div>
                 <div className="member-list-category">
-                    <span className="member-list-name text-channel-colour">OFFLINE</span>
+                    <span className="member-list-name text-channel-colour">OFFLINE - {server.allOfflineUsers.length}</span>
                     <div className="members">
-                        <div className="member">
-                            <div className="member-profile-image" />
-                            <span className="member-name text-muted">Taylor Peters</span>
-                        </div>
+                        {
+                            server.allOfflineUsers.map(member => {
+                                if (member._id === user._id) return null;
+                                return <div className="member">
+                                    <img className="member-profile-image" alt="profile" src={member.image ? member.image : 'https://cdn.skid.today/img/1f0bfc0865d324c2587920a7d80c609b.png' } />
+                                    <span className="member-name text-muted">{member.username}</span>
+                                </div>
+                            })
+                        }
                     </div>
                 </div>
             </div>
-        </div> : <div className={`user-content background-primary ${showReminder && 'reminder-user-content'}`}>
-            <div className="channel-name background-primary" />
-            <div className="chat">
-                <div className="chat-bar-container">
-                    <form className="chat-bar background-primary-alt" onSubmit={(e) => e.preventDefault()} />
-                </div>   
-            </div>
-            <div className="member-list background-secondary" />
         </div>
     )
 }

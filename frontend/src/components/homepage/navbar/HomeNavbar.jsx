@@ -7,7 +7,7 @@ const HomeNavbar = () => {
     return (
         <div className="home-navbar">
             <div className="left-items">
-                <h1 className="left-title"><span className="title-color-change">skid</span> <span className='smol'>v1.3.3</span></h1>
+                <h1 className="left-title"><span className="title-color-change">skid</span> <span className='smol'>v1.4.0</span></h1>
                 <a href="https://github.com/ulnk/skid" className="left-item">Features</a>
                 <a href="https://github.com/ulnk/skid" className="left-item">GitHub</a>
                 <a href="https://github.com/ulnk/skid" className="left-item">About</a>

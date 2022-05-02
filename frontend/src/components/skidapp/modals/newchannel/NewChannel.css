@@ -89,7 +89,8 @@
 
 .select-type-name {
     @apply font-normal;
-    font-family: var(--font-primary);
+    font-family: var(--font-display);
+    font-weight: 500;
     line-height: 16px;
     color: var(--colour-normal);
 }

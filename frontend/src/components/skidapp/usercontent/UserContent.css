@@ -181,7 +181,7 @@
 }
 
 .member-profile-image {
-    @apply h-8 w-8 bg-red-500 ml-2 rounded-full transition-all duration-150;
+    @apply h-8 w-8 ml-2 rounded-full transition-all duration-150;
 }
 
 .member {

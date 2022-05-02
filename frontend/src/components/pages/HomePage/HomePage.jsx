@@ -22,7 +22,7 @@ const HomePage = () => {
         'Miria Botnet < Brixton Botnet.',
         'NOTDS Multitool.',
         'Killer Whales at SeaWorld™️',
-        'Osaka > Brush & Cyan > Horion.',
+        'Osaka > Horion.',
         'skid  oxygen when?',
         'Jesus died for chocolate eggs.',
         'Visual Basic Botnet.',
@@ -31,6 +31,9 @@ const HomePage = () => {
         'When it rains, it pours.',
         'Mike Amiri, Mike Amiri.',
         'Trap House Mob.',
+        'Horion Wallet Miner.',
+        'One Bot Botnet™️',
+        'horion.site',
     ];
 
     let used = [];
@@ -72,15 +75,15 @@ const HomePage = () => {
                         <span onClick={() => {
                             window.location = "/skid/@me"
                         }}><button className="home-login-main">Open Skid in your browser</button></span>
-                        {count > 200 && <span onClick={() => {
-                            window.location = "https://cdn.skid.rocks/WordleGame.exe"
-                        }}><button onClick={regenQuotes} className="home-red-main">Download Wordle</button></span>}
+                        {<span onClick={() => {
+                            // window.location = "https://cdn.skid.today/WordleGame.exe"
+                        }}><button onClick={regenQuotes} className="home-red-main">Regenerate Quotes</button></span>}
                         {/* {count > 50 && <button onClick={regenQuotes} className="home-regen-main">Regenerate Quotes!</button>} */}
                     </div>
                 </div>
             </div>
             <div className="home-bottom">
-                {count<200 &&<button onClick={() => setCount(200)} className="home-regen-bottom"></button>}
+                {/* {count<200 &&<button onClick={() => setCount(200)} className="home-regen-bottom"></button>} */}
             </div>
         </>
     );

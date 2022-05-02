@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import '../../skidapp/skidapp.css'
 
 import { getAllServersAction } from '../../../actions/server';
+import { testAction } from '../../../actions/user';
 
 // Main Components
 import ServerNavbar from '../../skidapp/navbar/ServerNavbar';
@@ -26,8 +27,12 @@ const SkidApp = () => {
         dispatch(getAllServersAction());
     }, [auth, navigate, dispatch]);
 
+    useEffect(() => {
+        dispatch(testAction());
+    }, [])
+
     return (
-        <div className="flex h-screen w-screen overflow-hidden">
+        auth.auth && <div className="flex h-screen w-screen overflow-hidden">
             <ServerNavbar />
             <div className="reminder-container">
                 <Reminder />

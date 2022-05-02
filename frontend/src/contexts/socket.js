@@ -2,6 +2,8 @@ import React, { useContext, useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import { useSelector } from 'react-redux';
 
+const URI = process.env.NODE_ENV === 'production' ? 'https://skid.today' : 'http://localhost:5001';
+
 const SocketContext = React.createContext();
 
 export const useSocket = () => {
@@ -13,7 +15,7 @@ export const SocketProvider = ({ children }) => {
     const auth = useSelector((state) => state.user);
 
     useEffect(() => {
-        const newSocket = io(!process.env.PROD  ? 'localhost:5001' : "https://skid.today", {
+        const newSocket = io(URI, {
             auth: {
                 token: auth.token || null
             }

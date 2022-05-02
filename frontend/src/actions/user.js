@@ -1,4 +1,5 @@
 import { login } from '../api/user/login';
+import { test } from '../api/user/test';
 import { register } from '../api/user/register';
 import { image } from '../api/user/image';
 
@@ -34,5 +35,14 @@ export const logoutAction = () => async (dispatch) =>  {
         dispatch({ type: 'LOGOUT', payload: null });
     } catch(e) {
         console.log(e)
+    }
+}
+
+export const testAction = (username, password) => async (dispatch) =>  {
+    try {
+        const { data } = await test(username, password);
+        dispatch({ type: 'AUTH', payload: data });
+    } catch(e) {
+        dispatch({ type: 'LOGOUT', payload: null });
     }
 }

@@ -1,7 +1,10 @@
 const initialState = () => {
     return {
         currentServer : {},
-        allServers: []
+        global : {},
+        allServers: [],
+        allOnlineUsers: [],
+        allOfflineUsers: []
     }
 }
 
@@ -26,6 +29,12 @@ export default (state = initialState(), action) => {
         case 'LEAVE_SERVER':
             if (!action.payload) return state;
             return { ...state, allServers: state.allServers.filter((server => server._id !== action.payload)) };
+        case 'GET_ALL_ONLINE_USERS':
+            if (!action.payload) return state;
+            return { ...state, allOnlineUsers: [...action.payload.online], allOfflineUsers: [...action.payload.offline] };
+        case 'GLOBAL_SERVER':
+            if (!action.payload) return state;
+            return { ...state, global: action.payload };
         default:
             return state;
     }

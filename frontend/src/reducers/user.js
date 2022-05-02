@@ -6,11 +6,13 @@ const initialState = (token) => {
     try {
         return {
             token: currentToken, 
-            ...jwtDecode(currentToken).data
+            ...jwtDecode(currentToken).data,
+            auth: false
         }
     } catch {
         return {
-            token: JSON.stringify(null)
+            token: JSON.stringify(null),
+            auth: false
         }
     }
 }
@@ -32,6 +34,8 @@ export default (state = initialState(), action) => {
         case 'IMAGE':
             if (!action.payload) return state;
             return { ...initialState(action.payload.jwt) };
+        case 'AUTH':
+            return { ...state, auth: action.payload.auth }
         default:
             return state;
     }

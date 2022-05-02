@@ -1,3 +1,47 @@
+@media (max-width: 509px) {
+    .github-icon {
+        visibility: hidden;
+        display: none;
+        font-size: 0px;
+        margin-right: 0rem;
+        margin-top: 0px;
+    }
+
+    .home-github-main {
+        @apply flex flex-row pl-5 py-3 text-gray-900 shadow-md bg-gray-100 rounded text-sm;
+        font-family: var(--font-primary);
+        font-weight: 600;
+        transition: background-color 120ms ease-in;
+    }.home-github-main:hover {
+        @apply bg-gray-300;
+    }
+
+    .github-icon {
+        font-size: 16px;
+        margin-right: 0.4rem;
+        margin-top: 2px;
+    }
+}
+
+@media (max-width: 100vw) {
+    
+    .home-github-main {
+        @apply flex flex-row pl-5 py-3 text-gray-900 shadow-md bg-gray-100 rounded text-sm;
+        font-family: var(--font-primary);
+        font-weight: 600;
+        transition: background-color 120ms ease-in;
+        padding-right: 1.25rem;
+    }.home-github-main:hover {
+        @apply bg-gray-300;
+    }
+
+    .github-icon {
+        font-size: 16px;
+        margin-right: 0.4rem;
+        margin-top: 2px;
+    }
+}
+
 .home-body {
     @apply pt-14 flex h-screen w-screen;
     background-color: var(--bg-tertiary-alt);
@@ -43,15 +87,6 @@
     background-color: var(--bg-error-hover);
 }
 
-.home-github-main {
-    @apply flex flex-row pl-5 py-3 text-gray-900 shadow-md bg-gray-100 rounded text-sm;
-    font-family: var(--font-primary);
-    font-weight: 600;
-    padding-right: 1.5rem;
-    transition: background-color 120ms ease-in;
-}.home-github-main:hover {
-    @apply bg-gray-300;
-}
 
 .github-icon {
     font-size: 16px;

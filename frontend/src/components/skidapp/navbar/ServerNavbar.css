@@ -12,12 +12,18 @@
     width: 0;
 }
 
-.hover-server {
-    @apply text-green-500 hover:bg-green-500 hover:text-white;
+.hover-site {
+    @apply text-[#3ba55d] hover:text-white;
+}.hover-site:hover{
+    background-color: #3ba55d;
 }
 
 .hover-skid {
-    @apply text-red-500 hover:bg-red-500 hover:text-white;
+    @apply hover:text-white;
+}.hover-skid:hover {
+    background-color: var(--bg-blurple);
+}.hover-skid:hover .server-icon{
+    color: white;
 }
 
 .navbar-server {
@@ -26,13 +32,30 @@
     min-height: 48px;
 }
 
+.server-title {
+    font-family: var(--font-primary);
+    font-weight: 500;
+    font-size: larger;
+    color: #dcddde;
+}.server-title.global {
+    font-family: var(--font-primary);
+    font-weight: 500;
+    font-size: x-large;
+    color: #dcddde;
+}
+
 .navbar-server:hover .tool {
     @apply transition-all duration-150;
     opacity: 1;
 }
 
 .server-icon {
-    @apply h-5 w-5;
+    @apply h-7 w-7;
+    color: #dcddde;
+}
+
+.home-selected > span.server-title {
+    color: white;
 }
 
 .tool {
@@ -56,11 +79,17 @@
     background-color: var(--bg-tertiary-alt);
 }
 
-.server-selected {
-    @apply bg-green-500 text-white rounded-xl;
+.site-selected {
+    @apply text-white rounded-xl;
+    background-color: #3ba55d;
 }
 .home-selected {
-    @apply bg-red-500 text-white rounded-xl;
+    @apply text-white rounded-2xl;
+    background-color: var(--bg-blurple);
+}
+
+.home-selected>.server-icon{
+    color: white;
 }
 
 .selected-noti {
@@ -73,7 +102,7 @@
     height: 2.5rem !important;
     margin-bottom: -2.5rem;
     left: -16px;
-    top:2.5px;
+    transform: translateY(10%);
 }
 
 .server-noti::before {
@@ -88,11 +117,14 @@
 
 .server-ping::after {
     content: '1';
-    @apply flex items-center justify-center font-bold px-1 text-white h-6 w-max min-w-[24px] bg-red-500 rounded-full border-4;
+    position: absolute;
+    @apply flex items-center justify-center text-white h-6 w-max min-w-[24px] bg-red-500 rounded-full border-4;
     border-color: var(--bg-tertiary);
     transform: translate(75%, 75%);
     font-family: var(--font-primary);
     font-size: 12px;
+    font-weight: 600;
+    padding-right: 1px;
 }
 
 .divider {

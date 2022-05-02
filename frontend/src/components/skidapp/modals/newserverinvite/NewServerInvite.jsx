@@ -14,7 +14,7 @@ const NewServerInvite = (props) => {
     const [copied, setCopied] = useState(false);
     const dispatch = useDispatch();
     const allInviteCodes = useSelector(state => state.invite.allInvites);
-    let timeout;
+    const [timeoutstate, setstateTimeout] = useState();
 
 
     useEffect(() => {
@@ -67,11 +67,12 @@ const NewServerInvite = (props) => {
                             <input type="text" className="modal-form-input-readonly" value={currentServerInvite} readOnly />
                             <button type="button" className={`modal-form-button-readonly-copy ${copied && 'green'}`} onClick={() => {
                                 setCopied(true);
-                                navigator.clipboard.writeText(`https://skid.today/invite/${currentServerInvite}`);
-                                clearTimeout(timeout);
-                                timeout = setTimeout(() => {
+                                navigator.clipboard.writeText(`${currentServerInvite}`);
+                                clearTimeout(timeoutstate);
+                                let timeout = setTimeout(() => {
                                     setCopied(false);
                                 }, 1000)
+                                setstateTimeout(timeout);
                             }}>{copied ? 'Copied' : 'Copy'}</button>
                         </div>
                     </div>

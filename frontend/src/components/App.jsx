@@ -21,7 +21,7 @@ const App = () => {
 
     useEffect(() => {
         if (!socket) return;
-        if (user.token) socket.emit('online', { ...user });
+        if (user.token) socket.emit('online');
     }, [socket, user]);
 
     return (

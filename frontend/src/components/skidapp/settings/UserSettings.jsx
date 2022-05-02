@@ -47,7 +47,7 @@ const UserSettings = (props) => {
                     <div className="header-title-option">My Account</div>
                     <form className="option" onSubmit={handleImageChange}>
                         <span className="option-title">Profile Picture URL</span>
-                        <input type="url" className="modal-form-input-o" pattern="https://.*" value={image || 'https://cdn.skid.rocks/img/1f0bfc0865d324c2587920a7d80c609b.png'} onChange={(e) => setImage(e.target.value)} placeholder="" />
+                        <input type="url" className="modal-form-input-o" pattern="https://.*" value={image || 'https://cdn.skid.today/img/1f0bfc0865d324c2587920a7d80c609b.png'} onChange={(e) => setImage(e.target.value)} placeholder="" />
                         <button type='submit' className='submit-button-save'>Save</button>
                     </form>
                 </section>

@@ -29,6 +29,7 @@ const ChannelBar = () => {
     
     const showReminder = useSelector(state => state.other.reminder)
     const server = useSelector(state => state.server.currentServer);
+    const global = useSelector(state => state.server.global);
     const categories = useSelector(state => state.category.allServerCategories);
     const auth = useSelector(state => state.user);
 
@@ -70,54 +71,49 @@ const ChannelBar = () => {
     }
 
     return (
-        server._id ?
-            <>
-                <NewServerInvite show={showNewInviteModal} close={setShowNewInviteModal} />
-                <NewCategory show={showNewCategoryModal} close={setShowNewCategoryModal} />
-                <NewChannel categoryId={newChannelCategoryId} setCategoryId={setNewChannelCategoryId} show={showNewChannelModal} close={setShowNewChannelModal} />
-                <UserInfo />
-                <nav className={`channel-bar background-secondary noselect ${showReminder && 'rHeight'}`}>
-                    <div className="channel-bar-items" >
-                        <section className="server-name" onClick={() => setShowServerContextMenu(!showServerContextMenu)}>
-                            <h2 className="server-name-header font-primary">{server.name}</h2>
-                            <FaChevronDown className="server-name-chevron" />
-                            <ul ref={contextMenuRef} className={`context-menu ${showServerContextMenu && 'on'}`}>
-                                {serverId !== '625c7d70df1a464bb9d6d059' ? <>
-                                    <li className="context-menu-item blue text-blue" onClick={() => setShowNewInviteModal(true)}>
-                                        <button>Invite People</button>
-                                    </li>
-                                    <li className="context-menu-item blue" onClick={() => setShowNewCategoryModal(true)}>
-                                        <button>Create Category</button>
-                                    </li>
-                                    {auth._id !== server.owner && <li className="context-menu-item red" onClick={() => handleLeaveServer()}>
-                                        <button>Leave Server</button>
-                                    </li>}
-                                    {auth._id === server.owner && <li className="context-menu-item red" onClick={() => handleDeleteServer()}>
-                                        <button>Delete Server</button>
-                                    </li>}
-                                </>: null}
-                            </ul>
-                        </section>
-                        <div className="channels">
-                            {
-                                allServerCategories.map((category, i) => {
-                                    return (
-                                        <Category key={i} category={category} setCategoryId={setNewChannelCategoryId} setShowNewChannelModal={setShowNewChannelModal} />
-                                    )
-                                })
-                            }
-                        </div>
-                    </div>
-                </nav>
-            </> : 
+        <>
+            <NewServerInvite show={showNewInviteModal} close={setShowNewInviteModal} />
+            <NewCategory show={showNewCategoryModal} close={setShowNewCategoryModal} />
+            <NewChannel categoryId={newChannelCategoryId} setCategoryId={setNewChannelCategoryId} show={showNewChannelModal} close={setShowNewChannelModal} />
+            <UserInfo />
             <nav className={`channel-bar background-secondary noselect ${showReminder && 'rHeight'}`}>
                 <div className="channel-bar-items" >
-                    <section className="server-name">
+                    <section className="server-name" onClick={() => setShowServerContextMenu(!showServerContextMenu)}>
+                        <h2 className="server-name-header font-primary">{server.name}</h2>
+                        <FaChevronDown className="server-name-chevron" />
+                        <ul ref={contextMenuRef} className={`context-menu ${showServerContextMenu && 'on'}`}>
+                            {serverId !== global._id ? <>
+                                <li className="context-menu-item blue text-blue" onClick={() => setShowNewInviteModal(true)}>
+                                    <button>Invite People</button>
+                                </li>
+                                <li className="context-menu-item blue" onClick={() => setShowNewCategoryModal(true)}>
+                                    <button>Create Category</button>
+                                </li>
+                                {auth._id !== server.owner && <li className="context-menu-item red" onClick={() => handleLeaveServer()}>
+                                    <button>Leave Server</button>
+                                </li>}
+                                {auth._id === server.owner && <li className="context-menu-item red" onClick={() => handleDeleteServer()}>
+                                    <button>Delete Server</button>
+                                </li>}
+                            </>: <> 
+                                <li className="context-menu-item blue text-blue">
+                                    <button>Do Nothing</button>
+                                </li>
+                            </>}
+                        </ul>
                     </section>
                     <div className="channels">
+                        {
+                            allServerCategories.map((category, i) => {
+                                return (
+                                    <Category key={i} category={category} setCategoryId={setNewChannelCategoryId} setShowNewChannelModal={setShowNewChannelModal} />
+                                )
+                            })
+                        }
                     </div>
                 </div>
             </nav>
+        </>
     );
 };
 
