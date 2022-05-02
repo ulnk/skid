@@ -1,7 +1,6 @@
 const express = require('express');
 
 const { hash } = require('../../../util/other.js');
-const { globalServer } = require('../../../util/config.json');
 const { sign } = require('../../../util/jwt.js');
 const UserModel = require('../../../models/user/UserModel.js');
 
@@ -14,7 +13,7 @@ router.post('/', async (req, res) => {
     const foundUser = await UserModel.findOne({ username });
     if (foundUser) return res.sendStatus(400);
 
-    const newUser = await UserModel.create({ username, password: hashedPassword, joinedServers: [globalServer] });
+    const newUser = await UserModel.create({ username, password: hashedPassword, joinedServers: [] });
     if (!newUser) return res.sendStatus(500);
 
     const signedUser = await sign(newUser);

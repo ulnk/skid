@@ -17,7 +17,9 @@ router.post('/', jwt, async (req, res) => {
     const foundUser = await UserModel.findOne({ username, password });
     if (!foundUser) return res.sendStatus(403);
 
-    const foundServer = await ServerModel.findOne({ _id:serverId });
+    if (serverId === "626f1c01498e8b7a3397f766") return res.sendStatus(403);
+
+    const foundServer = await ServerModel.findOne({ _id: serverId });
     if (!foundServer) return res.sendStatus(400);
 
     if (foundServer.owner === foundUser.id) return res.sendStatus(400);

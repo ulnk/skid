@@ -24,7 +24,7 @@ router.post('/', jwt, async (req, res) => {
     const foundInvite = await InviteModel.findOne({ invite: inviteCode });
     if (foundInvite) return res.sendStatus(400);
     
-    const newInvite = await InviteModel.create({ server: serverId, invite: inviteCode || randomString() });
+    const newInvite = await InviteModel.create({ server: serverId, invite: inviteCode.replace(/\s/g, '-') || randomString() });
     if (!newInvite) return res.sendStatus(500);
 
     res.json(newInvite);

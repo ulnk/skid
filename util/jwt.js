@@ -4,6 +4,7 @@ const { get } = require('./secret.js');
 
 const jwt = async (req, res, next) => {
   const secret = await get();
+  console.log("new request")
   const jwtToken = JSON.parse(req.headers['x-auth-token']);
   if (!jwtToken) return res.sendStatus(401);
   jsonwebtoken.verify(jwtToken, secret.secret, async (err, decoded) => {
