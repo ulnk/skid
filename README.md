@@ -8,6 +8,10 @@
 * **Multiple Domains** (Use the wide spread of domains to ensure access from anywhere!)
 * **Never Works** (Heroku is a dogshit hosting site, do not use it.)
 
+![image](https://user-images.githubusercontent.com/93608862/166606006-ab6705ca-f4ba-451c-8f05-861dddda540b.png)
+![image](https://user-images.githubusercontent.com/93608862/166606080-4b6f5858-c6d8-40e4-8195-d69f068a61ef.png)
+
+
 ### Install
 * **Clone Repository** `gh repo clone ulnk/skid`
 * **Install Dependencies** `yarn install` or `npm install`
