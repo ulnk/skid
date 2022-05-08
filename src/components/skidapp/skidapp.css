@@ -1,0 +1,137 @@
+:root {
+    /* Background Colours */
+    --bg-primary: #36393f;
+    --bg-primary-alt: #40444b;
+    --bg-secondary: #2f3136;
+    --bg-secondary-alt: #292b2f;
+    --bg-tertiary: #202225;
+    --bg-tertiary-alt: #18191c;
+
+    --bg-blurple: hsl(235, 85.6%, 64.7%);
+    --bg-blurple-hover: hsl(235, 51.4%, 52.4%);
+
+    --bg-error: #f04444;
+    --bg-error-hover: #a12d2f;
+    --bg-success: #3ba55d;
+    --bg-success-hover: #2d7d46;
+
+    /* Text Colours */
+    --colour-primary: #b9bbbe;
+    --colour-normal: #dcddde;
+    --colour-muted: #72767d;
+    --colour-channels: #8e9297;
+    --colour-channels-hover: #dcddde;
+
+    --colour-error: #ff575a;
+    --colour-blurple: #949cf7;
+
+    /* Fonts */
+    --font-primary: "Whitney", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+	--font-display: "Ginto Normal", "Whitney", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+	--font-headline: "Ginto Nord", "Whitney", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+}
+
+.rHeight {
+    height: calc(100% - 2.3rem);
+}
+
+body {
+    @apply flex h-screen w-screen;
+    background-color: var(--bg-tertiary-alt);
+}
+
+@font-face {
+	font-family: Ginto Normal;
+	font-weight: 400;
+	src: url('../../assets/GintoNormal400.woff2') format("woff2")
+}
+
+@font-face {
+	font-family: Ginto Normal;
+	font-weight: 500;
+	src: url('../../assets/GintoNormal500.woff') format("woff")
+}
+
+@font-face {
+	font-family: Ginto Normal;
+	font-weight: 700;
+	src: url('../../assets/GintoNormal700.woff') format("woff")
+}
+
+@font-face {
+	font-family: Whitney;
+	font-weight: 300;
+	src: url('../../assets/Whitney300.woff') format("woff")
+}
+
+@font-face {
+	font-family: Whitney;
+	font-weight: 400;
+	src: url('../../assets/Whitney400.woff') format("woff")
+}
+
+@font-face {
+	font-family: Whitney;
+	font-weight: 500;
+	src: url('../../assets/Whitney500.woff') format("woff")
+}
+
+@font-face {
+	font-family: Whitney;
+	font-weight: 600;
+	src: url('../../assets/Whitney600.woff') format("woff")
+}
+
+@font-face {
+	font-family: Whitney;
+	font-weight: 700;
+	src: url('../../assets/Whitney700.woff') format("woff")
+}
+
+
+*, *::before, *::after {
+    user-select: none;
+    box-sizing: border-box;
+}
+
+/* Fonts */
+.font-primary {
+    font-family: var(--font-primary);
+}
+.font-display {
+    font-family: var(--font-display);
+}
+
+/* Text Colours */
+.text-muted {
+    color: var(--colour-muted);
+}
+.text-primary {
+    color: var(--colour-primary);
+}
+.text-channel-colour {
+    color: var(--colour-channels);
+}
+.text-channel-colour-group {
+    color: var(--colour-channels);
+}
+.text-channel-colour-group:hover {
+    color: var(--colour-channels-hover);
+}
+
+/* Background Colours */
+.background-primary {
+    background-color: var(--bg-primary);
+}
+.background-primary-alt {
+    background-color: var(--bg-primary-alt);
+}
+.background-secondary {
+    background-color: var(--bg-secondary);
+}
+.background-secondary-alt {
+    background-color: var(--bg-secondary-alt);
+}
+.background-tertiary {
+    background-color: var(--bg-tertiary);
+}

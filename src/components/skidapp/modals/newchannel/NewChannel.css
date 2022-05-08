@@ -1,0 +1,144 @@
+/* Modal Header */
+
+.modal-underbody {
+    @apply flex justify-center items-center absolute z-[99999999] h-screen w-screen bg-black bg-opacity-60;
+    top: 0;
+    left: 0;
+}
+
+.modal-container {
+    @apply flex flex-col w-[440px] rounded;
+}
+
+.modal-form-header {
+    @apply flex flex-col items-center justify-center mt-8;
+}
+
+.modal-header-title {
+    @apply text-white font-bold text-xl;
+    font-size: 27px;
+    line-height: 30px;
+    font-family: var(--font-primary);
+}
+
+.modal-header-desc {
+    @apply flex;
+    color: var(--colour-channels);
+    font-family: var(--font-primary);
+}
+
+/* Modal Slect Type */
+
+.modal-select-container {
+    @apply flex flex-col px-4 my-5
+}
+
+.modal-select-header {
+    @apply my-2 w-full text-xs;
+    font-family: var(--font-display);
+    color: var(--colour-primary);
+}
+
+.modal-type-container {
+    @apply flex flex-col gap-2;
+}
+
+.modal-select-type {
+    @apply flex flex-row h-14 items-center px-3 gap-2 rounded cursor-pointer;
+    background-color: var(--bg-secondary);
+    color: var(--colour-primary);
+    font-family: var(--font-primary);
+}
+
+.modal-selected-type {
+    background-color: var(--bg-tertiary);
+}
+
+.modal-select-hover:hover {
+    background-color: var(--bg-primary-alt);
+}
+
+.select-check-wrapper {
+    @apply flex justify-center items-center h-5 w-5 bg-white rounded-full
+}
+
+.select-check {
+    @apply h-4 w-4 rounded-full border-[3px];
+    background-color: var(--bg-blurple);
+    border-color: var(--bg-secondary);
+}
+
+.unselect-check-wrapper {
+    @apply flex justify-center items-center h-5 w-5 bg-white rounded-full
+}
+
+.unselect-check {
+    @apply h-4 w-4 rounded-full border-[3px];
+    background-color: var(--bg-secondary);
+    border-color: var(--bg-secondary);
+}
+
+
+.select-type-icon {
+    @apply h-4 w-4;
+}
+
+.select-type-info {
+    @apply flex flex-col gap-[2px];
+}
+
+.select-type-name {
+    @apply font-normal;
+    font-family: var(--font-display);
+    font-weight: 500;
+    line-height: 16px;
+    color: var(--colour-normal);
+}
+
+.select-type-desc {
+    line-height: 12px
+}
+
+/* Modal Input */
+
+.modal-form-input-container {
+    @apply flex flex-col px-4 my-5;
+}
+
+.modal-form-input-header {
+    @apply my-2 w-full text-xs;
+    font-family: var(--font-display);
+    color: var(--colour-primary);
+}
+
+.modal-form-input {
+    @apply h-10 border-[1px] border-opacity-30 border-black rounded outline-none px-2;
+    background-color: var(--bg-secondary);
+    color: var(--colour-normal);
+    font-weight: 100;
+    font-family: var(--font-primary);
+}
+
+.modal-form-input::placeholder {
+    color: hsla(0, 0%, 100%, 0.3);
+}
+
+.modal-form-input:hover {
+    @apply border-opacity-80;
+}
+
+/* Options */
+
+.options-container {
+    @apply flex flex-row h-[70px] rounded rounded-t-none mt-auto items-center justify-end px-5 gap-2;
+}
+.cancel-button {
+    @apply h-[38px] text-white rounded text-sm;
+    font-family: var(--font-primary);
+    padding-right: 1rem;
+    padding-left: 0.4rem;
+}
+
+.cancel-button:hover {
+    text-decoration: underline;
+}

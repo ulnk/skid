@@ -1,0 +1,44 @@
+.reminder {
+    @apply flex flex-row justify-start items-center w-full ;
+    font-size: 15px;
+    background: rgb(175,112,236);
+    background: linear-gradient(90deg, rgba(175,112,236,1) 0%, rgba(225,145,170,1) 100%, rgba(0,212,255,1) 100%);
+    font-family: var(--font-primary);
+    font-weight: 500;
+    color: #fdfafd;
+    border-radius: 0.25rem 0 0 0;
+    min-height: 2.3rem;
+}
+.reminder-container {
+    @apply flex flex-col w-full h-full;
+}
+
+.user-context-navbar-container {
+    @apply flex flex-row w-full h-full;
+}
+
+.reminder-title {
+    @apply w-full text-center;
+}
+
+.reminder-button {
+    @apply px-2 py-0.5 ml-2 text-sm;
+    border-color: white;
+    border-width: 1px;
+    border-radius: 3px;
+    transition: background-color 120ms ease-in, color 120ms ease-in;
+}.reminder-button:hover{
+    background-color: white;
+    color: #df90ae;
+}
+
+.reminder-close {
+    opacity: 0.5;
+    margin-left: auto;
+    cursor: pointer;
+    margin-right: 0.5rem;
+    height: 0.65rem;
+    transition: opacity 150ms ease-out;
+}.reminder-close:hover {
+    opacity: 1;
+}

@@ -1,0 +1,56 @@
+.modal-underbody-invite {
+    @apply flex justify-center items-center absolute z-[99999999] h-screen w-screen bg-black bg-opacity-60;
+}
+
+.modal-container-invite  {
+    @apply flex flex-col w-[440px] rounded;
+}
+
+.modal-form-header-invite  {
+    @apply flex flex-col pl-4 mt-4 text-left;
+    font-weight: 400;
+}
+
+.modal-header-title-invite {
+    @apply text-white font-bold text-xl;
+    font-size: 20px;
+    line-height: 30px;
+    font-family: var(--font-primary);
+}
+
+.modal-form-input-container-invite {
+    @apply flex flex-col px-4 mt-2 mb-4;
+}
+
+.modal-form-input-readonly {
+    @apply h-10 rounded outline-none px-2;
+    background-color: var(--bg-secondary);
+    color: var(--colour-normal);
+    font-weight: 500;
+    font-family: var(--font-primary);
+    flex-grow: 1;
+}
+
+.modal-form-input-readonly-container {
+    @apply rounded border-[1px] border-opacity-30 border-black;
+    background-color: var(--bg-secondary);
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.modal-form-button-readonly-copy {
+    @apply h-8 rounded outline-none mr-1 px-2 my-1;
+    background: #5461e8;
+    font-weight: 500;
+    font-size: 14px;
+    width: 4rem;
+    font-family: var(--font-primary);
+    margin-left: auto;
+    transition: background 150ms ease-in;
+    color: white;
+}.modal-form-button-readonly-copy:hover {
+    background: #4752c4;
+}.modal-form-button-readonly-copy.green{
+    background: var(--bg-success);
+}

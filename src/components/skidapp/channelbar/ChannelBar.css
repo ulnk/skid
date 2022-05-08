@@ -1,0 +1,226 @@
+/* Channel Context Menu */
+
+
+
+.context-menu {
+    @apply absolute flex flex-col py-1.5 px-1.5 rounded gap-1;
+    z-index: 100;
+    visibility: hidden;
+    width: calc(100% - 10px);
+    left: 5px;
+    top: 110%;
+    background-color: var(--bg-tertiary-alt);
+    font-family: var(--font-primary);
+    color: var(--colour-normal);
+    transition: visibility 100ms ease-in, opacity 100ms ease-in;
+    opacity: 0;
+}.context-menu.on{
+    visibility: visible;
+    opacity: 1;
+}
+
+.context-menu-item {
+    @apply bg-transparent rounded-sm text-sm py-[6px] px-2 cursor-pointer;
+    transition: background-color 100ms ease-in, color 100ms ease-in;
+}.context-menu-item:hover {
+    color: white;
+}.context-menu-item > button {
+    transition:color 100ms ease-in;
+}
+
+.context-menu-item > button {
+    font-family: var(--font-primary);
+    font-weight: 500;
+    color: var(--colour-primary);
+}.context-menu-item:hover > button {
+    color: white;
+}
+
+.context-menu-item.text-blue > button {
+    color: var(--colour-blurple);
+}
+
+.context-menu-item.blue:hover {
+    background-color: var(--bg-blurple);
+}
+
+.context-menu-item.blue:hover > button {
+    color: white;
+}
+
+.context-menu-item.red > button {
+    color: var(--colour-error);
+}
+.context-menu-item.red:hover {
+    background-color: var(--bg-error);
+}
+
+.context-menu-item.red:hover > button {
+    color: white;
+}
+
+/* Channel Navigation Bar */
+
+.channel-bar {
+    @apply z-0 flex flex-col-reverse h-screen overflow-hidden;
+    max-width: 15rem;
+    min-width: 15rem;
+    min-height: 100%;
+}
+
+.channel-bar-items {
+    @apply flex flex-col;
+    flex-grow: 1;
+}
+
+.server-name {
+    @apply flex flex-row items-center relative h-12 cursor-pointer transition-all duration-150 ease-in mb-auto;
+    box-shadow: 0 1px 0 rgba(4,4,5,0.2),0 1.5px 0 rgba(6,6,7,0.05),0 2px 0 rgba(4,4,5,0.05);
+}
+
+.server-name-header {
+    @apply text-white font-bold mx-4;
+    font-family: var(--font-display);
+    font-weight: 500;
+}
+
+.server-name-chevron {
+    @apply ml-auto mr-4;
+    font-size: 12px;
+    color: var(--colour-channels-hover);
+}
+
+.server-name:hover {
+    background-color: rgba(79,84,92,0.16);
+}
+
+.channels {
+    @apply flex flex-col gap-6 flex-grow pt-5;
+}
+
+.category {
+    @apply flex flex-col items-center transition-all duration-150 ease-in cursor-pointer;
+}
+
+.category-header {
+    @apply flex flex-row items-center w-full text-xs transition-all duration-150;
+    font-family: var(--font-display);
+    font-weight: 500
+}
+
+.category-chevron {
+    @apply mx-1;
+    font-size: 8px;
+}
+
+.category-add {
+    @apply relative ml-auto mr-4 text-xs cursor-pointer;
+}
+
+.children {
+    @apply flex flex-col w-full mt-auto pt-1 px-2 gap-1;
+}
+
+.channel {
+    @apply flex flex-row items-center w-full h-8 rounded transition-all duration-150;
+}.channel:hover {
+    background-color: rgba(79,84,92,0.32);
+}.channel:hover .channel-title {
+    @apply text-[#dcddde];
+}
+
+.selected {
+    background-color: rgba(79,84,92,0.32);
+    color: white;
+}
+
+.channel-title {
+    @apply transition-all duration-150;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.channel-hashtag {
+    color: var(--colour-channels);
+    height: 20px;
+    width: 20px;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+.user-info {
+    @apply absolute bottom-0 z-[1] flex flex-row h-[53px] items-center; 
+    width: 15rem;
+    margin-top: auto;
+}
+
+.buttons-container {
+    @apply flex flex-row ml-auto mr-2;
+    color: var(--colour-primary);
+}
+
+.button-wrapper {
+    @apply flex h-8 w-8 justify-center items-center cursor-pointer rounded transition-all duration-150;
+}.button-wrapper:hover {
+    background-color: var(--bg-primary);
+}
+.button {
+    @apply h-5 w-5 ;
+}
+
+.profile-container {
+    @apply flex flex-row flex-grow ;
+}
+
+.profile-image {
+    @apply h-8 w-8 rounded-full mx-2;
+}
+
+.profile-name-container {
+    @apply flex flex-col justify-center flex-grow;
+}
+
+.profile-name {
+    @apply text-sm text-white font-bold mt-[-1px];
+    font-family: var(--font-primary);
+    font-weight: 600;
+    line-height: 16px;
+}
+
+.profile-tag {
+    @apply font-light text-xs mt-[1px];
+    line-height: 12px;
+    max-width: 80%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--colour-primary);
+    font-family: var(--font-primary);
+    font-weight: 500;
+}
+
+.button-tool {
+    @apply absolute flex items-center justify-center w-max rounded font-bold px-2 py-1 transition-all duration-150;
+    pointer-events: none;
+    opacity: 0;
+    z-index: 2;
+    background-color: var(--bg-tertiary-alt);
+    font-family: var(--font-primary);
+    font-weight: 600;
+    color: var(--colour-normal);
+    transform: translate(0%, -120%);
+}
+
+.button-tool::before {
+    content: '';
+    @apply absolute h-6 w-6 bottom-[-2px];
+    transform: rotate(45deg) scale(0.9);
+    z-index: -1;
+    background-color: var(--bg-tertiary-alt);
+}
+
+.button-wrapper:hover .button-tool {
+    opacity: 1;
+}
