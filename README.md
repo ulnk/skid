@@ -16,7 +16,7 @@
 * **Clone Repository** `gh repo clone ulnk/skid`
 * **Install Dependencies** `yarn install` or `npm install`
 * **Create .env file with <a href="https://www.mongodb.com/">MongoDB</a> database** `echo MONGODB=<url> > .env`
-* **Start** `node index.js`
+* **Start** `yarn start` or `node index.js`
 
 ### Libraries Used
 * **React** (Frontend) <img alt="preview badge" src="https://img.shields.io/npm/v/react">
