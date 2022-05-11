@@ -12,12 +12,12 @@ const RegisterModal = (props) => {
     const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [confPassword, setConfPassword] = useState('');
+    const [email, setEmail] = useState('');
 
     const dispatch = useDispatch()
 
     const checkForm = () => {
-        if (username.length < 1 || password.length < 1 || confPassword.length < 1 ) return setError('Invalid form.');
+        if (username.length < 1 || password.length < 1 || email.length < 1 ) return setError('Invalid form.');
         if (username.includes(' ') || username.includes('#') || username.includes('"') || 
             username.includes("'") || username.includes("&") || username.includes("@") || 
             username.includes("~") || username.includes("/") || username.includes(",") || 
@@ -25,8 +25,7 @@ const RegisterModal = (props) => {
         if (password.includes(' ')) return setError('Password cannot include spaces.');
         if (username.length < 5) return setError('Username must be larger than 4 characters.');
         if (username.length > 15) return setError('Username must be less than 15 characters.');
-        if (password !== confPassword) return setError('Passwords do not match.');
-        dispatch(registerAction( username, password ))
+        dispatch(registerAction( username, password, email ))
     }
 
     const submitForm = (e) => {
@@ -54,16 +53,16 @@ const RegisterModal = (props) => {
                         <small className="modal-err-desc">{error}</small>
                     </div>
                     <div className="modal-form-input-container">
+                        <span className="modal-form-input-header">EMAIL</span>
+                        <input type="email" className="modal-form-input" value={email} onChange={(e) => setEmail(e.target.value)} placeholder=""/>
+                    </div>
+                    <div className="modal-form-input-container">
                         <span className="modal-form-input-header">USERNAME</span>
                         <input type="text" className="modal-form-input" value={username} onChange={(e) => setUsername(e.target.value)} placeholder=""/>
                     </div>
                     <div className="modal-form-input-container">
                         <span className="modal-form-input-header">PASSWORD</span>
                         <input type="password" className="modal-form-input" value={password} onChange={(e) => setPassword(e.target.value)} placeholder=""/>
-                    </div>
-                    <div className="modal-form-input-container">
-                        <span className="modal-form-input-header">CONFIRM PASSWORD</span>
-                        <input type="password" className="modal-form-input" value={confPassword} onChange={(e) => setConfPassword(e.target.value)} placeholder=""/>
                     </div>
                 </div>
                 <button type="submit" className="submit-button-long">Register</button>

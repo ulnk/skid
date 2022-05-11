@@ -1,0 +1,119 @@
+.channel-bar-inner {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: calc(100% - 3.3125rem);
+    margin-bottom: auto;
+}
+
+.friend-list-top {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 3.2rem;
+    padding: 0.75rem 0.75rem;
+    box-shadow: 0 1px 0 rgba(4,4,5,0.2),0 1.5px 0 rgba(6,6,7,0.05),0 2px 0 rgba(4,4,5,0.05);
+}
+
+.search-friend-list {
+    width: 100%;
+    height: 100%;
+    border-radius: 0.2rem;
+    cursor: pointer;
+    background-color: var(--bg-tertiary);
+}
+
+/* Users Friends */
+
+.user-friend-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.5rem;
+    margin-top: 0.1rem;
+    width: 100%;
+    height: 100%;
+}
+
+.user-friend {
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+    align-items: center;
+    width: 100%;
+    height: 2.625rem;
+    border-radius: 0.2rem;
+    transition: background-color 150ms ease-out;
+}
+
+.user-friend:hover { background-color: var(--bg-interaction-hover); }
+.user-friend:hover > .user-friend-name { color: var(--colour-channels-hover); }
+
+.user-friend.selected {
+    background-color: var(--bg-interaction);
+}
+
+.user-friend-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2rem;
+    width: 2rem;
+    border-radius: 100%;
+    background-color: var(--bg-blurple);
+    margin: 0 0.5rem;
+}
+
+.user-friend-image.icon { background-color: transparent; }
+
+.user-friend-image-icon {
+    width: 24px;
+    height: 24px;
+    color: var(--colour-primary);
+}
+
+.user-friend.selected > .user-friend-image.icon > .user-friend-image-icon { color: var(--colour-channels-hover); }
+
+.user-friend-name {
+    font-family: var(--font-primary);
+    font-weight: 500;
+    color: var(--colour-primary);
+}
+
+.user-friend.selected > .user-friend-name {
+    font-family: var(--font-primary);
+    font-weight: 500;
+    color: white;
+}
+
+.user-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+    margin-top: 0.75rem;
+    padding: 0 0 0 0.5rem;
+    font-size: 12px;
+    font-family: var(--font-display);
+    font-weight: 500;
+    color: var(--colour-channels);
+}
+
+.user-header-add {
+    margin: 0 1rem 0 auto;
+    transition: color 150ms ease-out;
+}
+
+.user-header-text {
+    transition: color 150ms ease-out;
+}
+
+.user-header-add:hover, .user-header-text:hover  { color: var(--colour-channels-hover);}
+
+.user-header-text:hover ~ .user-header-add { color: var(--colour-channels-hover);}
+
+.no-direct-messages {
+    fill: #37383f;
+    margin: 1rem 0 0 0.5rem;
+}

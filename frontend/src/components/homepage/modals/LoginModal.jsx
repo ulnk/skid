@@ -37,7 +37,7 @@ const LoginModal = (props) => {
                         <small className="modal-header-desc">We're so glad to see you again!</small>
                     </div>
                     <div className="modal-form-input-container">
-                        <span className="modal-form-input-header">USERNAME</span>
+                        <span className="modal-form-input-header">EMAIL OR USERNAME</span>
                         <input type="text" className="modal-form-input" value={username} onChange={(e) => setUsername(e.target.value)} placeholder=""/>
                     </div>
                     <div className="modal-form-input-container">

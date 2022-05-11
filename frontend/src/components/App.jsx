@@ -13,6 +13,7 @@ import Register from './pages/homePage/Register';
 // SkidApp Elements
 import SkidApp from './pages/skidApp/SkidApp';
 import SkidAppMe from './pages/skidApp/SkidAppMe';
+import SkidAppMeMessage from './pages/skidApp/SkidAppMeMessage';
 import SkidAppInvite from './pages/skidApp/SkidAppInvite';
 
 const App = () => {
@@ -35,6 +36,7 @@ const App = () => {
                 
                 <Route path="/skid/:serverId/:channelId" element={<SkidApp />} />
                 <Route path="/skid/@me" element={<SkidAppMe />} />
+                <Route path="/skid/@me/:userId" element={<SkidAppMeMessage />} />
 
                 <Route path="*" element={<Redirect />} />
             </Routes>

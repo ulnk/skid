@@ -15,9 +15,11 @@ export const SocketProvider = ({ children }) => {
     const auth = useSelector((state) => state.user);
 
     useEffect(() => {
+        if (!auth._id) return;
+
         const newSocket = io(URI, {
             auth: {
-                token: auth.token || null
+                token: auth.token
             }
         });
         setSocket(newSocket);

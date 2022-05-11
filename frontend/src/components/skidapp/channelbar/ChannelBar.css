@@ -1,25 +1,40 @@
 /* Channel Context Menu */
 
+
+
 .context-menu {
-    @apply absolute flex flex-col py-1.5 px-1.5 rounded gap-1;
+    @apply absolute flex flex-col py-2 px-2 rounded gap-1;
+    align-items: center;
     z-index: 100;
-    visibility: hidden;
+    pointer-events: none;
     width: calc(100% - 10px);
     left: 5px;
     top: 110%;
     background-color: var(--bg-tertiary-alt);
     font-family: var(--font-primary);
     color: var(--colour-normal);
-    transition: visibility 100ms ease-in, opacity 100ms ease-in;
+    transform: scale(0.7) translateY(-20%);
+    /* margin-top: -1rem; */
+    transition: transform 100ms linear, opacity 100ms ease-in;
     opacity: 0;
 }.context-menu.on{
-    visibility: visible;
+    pointer-events: all;
     opacity: 1;
+    transform: scale(1);
+    /* margin-top: 0; */
+}
+
+.context-menu-divider {
+    height: 1px;
+    width: 95%;
+    background-color: var(--bg-primary);
+    padding: 0 0.5rem;
 }
 
 .context-menu-item {
     @apply bg-transparent rounded-sm text-sm py-[6px] px-2 cursor-pointer;
     transition: background-color 100ms ease-in, color 100ms ease-in;
+    width: 100%;
 }.context-menu-item:hover {
     color: white;
 }.context-menu-item > button {
@@ -133,7 +148,7 @@
 }
 
 .channel-title {
-    @apply mt-[-1px] pr-1 transition-all duration-150;
+    @apply transition-all duration-150;
     font-weight: 500;
     white-space: nowrap;
     overflow: hidden;
@@ -141,7 +156,11 @@
 }
 
 .channel-hashtag {
-    @apply mx-2 font-extralight;
+    color: var(--colour-channels);
+    height: 20px;
+    width: 20px;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
 }
 
 .user-info {

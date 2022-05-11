@@ -27,10 +27,10 @@ router.post('/', jwt, async (req, res) => {
     if (!foundServer.members.includes(foundUser.id)) return res.sendStatus(400);
 
     foundUser.servers = foundUser.servers.filter(filterServerId => filterServerId !== serverId);
-    foundUser.save();
+    foundUser.save(err => {});
 
     foundServer.members = foundServer.members.filter(filterMember => filterMember !== foundUser.id);
-    foundServer.save();
+    foundServer.save(err => {});
 
     res.json(foundUser.servers);
 });

@@ -29,10 +29,10 @@ export const addMessageToAll = (message) => async (dispatch) =>  {
     }
 }
 
-export const createMessageAction = (content, serverId, categoryId, channelId) => async (dispatch) =>  {
+export const createMessageAction = (content, serverId, categoryId, channelId, small) => async (dispatch) =>  {
     try {
-        const { data } = await createMessage(content, serverId, categoryId, channelId);
-        dispatch({ type: 'CREATE_MESSAGE', payload: data });
+        const { data } = await createMessage(content, serverId, categoryId, channelId, small);
+        // dispatch({ type: 'CREATE_MESSAGE', payload: data });
     } catch(e) {
         console.log(e)
     }

@@ -12,15 +12,18 @@ import { FaGlobeAmericas } from 'react-icons/fa';
 
 import NewServer from '../modals/newserver/NewServer';
 import JoinServer from '../modals/joinserver/JoinServer';
+import { notifyUnreadMessage } from '../../../actions/notifications';
 
 const ServerNavbar = () => {
     const [allServers, setAllServers] = useState([]);
     const [showNewServerModal, setShowNewServerModal] = useState(false);
     const [showJoinServerModal, setShowJoinServerModal] = useState(false);
+
     const allServerChannelsSelector = useSelector((state) => state.channel.allServerChannels);
     const allServersSelector = useSelector((state) => state.server.allServers);
     const globalServer = useSelector((state) => state.server.global);
     const redirectToChannel = useSelector((state) => state.channel.redirectToChannel);
+    const unreadMessages = useSelector((state) => state.notify.unreadMessages);
 
     const { serverId, channelId } = useParams();
     const dispatch = useDispatch();
@@ -29,12 +32,20 @@ const ServerNavbar = () => {
 
     useEffect(() => {
         if (!socket) return;
+        socket.off('messageFriend');
+        socket.off('deleteServer');
 
         socket.on('deleteServer', (serverIdSocket) => {
             dispatch(hideServerAction(serverId));
             if (serverId === serverIdSocket) navigate('/skid/@me');
         })
-    }, [serverId, socket, dispatch, navigate]);
+
+        socket.on('messageFriend', (msg) => {
+            if (!serverId || !channelId) return;
+            console.log(msg);
+            dispatch(notifyUnreadMessage(msg));
+        });
+    }, [serverId, channelId, socket, dispatch, navigate]);
 
     useEffect(() => {
         setAllServers(allServersSelector);
@@ -46,12 +57,12 @@ const ServerNavbar = () => {
 
     useEffect(() => {
         dispatch(getAllChannelsAction(serverId));
-    }, [serverId, dispatch])
+    }, [serverId, dispatch]);
 
     useEffect(() => {
         if (channelId === 'redirect' || channelId === 'null') return;
         dispatch(getChannelAction(channelId));
-    }, [channelId, dispatch])
+    }, [channelId, dispatch]);
 
     useEffect(() => {
         if (!redirectToChannel) return;
@@ -59,7 +70,7 @@ const ServerNavbar = () => {
         const foundChanelInServer = allServerChannelsSelector.filter((c) => c.server === serverId && c._id === channelId);
         if (foundChanelInServer[0]) return;
         navigate(`/skid/${serverId}/${redirectToChannel}`);
-    }, [serverId, channelId, redirectToChannel, allServerChannelsSelector, navigate])
+    }, [serverId, channelId, redirectToChannel, allServerChannelsSelector, navigate]);
 
     // useEffect(() => {
     //     if (channelId === 'redirect') {
@@ -86,6 +97,20 @@ const ServerNavbar = () => {
                         <span className="tool">Home</span>
                     </div>
                 </Link>
+
+                {
+                    unreadMessages.map(dm => {
+                        return (
+                            <Link to={`/skid/@me/${dm.owner}`}>
+                                <div className={`selected-noti`}></div>
+                                <div data-ping-count={dm.count} className={`ping navbar-server hover-skid background-primary ${!serverId ? 'home-selected' : null}`}>
+                                    <img className='server-icon-image' src={dm.image} alt='server icon' />
+                                    <span className="tool">{dm.ownerName}</span>
+                                </div>
+                            </Link>
+                        )
+                    })
+                }
 
                 { allServers[0] || globalServer._id ? <div className="divider background-primary" /> : null }
 
@@ -116,7 +141,7 @@ const ServerNavbar = () => {
 
                 <div className="divider background-primary" />
 
-                <div className="navbar-server hover-site background-primary" onClick={() => setShowNewServerModal(true)}>
+                <div className={`navbar-server hover-site background-primary ${showNewServerModal && 'site-selected'}`} onClick={() => setShowNewServerModal(true)}>
                 <svg aria-hidden="false" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 11.1111H12.8889V4H11.1111V11.1111H4V12.8889H11.1111V20H12.8889V12.8889H20V11.1111Z"></path></svg>
                     <span className="tool">Add a server</span>
                 </div>

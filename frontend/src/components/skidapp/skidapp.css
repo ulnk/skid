@@ -7,6 +7,11 @@
     --bg-tertiary: #202225;
     --bg-tertiary-alt: #18191c;
 
+    --bg-interaction: #42464d;
+    --bg-interaction-hover: #3c3f45;
+
+    --bg-message-hover: #32353b;
+
     --bg-blurple: hsl(235, 85.6%, 64.7%);
     --bg-blurple-hover: hsl(235, 51.4%, 52.4%);
 

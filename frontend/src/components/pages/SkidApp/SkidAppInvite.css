@@ -9,11 +9,11 @@
     align-items: center
 }
 .login-register-inv {
-    @apply mr-auto text-sm;
+    @apply mr-auto;
+    font-size: 14px;
     font-family: var(--font-primary);
     color: var(--colour-muted);
 }
-
 .register-button-inv {
     @apply mt-1 font-bold text-[#0b96ce];
 }

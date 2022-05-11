@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { checkReminder } from '../../../actions/other';
 
 import './Reminder.css';
+import { ReactComponent as Close } from '../../../assets/close.svg';
 
 const Reminder = () => {
     const [showReminder, setShowReminder] = useState(JSON.parse(localStorage.getItem('reminder')));
@@ -29,7 +30,7 @@ const Reminder = () => {
                     Have you heard of notds? Check out their amazing mutitool! 
                     <a href="https://github.com/jugoslovenska/notds" className="reminder-button">click here!</a>
                 </div>
-                <MdClose className='reminder-close' onClick={() => hideReminder()}/>
+                <Close className='reminder-close' onClick={() => hideReminder()}/>
             </div>}
         </>
     );

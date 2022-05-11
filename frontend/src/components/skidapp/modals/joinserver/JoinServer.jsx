@@ -11,6 +11,7 @@ const JoinServer = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (!props.show) return;
         splitInviteCode(inviteCode)
         dispatch(joinInviteAction(inviteCode));
         props.close(false);

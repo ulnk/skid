@@ -29,10 +29,10 @@ router.post('/', jwt, async (req, res) => {
     if (foundServer.members.includes(foundUser.id)) return res.sendStatus(400);
 
     foundUser.servers.push(foundInvite.server);
-    foundUser.save();
+    foundUser.save(err => {});
 
     foundServer.members.push(foundUser.id);
-    foundServer.save();
+    foundServer.save(err => {});
 
     res.json(foundServer);
 });

@@ -25,6 +25,7 @@ const NewServerInvite = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (!props.show) return;
         dispatch(createInviteAction(serverId, newInvite));
     }
 

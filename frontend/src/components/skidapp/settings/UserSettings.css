@@ -1,17 +1,31 @@
+.row {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.extend{
+    width: 10px;
+    height: 4rem;
+}
 .settings {
     pointer-events: none;
     opacity: 0;
     display: flex;
-    flex-direction: row;
-    position: absolute;
+    flex-direction: column;
+    position: fixed;
     height: 100%;
+    min-height: 100%;
+    /* height: max-content; */
     width: 100%;
     background-color: var(--bg-primary);
-    z-index: 2;
+    z-index: 999999;
     top: 0;
     left: 0;
     scale: 0.7;
-    transition: pointer-events 100ms ease-out, opacity 100ms ease-out, scale 100ms ease-out;
+    transition: pointer-events 100ms ease-in, opacity 100ms ease-in, scale 100ms ease-in;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 .settings.active {
     pointer-events: all;
@@ -20,55 +34,105 @@
 }
 
 .close {
-    @apply absolute w-9 h-9 rounded-full border;
+    position: relative;
+    min-width: 2.25rem;
+    min-height: 2.25rem;
+    max-width: 2.25rem;
+    max-height: 2.25rem;
+    border-radius: 100%;
     border-width: 2px;
     border-color: var(--colour-muted);
     z-index: 4;
-    right: 25%;
-    top: 2rem;
+    /* top: 2rem; */
+    /* right: 4rem; */
+    margin: 3rem auto auto 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
     color: white;
     cursor: pointer;
-    transition: background-color 100ms ease-out
+    transition: background-color 100ms ease-in
 }
 .close:hover {
     background-color: var(--bg-primary-alt)
 }
 
 .options {
-    @apply pl-4;
-    margin-top: 1.5rem;
+    /* margin-left: 43rem; */
+    padding-right: 1rem;
+    margin-left: max(37%, 15rem);
     display: flex;
-    flex-direction: column;
-    flex-grow: 1;
+    flex-direction: row;
 }
 
-.header-title-option {
-    @apply text-white text-xl font-bold ml-5;
-    margin-top: 1.5rem;
-    font-family: var(--font-primary);
+.options-inner {
+    padding: 3.5rem 2rem 2rem 0.5rem;
+    display: flex;
+    flex-direction: column;
+    /* width: 100%; */
+    /* height: 100%; */
+    /* background-color: antiquewhite; */
+    /* padding: 2rem 20px 20px 2.25rem; */
+    /* background-color: red; */
+    width: 100%;
+    gap: 1rem;
+    min-width: 32rem;
+    max-width: 43rem;
 }
 
 .option {
     display: flex;
+    gap: 1rem;
     flex-direction: column;
-    width: 60%;
-    padding: 20px;
+    width: 100%;
+}
+
+.options-divider {
+    margin: 1.5rem 0 1.5rem 0;
+    min-height: 1px;
+    height: 1px;
+    z-index: 2;
+    width: 100%;
+    background: var(--bg-primary-alt);
+}
+
+.header-title-option {
+    font-weight: 500;
+    font-size: 1.25rem;
+    font-family: var(--font-display);
+    color: white;
+}
+
+.option-description-header {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 12px;
+    font-family: var(--font-display);
+    color: #b9bbbe;
+}
+
+.option-description-body {
+    width: 31rem;
+    font-weight: 400;
+    font-size: 14px;
+    font-family: var(--font-primary);
+    color: #b9bbbe;
 }
 
 .tabs {
-    width: 35%;
-    min-width: 35%;
-    max-width: 35%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: max(calc(14rem), 35%);
+    min-width: 14rem;
     height: 100%;
     background-color: var(--bg-secondary);
 }
 
 .tab-buttons-container {
-    @apply px-4 pt-[3.5rem];
+    margin-top: calc(3.5rem);
     display: flex;
+    padding-left: 18px;
     flex-direction: column;
     width: 220px;
     height: 100%;
@@ -78,18 +142,28 @@
     /* background-color: var(--bg-blurple); */
 }
 
+.tabs-divider {
+    @apply my-2;
+    height: 1px;
+    width: 93%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: var(--bg-primary-alt);
+}
+
 .tab-section {
     @apply flex flex-col gap-2;
     padding-right: 8px;
 }
 
 .section-title {
-    @apply ml-2;
+    margin-top: 4px;
+    margin-left: 12px;
     width: 100%;
     font-size: 12px;
     line-height: 16px;
     font-weight: 700;
-    color: #b9bbbe;
+    color: #96989d;
 }
 
 .section-items {
@@ -102,7 +176,8 @@
     @apply flex flex-row items-center p-2 w-full h-8 rounded;
     font-family: var(--font-primary);
     font-weight: 500;
-    transition: background-color 100ms ease-out, color 100ms ease-out
+    padding-left: 9px;
+    transition: background-color 100ms ease-in, color 100ms ease-in
 }
 .section-button:hover {
     background-color: #34373c;
@@ -124,17 +199,47 @@
     color: white;
 }
 
-.divider-options {
-    @apply my-2;
-    height: 1px;
-    width: 93%;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: var(--bg-primary-alt);
+.password-box {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.normal-button {
+    border-radius: 0.2rem;
+    padding: 0.4rem 1rem 0.4rem 1rem;
+    width: max-content;
+    background-color: var(--bg-blurple);
+    font-weight: 500;
+    font-family: var(--font-primary);
+    color: white;
+    font-size: 14px;
+    transition: background-color 150ms ease-in;
+}
+.normal-button.no-hover:hover{
+    cursor: not-allowed;
+    background-color: var(--bg-blurple);
+}
+.normal-button:hover{
+    background-color: var(--bg-blurple-hover);
+}
+.normal-button.red{
+    background-color: var(--bg-error); 
+}.normal-button.red:hover{
+    background-color: var(--bg-error-hover); 
+}
+
+.normal-button.red-hollow{
+    background-color: transparent;
+    border: 1px solid var(--bg-error); 
+}.normal-button.red-hollow:hover{
+    background-color: var(--bg-error); 
 }
 
 .submit-button-save {
-    @apply px-4 h-[34px] w-20 text-white rounded text-sm;
+    @apply px-4 h-[34px] w-20 text-white rounded;
+    font-size: 14px;
     margin-top: .75rem;
     background-color: var(--bg-success);
     font-family: var(--font-primary);
@@ -160,10 +265,4 @@
 
 .modal-form-input-o:hover {
     @apply border-opacity-80;
-}
-
-.option-title {
-    @apply mb-2 w-full text-sm;
-    font-family: var(--font-display);
-    color: #b9bbbe;
 }

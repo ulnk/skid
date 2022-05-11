@@ -29,7 +29,7 @@ router.post('/', jwt, async (req, res) => {
     
     foundChannel.remove();
     foundCategory.channels = foundCategory.channels.filter(filterChannelId => filterChannelId !== channelId)
-    foundCategory.save();
+    foundCategory.save(err => {});
 
     res.json(foundCategory);
 });

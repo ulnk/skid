@@ -10,6 +10,7 @@ const NewServer = (props) => {
     
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!props.show) return;
         dispatch(createServerAction(serverName));
         setServerName('');
         props.close(false);

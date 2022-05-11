@@ -1,7 +1,41 @@
 /* User Content: Messaging, Members, etc. */
 
+.hashtag-channel-name {
+    color: var(--colour-channels);
+    height: 24px;
+    width: 24px;
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+}
+
+.right-side-buttons {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 1rem;
+    margin-left: auto;
+    margin-right: calc(1rem + 2px);
+}
+
+.right-side-button {
+    color: var(--colour-primary);
+    cursor: pointer;
+    transition: color 75ms ease-in;
+}.right-side-button:hover{
+    color: white;
+}.right-side-button.enabled {
+    color: white;
+}
+
+.dumb-seach-bar {
+    width: 9rem;
+    height: 1.5rem;
+    border-radius: 0.2rem;
+    background-color: var(--bg-tertiary)
+}
+
 .user-content {
     @apply flex flex-grow overflow-hidden;
+    width: 100%;
 }
 
 .reminder-user-content {
@@ -11,13 +45,15 @@
 }
 
 .channel-name {
-    @apply flex flex-row items-center fixed float-left h-12 w-full z-[1];
+    @apply flex flex-row items-center fixed float-left h-12 z-[1];
+    width: calc(100% - 310px);
     box-shadow: 0 1px 0 rgba(4,4,5,0.2),0 1.5px 0 rgba(6,6,7,0.05),0 2px 0 rgba(4,4,5,0.05);
 }
 
 .channel-info-name {
-    @apply text-white font-bold mx-4;
-    font-family: var(--font-primary);
+    @apply text-white;
+    font-family: var(--font-display);
+    font-weight: 500;
 }
 
 .chat {
@@ -51,12 +87,30 @@
 }
 
 .chat-container-header {
-    @apply flex ml-4 mb-8;
+    @apply flex ml-4;
     display: flex;
     flex-direction: column;
-    height: 40px;
+    /* height: 40px; */
     font-family: var(--font-primary);
 }
+
+/* @media (max-width: 890px) {
+    .chat-container-header.shrink {
+        margin-bottom: 6rem;
+    }
+}
+
+@media (max-width: 832px) {
+    .chat-container-header.shrink {
+        margin-bottom: 7rem;
+    }
+}
+
+@media (max-width: 649px) {
+    .chat-container-header {
+        margin-bottom: 7rem;
+    }
+} */
 
 .chat-contiainer-header-text-large {
     color: white;
@@ -92,10 +146,10 @@
 }
 
 .chat-item-small:hover {
-    background-color: var(--bg-secondary);
+    background-color: var(--bg-message-hover);
 }
 .chat-item:hover {
-    background-color: var(--bg-secondary);
+    background-color: var(--bg-message-hover);
 }
 
 .chat-item-picture {

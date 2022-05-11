@@ -17,6 +17,7 @@ const NewChannel = (props) => {
     
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (!props.show) return;
         dispatch(createChannelAction(serverId, props.categoryId, channelName));
         setChannelName('');
         props.setCategoryId('');

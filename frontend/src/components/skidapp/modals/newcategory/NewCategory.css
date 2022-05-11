@@ -132,15 +132,6 @@
     @apply flex flex-row h-[70px] rounded rounded-t-none mt-auto items-center justify-end px-5 gap-2;
 }
 
-.submit-button {
-    @apply px-4 h-[38px] text-white rounded text-sm;
-    background-color: var(--bg-blurple);
-    font-family: var(--font-primary);
-}
-
-.submit-button:hover {
-    background-color: var(--bg-blurple-hover);
-}
 
 .cancel-button {
     @apply h-[38px] text-white rounded text-sm;

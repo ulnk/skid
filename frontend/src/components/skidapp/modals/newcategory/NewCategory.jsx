@@ -15,6 +15,7 @@ const NewCategory = (props) => {
     
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (!props.show) return;
         dispatch(createCategoryAction(serverId, categoryName))
         setCategoryName('')
         props.close(false)

@@ -8,9 +8,12 @@ const router = express.Router();
 router.post('/', jwt, async (req, res) => {
     const { username, password } = req.user;
     if (!username || !password) return res.sendStatus(400);
-    
-    const foundUser = await UserModel.findOne({ username, password });
+    const userFromUsername = await UserModel.findOne({ username, password: password });
+    const userFromEmail = await UserModel.findOne({ email: username, password: password });
+    const foundUser = userFromUsername || userFromEmail;
     if (!foundUser) return res.sendStatus(403);
+
+    if (foundUser.disabled) return res.sendStatus(403);
 
     res.json({ auth: true });
 });

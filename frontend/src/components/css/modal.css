@@ -28,25 +28,33 @@
 
 .modal-underbody {
     @apply flex justify-center items-center absolute z-[99999999] h-screen w-screen bg-black bg-opacity-60;
-    visibility: hidden;
+    /* visibility: hidden; */
+    opacity: 0;
+    pointer-events: none;
+    /* visibility: visible; */
+    transition: opacity 300ms ease-in;
 }
 
 .modal-underbody.show {
-    visibility: visible;
+    /* visibility: visible; */
+    opacity: 1;
+    pointer-events: all;
 }
 
 .modal-container-app {
     @apply flex flex-col w-[440px] rounded;
-    transform: scale(0.7);
-    margin-bottom: 20px;
+    transform: scale(0.5);
     opacity: 0;
-    transition: transform 150ms ease-in-out, opacity 150ms ease-in-out, margin-bottom 150ms ease-in-out;
+    overflow: hidden;
+    transition: transform 100ms ease-in, opacity 100ms ease-in, margin-bottom 100ms ease-in;
 }
 
 .modal-container-app.show {
     transform: scale(1);
     margin-bottom: 0;
     opacity: 1;
+    max-height: max-content;
+    transition: transform 200ms ease-in, opacity 150ms ease-in, margin-bottom 150ms ease-in;
 }
 
 .modal-container {
@@ -76,7 +84,6 @@
 }
 
 .modal-header-desc {
-    @apply flex;
     color: var(--colour-channels);
     font-family: var(--font-primary);
     font-weight: 500;
@@ -87,21 +94,64 @@
 }
 
 .modal-form-header-app {
-    @apply flex flex-col items-center justify-center mt-8 px-12 text-center;
+    @apply flex flex-col items-center justify-center mt-8 px-6 text-center;
 }
 
+.modal-form-header-app.small-header > .modal-header-title-app {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 500;
+    margin-right: auto;
+    margin-left: 0px;
+}
+
+.modal-form-header-app.small-header > .modal-header-desc-app {
+    font-family: var(--font-primary);
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--colour-primary);
+    margin: 0.5rem auto 0 0;
+}
+
+.modal-form-header-app.small-header {
+    margin: 0.5rem auto 0rem 0;
+}
+
+.modal-header-desc-app.smaller-text.error-modal-app {
+    font-family: var(--font-primary);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--colour-error);
+    text-align: left;
+}
+
+.modal-form-header-app.small-header {
+    padding: 0 1rem 0 1rem;
+    margin: 1rem 0 0 0;
+    font-size: 18px;
+}
+
+
 .modal-header-title-app {
-    @apply text-white font-bold text-xl;
+    @apply text-white font-bold ml-6;
+    font-size: 20px;
     font-size: 27px;
     line-height: 30px;
     font-family: var(--font-primary);
 }
 
 .modal-header-desc-app {
-    @apply flex text-sm mt-2;
+    display: flex;
+    margin-top: 8px;
+    font-size: 14px;
     color: var(--colour-channels);
     font-family: var(--font-primary);
     font-weight: 500;
+}
+
+.modal-header-desc-app.smaller-text{
+    font-size: 16px;
+    font-weight: 400;
 }
 
 /* Modal Slect Type */
@@ -217,11 +267,24 @@
     @apply flex flex-row h-[70px] rounded rounded-t-none mt-auto items-center justify-end px-5 gap-2;
 }
 
+.options-container.small-header {
+    margin-top: 2rem;
+}
+
 .submit-button {
-    @apply px-4 h-[38px] text-white rounded text-sm;
+    height: 36px;
+    padding: 0 1.5rem 0 1.5rem;
+    color: white;
+    border-radius: 0.2rem;
     background-color: var(--bg-blurple);
     font-family: var(--font-primary);
+    font-size: 14px;
     font-weight: 500;
+}
+.submit-button.err {
+    background-color: var(--bg-error);
+}.submit-button.err:hover {
+    background-color: var(--bg-error-hover);
 }
 
 .submit-button:hover {
@@ -253,4 +316,18 @@
 
 .cancel-button:hover {
     text-decoration: underline;
+}
+
+.yellow-warning-text {
+    font-family: var(--font-primary);
+    font-size: 16px;
+    text-align: left;
+    width: 100%;
+    background: #fba81b;
+    padding: 0.55rem 0.5rem 0.55rem 0.5rem;
+    border-radius: 0.2rem;
+    line-height: 20px;
+    color: white;
+    margin-bottom: 0rem;
+    margin-top: 1rem;
 }

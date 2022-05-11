@@ -36,6 +36,8 @@ export default (state = initialState(), action) => {
             return { ...initialState(action.payload.jwt) };
         case 'AUTH':
             return { ...state, auth: action.payload.auth }
+        case 'ALL_FRIENDS':
+            return { ...state, friends: action.payload }
         default:
             return state;
     }
