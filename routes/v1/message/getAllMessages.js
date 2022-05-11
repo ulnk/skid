@@ -11,9 +11,10 @@ router.get('/', jwt, async (req, res) => {
     if (!serverId, !channelId) return res.sendStatus(400);
     
     const { username, password } = req.user;
-    if (!username || !password) return res.sendStatus(403);
-    
-    const foundUser = await UserModel.findOne({ username, password });
+    if (!username || !password) return res.sendStatus(400);
+    const userFromUsername = await UserModel.findOne({ username, password: password });
+    const userFromEmail = await UserModel.findOne({ email: username, password: password });
+    const foundUser = userFromUsername || userFromEmail;
     if (!foundUser) return res.sendStatus(403);
     
     const foundMessages = await MessageModel.find({ server: serverId, channel: channelId });

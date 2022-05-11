@@ -15,9 +15,9 @@ router.post('/', jwt, async (req, res) => {
     if (!foundUser) return res.sendStatus(403);
 
     foundUser.image = imageLink;
-    foundUser.save();
+    foundUser.save(err => {});
 
-    req.session.user = await sign(foundUser);
+    req.user = await sign(foundUser);
     res.json({ jwt: await sign(foundUser) });
 });
 

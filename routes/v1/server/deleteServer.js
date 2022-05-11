@@ -32,7 +32,7 @@ router.post('/', jwt, async (req, res) => {
     const allUsers = await UserModel.find({});
     for (let user of allUsers) {
         user.servers = foundUser.servers.filter(filterServerId => filterServerId !== serverId);
-        user.save();
+        user.save(err => {});
     }
 
     await ServerModel.findOneAndDelete({ _id:serverId });

@@ -25,7 +25,7 @@ router.post('/', jwt, async (req, res) => {
 
     foundCategory.remove();
     foundServer.categories = foundServer.categories.filter(filterCategoryId => filterCategoryId !== categoryId)
-    foundServer.save();
+    foundServer.save(err => {});
 
     res.json(foundServer);
 });
