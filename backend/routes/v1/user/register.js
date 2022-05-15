@@ -13,7 +13,7 @@ router.post('/', async (req, res) => {
     const userFromUsername = await UserModel.findOne({ username, password: hashedPassword });
     const userFromEmail = await UserModel.findOne({ email: username, password: hashedPassword });
     const foundUser = userFromUsername || userFromEmail;
-    if (foundUser) return res.json({ type: 'login', message: 'User not found.' }).sendStatus(400);
+    if (foundUser) return res.sendStatus(400);
 
     const newUser = await UserModel.create({ username, password: hashedPassword,email, joinedServers: [] });
     if (!newUser) return res.sendStatus(500);
