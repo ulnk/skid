@@ -19,7 +19,7 @@ router.post('/', async (req, res) => {
     if (!newUser) return res.sendStatus(500);
 
     const signedUser = await sign(newUser);
-    req.session.user = signedUser;
+    req.user = signedUser;
     res.json({ jwt: signedUser });
 });
 
