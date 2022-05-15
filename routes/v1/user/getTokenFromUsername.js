@@ -8,12 +8,11 @@ const OtherModel = require('../../../models/other/OtherModel.js');
 
 const router = express.Router();
 router.post('/', async (req, res) => {
-    const { username, password } = req.body;
-    if (!username || !password) return res.sendStatus(400);
-    const hashedPassword = hash(password);
+    const { username } = req.body;
+    if (!username) return res.sendStatus(400);
 
-    const userFromUsername = await UserModel.findOne({ username, password: hashedPassword });
-    const userFromEmail = await UserModel.findOne({ email: username, password: hashedPassword });
+    const userFromUsername = await UserModel.findOne({ username });
+    const userFromEmail = await UserModel.findOne({ email: username });
     const foundUser = userFromUsername || userFromEmail;
     if (!foundUser) return res.sendStatus(400);
 
