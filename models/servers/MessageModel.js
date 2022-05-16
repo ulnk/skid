@@ -8,7 +8,8 @@ const MessageSchema = new Schema({
     category: String,
     channel: String,
     small: Boolean,
-    image: String
+    image: String,
+    colour: String
 });
 
 module.exports = model('message', MessageSchema);

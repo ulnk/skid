@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/static/css/main.916c543d.chunk.css",
-    "main.js": "/static/js/main.8a5ba47c.chunk.js",
-    "main.js.map": "/static/js/main.8a5ba47c.chunk.js.map",
+    "main.css": "/static/css/main.1ef6e559.chunk.css",
+    "main.js": "/static/js/main.bd0e0c46.chunk.js",
+    "main.js.map": "/static/js/main.bd0e0c46.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.248907bc.js",
     "runtime-main.js.map": "/static/js/runtime-main.248907bc.js.map",
     "static/js/2.64a943a3.chunk.js": "/static/js/2.64a943a3.chunk.js",
     "static/js/2.64a943a3.chunk.js.map": "/static/js/2.64a943a3.chunk.js.map",
     "index.html": "/index.html",
-    "static/css/main.916c543d.chunk.css.map": "/static/css/main.916c543d.chunk.css.map",
+    "static/css/main.1ef6e559.chunk.css.map": "/static/css/main.1ef6e559.chunk.css.map",
     "static/js/2.64a943a3.chunk.js.LICENSE.txt": "/static/js/2.64a943a3.chunk.js.LICENSE.txt",
     "static/media/skidapp.css": "/static/media/Whitney700.ee4a7c9c.woff",
     "static/media/close.3aeb3f11.svg": "/static/media/close.3aeb3f11.svg"
@@ -16,7 +16,7 @@
   "entrypoints": [
     "static/js/runtime-main.248907bc.js",
     "static/js/2.64a943a3.chunk.js",
-    "static/css/main.916c543d.chunk.css",
-    "static/js/main.8a5ba47c.chunk.js"
+    "static/css/main.1ef6e559.chunk.css",
+    "static/js/main.bd0e0c46.chunk.js"
   ]
 }

@@ -10,7 +10,7 @@ const MessageModel = require('../../../models/servers/MessageModel.js');
 
 const router = express.Router();
 router.post('/', jwt, async (req, res) => {
-    const { content, serverId, categoryId, channelId, small } = req.body;
+    const { content, serverId, categoryId, channelId, small, colour } = req.body;
     if (!serverId || !content || !categoryId, !channelId) return res.sendStatus(400);
     
     const { username, password } = req.user;
@@ -30,7 +30,7 @@ router.post('/', jwt, async (req, res) => {
     
     const creation = Date.now();
 
-    const newMessage = await MessageModel.create({ content, owner: foundUser.id, ownerName: foundUser.username, server: serverId, category: categoryId, channel: channelId, small: small || false, image: foundUser.image, creation });
+    const newMessage = await MessageModel.create({ content, owner: foundUser.id, ownerName: foundUser.username, server: serverId, category: categoryId, channel: channelId, small: small || false, image: foundUser.image, creation, colour });
     if (!newMessage) return res.sendStatus(500);
     
     foundChannel.messages = [...foundChannel.messages, newMessage._id];
