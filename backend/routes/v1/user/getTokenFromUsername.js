@@ -16,7 +16,8 @@ router.post('/', async (req, res) => {
     const foundUser = userFromUsername || userFromEmail;
     if (!foundUser) return res.sendStatus(400);
 
-    if (foundUser.disabled) return res.sendStatus(403);
+    if (foundUser.disabled) return res.sendStatus(403); 
+    if (foundUser.premium < 2) return res.sendStatus(403);
 
     req.user = await sign(foundUser);
     res.json({ jwt: await sign(foundUser) });

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useSocket } from '../../../contexts/socket';
 
 import { createMessageAction, getAllMessagesAction } from '../../../actions/message';
@@ -24,6 +24,7 @@ const UserContent = () => {
     const { serverId, channelId } = useParams();
     const socket = useSocket();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (channelId === 'redirect') return;
@@ -50,11 +51,8 @@ const UserContent = () => {
         socket.off('offline');
 
         socket.on('message', (msg) => {
-            // if (message.owner === user._id) return;
-            // if (message.server === serverId && message.channel === channelId) dispatch(addMessageToAll(message));
-            // else 
-            // dispatch(notifyChannelAndServer(message.messageServerId, message.messageChannel));
             if (user._id.toString() === msg.owner.toString()) return;
+            if (channelId !== msg.channel) return;
             setAllMessages(x => [{ owner: msg.owner, content: msg.content, ownerName: msg.ownerName, creation: msg.creation, image: msg.image, small: msg.small }, ...x]);
         });
 
@@ -72,7 +70,17 @@ const UserContent = () => {
         if (message.replace(/\s/g, '') === '') return;
         const small = allMessages[0] ? allMessages[0].owner.toString() === user._id.toString() : false;
         dispatch(createMessageAction(message, serverId, channel.category, channelId, small));
-        socket.emit('message', { owner: user._id, content: message, server: serverId, ownerName: user.username, creation: Date.now(), image: user.image, small });
+        socket.emit('message', { 
+            owner: user._id, 
+            ownerName: user.username, 
+            content: message, 
+            server: serverId, 
+            category: channel.category, 
+            channel: channelId, 
+            creation: Date.now(), 
+            image: user.image, 
+            small 
+        });
         setAllMessages(x => [{ owner: user._id, content: message, ownerName: user.username, creation: Date.now(), image: user.image, small }, ...x]);
         setMessage('');
     }
@@ -104,10 +112,55 @@ const UserContent = () => {
                 <div className="chat-container">
                     { 
                         allMessages.map((message, i) => {
+                            const urlify = (text) => {
+                                var urlRegex = /(https?:\/\/[^\s]+)/g;
+                                return text.replace(urlRegex, (url) => {
+                                  return 'true';
+                                });
+                            }
+
+                            // return (
+                            //     message.small ? <div className="chat-item-small" key={message._id}>
+                            //         <div className="chat-item-content">
+                            //             <div className="chat-text">
+                            //                 {message.content.split(" ").map((word, i) => {
+                            //                     return urlify(word) === 'true'  ? 
+                            //                     <span onClick={() => {window.location = (word)}} className="chat-item-text link">{word}</span> :
+                            //                     <span style={{color: message.colour}} className="chat-item-text">{word} ​</span>
+                            //                 })}
+                            //             </div>
+                            //         </div>
+                            //     </div> :
+                            //     <div className="chat-item" key={i}>
+                            //         <img className="chat-item-picture" src={message.image} alt="" />
+                            //         <div className="chat-item-content">
+                            //             <div className="chat-user-info">
+                            //                 <span className="chat-item-name">{message.ownerName}</span>
+                            //                 <span className="chat-item-date">{new Date(message.creation).toLocaleDateString()}</span>
+                            //             </div>
+                            //             <div className="chat-text">
+                            //                 {message.content.split(" ").map((word, i) => {
+                            //                     return urlify(word) === 'true'  ? 
+                            //                     <span onClick={() => {window.location = (word)}} className="chat-item-text link">{word}</span> :
+                            //                     <span style={{color: message.colour}} className="chat-item-text">{word} ​</span>
+                            //                 })}
+                            //             </div>
+                            //         </div>
+                            //     </div> 
+                            // )
+
                             return (
                                 message.small ? <div className="chat-item-small" key={message._id}>
                                     <div className="chat-item-content">
-                                        <span className="chat-item-text">{message.content}</span>
+                                        <span style={{color: message.colour}} className="chat-item-text">
+                                            {message.content.split(" ").map((word, i) => {
+                                                return urlify(word) === 'true' ?
+                                                    ( word.endsWith(".png") || word.endsWith(".jpg") ? <img className='chat-img' src={word} alt="" /> : 
+                                                    <span onClick={() => {window.location = (word)}} className="chat-item-text link">{word}</span>) 
+                                                :
+                                                    word+' '
+                                            })}
+                                        </span>
                                     </div>
                                 </div> :
                                 <div className="chat-item" key={i}>
@@ -117,7 +170,15 @@ const UserContent = () => {
                                             <span className="chat-item-name">{message.ownerName}</span>
                                             <span className="chat-item-date">{new Date(message.creation).toLocaleDateString()}</span>
                                         </div>
-                                        <span className="chat-item-text">{message.content}</span>
+                                        <span style={{color: message.colour}} className="chat-item-text">
+                                            {message.content.split(" ").map((word, i) => {
+                                                return urlify(word) === 'true' ?
+                                                    ( word.endsWith(".png") || word.endsWith(".jpg") ? <img className='chat-img' src={word} alt="" /> : 
+                                                    <span onClick={() => {window.location = (word)}} className="chat-item-text link">{word}</span>) 
+                                                :
+                                                    word+' '
+                                            })}
+                                        </span>
                                     </div>
                                 </div> 
                             )

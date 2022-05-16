@@ -10,7 +10,7 @@ const path = require('path');
 const { io } = require('./util/socket.js');
 
 const PORT = process.env.PORT || 5001;
-const RATE_LIMIT = parseInt(process.env.RATE_LIMIT) || 120;
+const RATE_LIMIT = parseInt(process.env.RATE_LIMIT) || 220;
 const DOMAINS = ['http://localhost:3000', 'https://skid.rocks', 'https://skid.today', undefined, 'chrome-extension://gmmkjpcadciiokjpikmkkmapphbmdjok'];
 
 const apiRouter = require('./routes/index.js');
@@ -22,8 +22,7 @@ const apiRouter = require('./routes/index.js');
         .use(express.json())
         .use(bodyParser.urlencoded({ extended: false }))
         .use(cookieParser())
-        .use(rateLimit({ windowMs: 5 * 1000, max: RATE_LIMIT, message: "lil skid try and ddos. smoking on you 🚬🚬🚬🚬. https://discord.gg/horion2" }))
-        .use(session({ secret: 'skid', resave: false, saveUninitialized: false, cookie: { expires: 60 * 60 * 24 } }))
+        .use(rateLimit({ windowMs: 5 * 1000, max: RATE_LIMIT, message: "lil skid try and ddos. smoking on you 🚬🚬🚬🚬. https://discord.gg/horion" }))
         .use('/api', apiRouter)
         .get('/*', (req, res) => res.sendFile(path.join(__dirname, 'build', 'index.html')))
         .listen(PORT, () => console.log(`[LOADED EXPRESS] PORT ${PORT}`));

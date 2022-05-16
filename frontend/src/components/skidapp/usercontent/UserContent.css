@@ -1,5 +1,12 @@
 /* User Content: Messaging, Members, etc. */
 
+.chat-img {
+    max-height: 240px;
+    max-width: 426px;
+    cursor: pointer;
+    border-radius: 0.3rem;
+}
+
 .hashtag-channel-name {
     color: var(--colour-channels);
     height: 24px;
@@ -57,7 +64,12 @@
 }
 
 .chat {
-    @apply flex flex-col-reverse flex-grow float-left pt-12;
+    display: flex;
+    flex-direction: column-reverse;
+    flex-grow: 1;
+    float: left;
+    padding-top: 3rem;
+    max-width: 100%;
 }
 
 .chat-bar-container {
@@ -112,6 +124,11 @@
     }
 } */
 
+.chat-text {
+    display: flex;
+    flex-direction: row;
+}
+
 .chat-contiainer-header-text-large {
     color: white;
     font-size: 32px;
@@ -139,10 +156,20 @@
 .chat-item-text-small {
     @apply max-w-full text-base;
     word-wrap: break-word;
-    line-height: 16px;
+    line-height: 28px;
     font-family: var(--font-primary);
     color: var(--colour-normal);
     user-select: text;
+    max-width: max-content;
+}
+
+.chat-item-text-small.link, .chat-item-text.link{
+    cursor: pointer;
+    color: #10aff4;
+}
+
+.chat-item-text-small.link:hover, .chat-item-text.link:hover {
+    text-decoration: underline;
 }
 
 .chat-item-small:hover {

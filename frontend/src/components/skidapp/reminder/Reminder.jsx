@@ -20,6 +20,7 @@ const Reminder = () => {
     useEffect(() => {
         if (localStorage.getItem('reminder') === null) {
             localStorage.setItem('reminder', true);
+            dispatch(checkReminder(true));
         }
     }, []);
 

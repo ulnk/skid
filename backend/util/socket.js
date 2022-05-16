@@ -54,10 +54,18 @@ const startSocketServer = (app, callback) => {
                 io.to("main").emit('refreshFriends', friendName, user);
             });
             socket.on('message', (message) => {
-                io.to(message.server).emit('message', message);
+                let msg = message;
+                try {
+                    msg = JSON.parse(msg);
+                } catch (e) {  }
+                io.to(msg.server).emit('message', msg);
             });
             socket.on('messageFriend', (message) => {
-                io.to(message.friend).emit('messageFriend', message);
+                let msg = message;
+                try {
+                    msg = JSON.parse(msg);
+                } catch (e) {  };
+                io.to(msg.friend).emit('messageFriend', msg);
             });
             socket.on("deleteServer", (serverId) => {
                 io.to("main").emit("deleteServer", serverId);
