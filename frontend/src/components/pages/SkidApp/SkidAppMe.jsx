@@ -33,7 +33,7 @@ const SkidApp = () => {
     useEffect(() => {
         dispatch(testAction());
         dispatch(getAllFriendsAction());
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => {
         if (!socket) return;
@@ -82,7 +82,7 @@ const SkidApp = () => {
                                                 <li className='user-friend' onClick={() => {
                                                     navigate(`/skid/@me/${friend._id}`)
                                                 }} key={i}>
-                                                    <img className="user-friend-image" src={friend.image} />
+                                                    <img alt="user friend img" className="user-friend-image" src={friend.image} />
                                                     <div className="user-friend-name">{friend.username}</div>
                                                 </li>
                                             )
@@ -94,7 +94,7 @@ const SkidApp = () => {
                                                 <li className='user-friend' onClick={() => {
                                                     navigate(`/skid/@me/${friend._id}`)
                                                 }} key={i}>
-                                                    <img className="user-friend-image" src={friend.image} />
+                                                    <img alt="user friend img" className="user-friend-image" src={friend.image} />
                                                     <div className="user-friend-name">{friend.username}</div>
                                                 </li>
                                             )

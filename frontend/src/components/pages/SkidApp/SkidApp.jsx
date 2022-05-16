@@ -29,7 +29,7 @@ const SkidApp = () => {
 
     useEffect(() => {
         dispatch(testAction());
-    }, [])
+    }, [dispatch])
 
     return (
         auth.auth && <div className="flex h-screen w-screen overflow-hidden">

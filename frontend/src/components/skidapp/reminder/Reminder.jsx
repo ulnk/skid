@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { MdClose } from 'react-icons/md';
 
 import { useDispatch } from 'react-redux';
 import { checkReminder } from '../../../actions/other';
@@ -22,7 +21,7 @@ const Reminder = () => {
             localStorage.setItem('reminder', true);
             dispatch(checkReminder(true));
         }
-    }, []);
+    }, [dispatch]);
 
     return (
         <>

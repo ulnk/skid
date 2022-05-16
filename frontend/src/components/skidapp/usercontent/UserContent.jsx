@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useSocket } from '../../../contexts/socket';
 
 import { createMessageAction, getAllMessagesAction } from '../../../actions/message';
@@ -24,7 +24,6 @@ const UserContent = () => {
     const { serverId, channelId } = useParams();
     const socket = useSocket();
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     useEffect(() => {
         if (channelId === 'redirect') return;
@@ -42,7 +41,7 @@ const UserContent = () => {
     useEffect(() => {
         if (server.allOnlineUsers.filter(member => member._id === user._id)[0]) setIsShowingAsOnline(true);
         else setIsShowingAsOnline(true);
-    }, [server]);
+    }, [server, user]);
 
     useEffect(() => {
         if (!socket) return;
@@ -53,7 +52,7 @@ const UserContent = () => {
         socket.on('message', (msg) => {
             if (user._id.toString() === msg.owner.toString()) return;
             if (channelId !== msg.channel) return;
-            setAllMessages(x => [{ owner: msg.owner, content: msg.content, ownerName: msg.ownerName, creation: msg.creation, image: msg.image, small: msg.small }, ...x]);
+            setAllMessages(x => [msg, ...x]);
         });
 
         socket.on('online', () => {
@@ -70,7 +69,8 @@ const UserContent = () => {
         if (message.replace(/\s/g, '') === '') return;
         const small = allMessages[0] ? allMessages[0].owner.toString() === user._id.toString() : false;
         dispatch(createMessageAction(message, serverId, channel.category, channelId, small));
-        socket.emit('message', { 
+
+        const tempMessage = { 
             owner: user._id, 
             ownerName: user.username, 
             content: message, 
@@ -78,10 +78,12 @@ const UserContent = () => {
             category: channel.category, 
             channel: channelId, 
             creation: Date.now(), 
-            image: user.image, 
+            image: user.image,
             small 
-        });
-        setAllMessages(x => [{ owner: user._id, content: message, ownerName: user.username, creation: Date.now(), image: user.image, small }, ...x]);
+        };
+
+        socket.emit('message', tempMessage);
+        setAllMessages(x => [tempMessage, ...x]);
         setMessage('');
     }
 
@@ -155,7 +157,7 @@ const UserContent = () => {
                                         <span style={{color: message.colour}} className="chat-item-text">
                                             {message.content.split(" ").map((word, i) => {
                                                 return urlify(word) === 'true' ?
-                                                    ( word.endsWith(".png") || word.endsWith(".jpg") ? <img className='chat-img' src={word} alt="" /> : 
+                                                    ( word.endsWith(".png") || word.endsWith(".jpg") || word.endsWith(".gif") ? <img className='chat-img' src={word} alt="" /> : 
                                                     <span onClick={() => {window.location = (word)}} className="chat-item-text link">{word}</span>) 
                                                 :
                                                     word+' '
@@ -173,7 +175,7 @@ const UserContent = () => {
                                         <span style={{color: message.colour}} className="chat-item-text">
                                             {message.content.split(" ").map((word, i) => {
                                                 return urlify(word) === 'true' ?
-                                                    ( word.endsWith(".png") || word.endsWith(".jpg") ? <img className='chat-img' src={word} alt="" /> : 
+                                                    ( word.endsWith(".png") || word.endsWith(".jpg") || word.endsWith(".gif") ? <img className='chat-img' src={word} alt="" /> : 
                                                     <span onClick={() => {window.location = (word)}} className="chat-item-text link">{word}</span>) 
                                                 :
                                                     word+' '

@@ -31,7 +31,7 @@ export const addFriendMessageToAll = (message) => async (dispatch) =>  {
 
 export const createFriendMessageAction = (content, friendId, small) => async (dispatch) =>  {
     try {
-        const { data } = await createMessage(content, friendId, small);
+        await createMessage(content, friendId, small);
         // dispatch({ type: 'CREATE_MESSAGE_FRIEND', payload: data });
     } catch(e) {
         console.log(e)

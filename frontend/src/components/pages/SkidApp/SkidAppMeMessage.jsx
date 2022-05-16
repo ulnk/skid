@@ -42,7 +42,7 @@ const SkidAppMeMessage = () => {
         dispatch(testAction());
         dispatch(getAllFriendsAction());
         dispatch(checkReminder());
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => {
         dispatch(clearUnreadMessage(userId));
@@ -119,7 +119,7 @@ const SkidAppMeMessage = () => {
                                                 <li className={`user-friend ${userId === friend._id} && selected`} onClick={() => {
                                                     navigate(`/skid/@me/${friend._id}`)
                                                 }} key={i}>
-                                                    <img className="user-friend-image" src={friend.image} />
+                                                    <img alt="user friend img" className="user-friend-image" src={friend.image} />
                                                     <div className="user-friend-name">{friend.username}</div>
                                                 </li>
                                             )
@@ -131,7 +131,7 @@ const SkidAppMeMessage = () => {
                                                 <li className={`user-friend ${userId === friend._id && 'selected'}`} onClick={() => {
                                                     navigate(`/skid/@me/${friend._id}`)
                                                 }} key={i}>
-                                                    <img className="user-friend-image" src={friend.image} />
+                                                    <img alt="user friend img" className="user-friend-image" src={friend.image} />
                                                     <div className="user-friend-name">{friend.username}</div>
                                                 </li>
                                             )

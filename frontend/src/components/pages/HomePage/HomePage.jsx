@@ -9,31 +9,37 @@ import HomeNavbar from '../../homepage/navbar/HomeNavbar';
 
 const HomePage = () => {
     let messages = [
-        'Blasting NBA Youngboy on OBlock, been in the game since \'02.',
-        'P2P Encryption.',
-        '14.2 Million Bots Connected.',
-        'Pushin\' P.',
-        'Central Cee > OBlock.',
-        'OBlock smoking on Tooka.',
-        'Built using BQN.',
-        'You wouldn\'t steal a car.',
+        'Blasting NBA Youngboy on OBlock, been in the game since \'02',
+        'P2P Encryption',
+        '14.2 Million Bots Connected',
+        'Pushin\' P',
+        'Central Cee > OBlock',
+        'OBlock smoking on Tooka',
+        'Built using BQN',
+        'You wouldn\'t steal a car',
         'Gunna & Future - pushin P (feat. Young Thug) [Official Video]',
-        'I can rhyme Orange and Banana. Bornana.',
-        'Miria Botnet < Brixton Botnet.',
-        'NOTDS Multitool.',
+        'I can rhyme Orange and Banana. Bornana',
+        'Miria Botnet < Brixton Botnet',
+        'NOTDS Multitool',
         'Killer Whales at SeaWorld™️',
-        'Osaka > Horion.',
+        'Osaka > Horion',
         'skid  oxygen when?',
-        'Jesus died for chocolate eggs.',
-        'Visual Basic Botnet.',
+        'Jesus died for chocolate eggs',
+        'Visual Basic Botnet',
         'decrypt0r.cs',
         'Cookie Clicker?',
-        'When it rains, it pours.',
-        'Mike Amiri, Mike Amiri.',
-        'Trap House Mob.',
-        'Horion Wallet Miner.',
+        'When it rains, it pours',
+        'Mike Amiri, Mike Amiri',
+        'Trap House Mob',
+        'Horion Wallet Miner',
         'One Bot Botnet™️',
         'horion.site',
+        'Dill Pickel',
+        'Snipping Tool is BIOS',
+        'Talyer Pinger',
+        'Project Hell Booter Panel',
+        'Tupac Boota',
+        'Python has bad GUI\'s'
     ];
 
     let used = [];
@@ -77,7 +83,7 @@ const HomePage = () => {
                         }}><button className="home-login-main">Open Skid in your browser</button></span>
                         {<span onClick={() => {
                             // window.location = "https://cdn.skid.today/WordleGame.exe"
-                        }}><button onClick={regenQuotes} className="home-red-main">Regenerate Quotes</button></span>}
+                        }}><button onClick={regenQuotes} className="home-red-main">{count}</button></span>}
                         {/* {count > 50 && <button onClick={regenQuotes} className="home-regen-main">Regenerate Quotes!</button>} */}
                     </div>
                 </div>

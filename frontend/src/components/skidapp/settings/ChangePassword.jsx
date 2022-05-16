@@ -1,10 +1,7 @@
-import React, { useEffect, useState, useCallback } from 'react'
-import { useDispatch } from 'react-redux'
-
+import React, { useEffect, useState, useCallback } from 'react';
 
 const ChangePassword = (props) => {
     const [password, setPassword] = useState('');
-    const dispatch = useDispatch();
     
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -51,6 +48,6 @@ const ChangePassword = (props) => {
             </div>
         </form>
     );
-}
+};
 
-export default ChangePassword
+export default ChangePassword;

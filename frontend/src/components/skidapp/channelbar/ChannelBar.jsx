@@ -77,36 +77,35 @@ const ChannelBar = () => {
             <NewChannel categoryId={newChannelCategoryId} setCategoryId={setNewChannelCategoryId} show={showNewChannelModal} close={setShowNewChannelModal} />
             <UserInfo />
             <nav className={`channel-bar background-secondary noselect ${showReminder && 'rHeight'}`}>
+                <section className="server-name" onClick={() => setShowServerContextMenu(!showServerContextMenu)}>
+                    <h2 className="server-name-header font-primary">{server.name} <FaChevronDown className="server-name-chevron" /></h2>
+                    <ul ref={contextMenuRef} className={`context-menu ${showServerContextMenu && 'on'}`}>
+                        {serverId !== global._id ? <>
+                            <li className="context-menu-item blue text-blue" onClick={() => setShowNewInviteModal(true)}>
+                                <button>Invite People</button>
+                            </li>
+                            <div className="context-menu-divider"></div>
+                            <li className="context-menu-item blue" onClick={() => setShowNewCategoryModal(true)}>
+                                <button>Create Category</button>
+                            </li>
+                            <li className="context-menu-item blue" onClick={() => { }}>
+                                <button>Create Channel</button>
+                            </li>
+                            <div className="context-menu-divider"></div>
+                            {auth._id !== server.owner && <li className="context-menu-item red" onClick={() => handleLeaveServer()}>
+                                <button>Leave Server</button>
+                            </li>}
+                            {auth._id === server.owner && <li className="context-menu-item red" onClick={() => handleDeleteServer()}>
+                                <button>Delete Server</button>
+                            </li>}
+                        </> : <>
+                            <li className="context-menu-item blue text-blue">
+                                <button>Do Nothing</button>
+                            </li>
+                        </>}
+                    </ul>
+                </section>
                 <div className="channel-bar-items" >
-                    <section className="server-name" onClick={() => setShowServerContextMenu(!showServerContextMenu)}>
-                        <h2 className="server-name-header font-primary">{server.name}</h2>
-                        <FaChevronDown className="server-name-chevron" />
-                        <ul ref={contextMenuRef} className={`context-menu ${showServerContextMenu && 'on'}`}>
-                            {serverId !== global._id ? <>
-                                <li className="context-menu-item blue text-blue" onClick={() => setShowNewInviteModal(true)}>
-                                    <button>Invite People</button>
-                                </li>
-                                <div className="context-menu-divider"></div>
-                                <li className="context-menu-item blue" onClick={() => setShowNewCategoryModal(true)}>
-                                    <button>Create Category</button>
-                                </li>
-                                <li className="context-menu-item blue" onClick={() => {}}>
-                                    <button>Create Channel</button>
-                                </li>
-                                <div className="context-menu-divider"></div>
-                                {auth._id !== server.owner && <li className="context-menu-item red" onClick={() => handleLeaveServer()}>
-                                    <button>Leave Server</button>
-                                </li>}
-                                {auth._id === server.owner && <li className="context-menu-item red" onClick={() => handleDeleteServer()}>
-                                    <button>Delete Server</button>
-                                </li>}
-                            </>: <> 
-                                <li className="context-menu-item blue text-blue">
-                                    <button>Do Nothing</button>
-                                </li>
-                            </>}
-                        </ul>
-                    </section>
                     <div className="channels">
                         {
                             allServerCategories.map((category, i) => {
@@ -115,6 +114,9 @@ const ChannelBar = () => {
                                 )
                             })
                         }
+                    </div>
+                    <div className="lilskiddiv">
+
                     </div>
                 </div>
             </nav>

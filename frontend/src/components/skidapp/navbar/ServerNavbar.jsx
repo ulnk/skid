@@ -53,7 +53,7 @@ const ServerNavbar = () => {
 
     useEffect(() => {
         dispatch(getGlobalServerAction());
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => {
         dispatch(getAllChannelsAction(serverId));
