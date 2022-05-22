@@ -8,6 +8,20 @@ import { createMessageAction, getAllMessagesAction } from '../../../actions/mess
 
 import './UserContent.css';
 import { getAllOnlineMembersAction } from '../../../actions/server';
+import Embed from './Embed';
+
+const getIdFromUrl = (url) => {
+    var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+    var match = url.match(regExp);
+    return (match&&match[7].length === 11 )? match[7] : false;
+}
+
+const urlify = (text) => {
+    var urlRegex = /(https?:\/\/[^\s]+)/g;
+    return text.replace(urlRegex, (url) => {
+      return 'true';
+    });
+}
 
 const UserContent = () => {
     const [message, setMessage] = useState('');
@@ -114,13 +128,6 @@ const UserContent = () => {
                 <div className="chat-container">
                     { 
                         allMessages.map((message, i) => {
-                            const urlify = (text) => {
-                                var urlRegex = /(https?:\/\/[^\s]+)/g;
-                                return text.replace(urlRegex, (url) => {
-                                  return 'true';
-                                });
-                            }
-
                             // return (
                             //     message.small ? <div className="chat-item-small" key={message._id}>
                             //         <div className="chat-item-content">
@@ -158,7 +165,8 @@ const UserContent = () => {
                                             {message.content.split(" ").map((word, i) => {
                                                 return urlify(word) === 'true' ?
                                                     ( word.endsWith(".png") || word.endsWith(".jpg") || word.endsWith(".gif") ? <img className='chat-img' src={word} alt="" /> : 
-                                                    <span onClick={() => {window.location = (word)}} className="chat-item-text link">{word}</span>) 
+                                                    ( word.includes('youtube') ? <Embed color="red" author="YouTube" ytid={getIdFromUrl(word)} /> :
+                                                    <span onClick={() => {window.location = (word)}} className="chat-item-text link">{word}</span>) )
                                                 :
                                                     word+' '
                                             })}
@@ -176,7 +184,8 @@ const UserContent = () => {
                                             {message.content.split(" ").map((word, i) => {
                                                 return urlify(word) === 'true' ?
                                                     ( word.endsWith(".png") || word.endsWith(".jpg") || word.endsWith(".gif") ? <img className='chat-img' src={word} alt="" /> : 
-                                                    <span onClick={() => {window.location = (word)}} className="chat-item-text link">{word}</span>) 
+                                                    ( word.includes('youtube') ? <Embed color="red" author="YouTube" ytid={getIdFromUrl(word)} /> :
+                                                    <span onClick={() => {window.location = (word)}} className="chat-item-text link">{word}</span>) )
                                                 :
                                                     word+' '
                                             })}

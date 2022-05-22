@@ -86,7 +86,9 @@
 .modal-header-desc {
     color: var(--colour-channels);
     font-family: var(--font-primary);
+    font-size: 0.9rem;
     font-weight: 500;
+    margin-top: 0.25rem
 }
 
 .modal-form-input-header.error-invite {
@@ -133,7 +135,7 @@
 
 
 .modal-header-title-app {
-    @apply text-white font-bold ml-6;
+    @apply text-white font-bold;
     font-size: 20px;
     font-size: 27px;
     line-height: 30px;
@@ -143,7 +145,7 @@
 .modal-header-desc-app {
     display: flex;
     margin-top: 8px;
-    font-size: 14px;
+    font-size: 0.9rem;
     color: var(--colour-channels);
     font-family: var(--font-primary);
     font-weight: 500;

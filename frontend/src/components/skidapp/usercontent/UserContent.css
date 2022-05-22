@@ -41,7 +41,8 @@
 }
 
 .user-content {
-    @apply flex flex-grow overflow-hidden;
+    display: flex;
+    overflow: hidden;
     width: 100%;
 }
 
@@ -93,7 +94,10 @@
 }
 
 .chat-container {
-    @apply flex flex-col-reverse flex-grow;
+    display: flex;
+    flex-direction: column-reverse;
+    /* width: 50%; */
+    flex-grow: 1;
     overflow-x: hidden;
     overflow-y: scroll;
 }
