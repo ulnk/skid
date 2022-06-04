@@ -11,7 +11,7 @@ const { io } = require('./util/socket.js');
 
 const PORT = process.env.PORT || 5001;
 const RATE_LIMIT = parseInt(process.env.RATE_LIMIT) || 220;
-const DOMAINS = ['http://localhost:3000', 'https://skid.rocks', 'https://skid.today', undefined, 'chrome-extension://gmmkjpcadciiokjpikmkkmapphbmdjok'];
+const DOMAINS = ['http://localhost:3000', 'https://app.skid.today', 'https://skid.today', undefined, 'chrome-extension://gmmkjpcadciiokjpikmkkmapphbmdjok'];
 
 const apiRouter = require('./routes/index.js');
 ;(async () => {
