@@ -11,14 +11,14 @@ const { io } = require('./util/socket.js');
 
 const PORT = process.env.PORT || 5001;
 const RATE_LIMIT = parseInt(process.env.RATE_LIMIT) || 220;
-const DOMAINS = ['http://localhost:3000', 'https://app.skid.today', 'https://skid.today', undefined, 'chrome-extension://gmmkjpcadciiokjpikmkkmapphbmdjok'];
+const DOMAINS = ['http://localhost:3000',  'https://skid.today', 'https://app.skid.today', undefined];
 
 const apiRouter = require('./routes/index.js');
 ;(async () => {
     await mongooose.connect(process.env.MONGODB);
     const app = express() 
         .use(express.static(path.join(__dirname, 'build')))
-        .use(cors({origin: (origin, callback) => { if (DOMAINS.indexOf(origin) !== -1)  callback(null, true) }}))
+        .use(cors({origin: (origin, callback) => { if (DOMAINS.indexOf(origin) !== -1)  callback(null, true); else callback(new Error('Not allowed by CORS')); } }))
         .use(express.json())
         .use(bodyParser.urlencoded({ extended: false }))
         .use(cookieParser())

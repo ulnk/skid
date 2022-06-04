@@ -8,7 +8,7 @@ const UserModel = require('../models/user/UserModel.js');
 const OtherModel = require('../models/other/OtherModel.js');
 
 const startSocketServer = (app, callback) => {
-    const io = socketio(app, { cors: { origin: process.env.PROD ? "https://skid.today" : "http://localhost:3000", methods: ["GET", "POST"] }})
+    const io = socketio(app, { cors: { origin: process.env.PROD ? "https://app.skid.today" : "http://localhost:3000", methods: ["GET", "POST"] }})
         .use(jwtSocket)
         .on('connection', async (socket) => {
             const secret = await get();
