@@ -4,7 +4,6 @@
 ### Features
 * **99.9% Discord Accuracy** (Looks and feels exactly like discord.)
 * **No Paywalls** (Send animated gifs or vanity invite links with no fee.)
-<!-- * **Multiple Domains** (Use the wide spread of domains to ensure access from anywhere!) -->
 * **Never Works** (Heroku is a dogshit hosting site, do not use it.)
 
 ![image](https://user-images.githubusercontent.com/93608862/169815068-b7ffe23a-1eec-4d4e-b5cc-9e86d0a6b7e8.png)
